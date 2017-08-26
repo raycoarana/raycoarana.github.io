@@ -1,0 +1,72 @@
+# Jykell configuration
+#markdown: redcarpet
+#highlighter: pygments
+markdown: kramdown
+highlighter: rouge
+paginate: 5
+language: 'en-uk'
+
+# Website info
+name: 'raycoarana'
+description: "My coding adventures and other random stuff"
+
+# Author's info
+author: 'Rayco Araña'
+# edit 'categories' in the front matter of every post to match this username
+nickname: raycoarana
+bio: 'Software engineer, gamer, photographer and "mother of dragons" follower.'
+location: 'Madrid, Spain'
+url: 'http://raycoarana.com/'
+image: 'assets/images/casper.png'
+
+short_url: 'raycoarana.com'
+google_analytics: UA-00000000-0
+disqus: username
+# edit baseurl to simply '/' if using as your personal page (instead of a project page)
+baseurl: ""
+
+# Permalinks
+permalink: /post/:title/
+# permalink: /author/:username
+# permalink: /tag/:tag
+
+
+# gems and other configs
+plugins: 
+  - jekyll-paginate
+
+# Additional settings available on the front-matter
+# Site logo in the index.html (as in demo.ghost.io)
+# Author's page cover in _layouts/author.html
+# The same for page.html and tag.html layouts
+# Post's page cover as a per-post basis _posts/...
+# Disqus comments as a per-post basis
+# ...
+
+
+# Settings for builing master branch with travis-ci
+# with jekyll-travis
+
+# Settings for deploy rake task
+# Username and repo of Github repo, e.g.
+# https://github.com/USERNAME/REPO.git
+# username defaults to ENV['GIT_NAME'] used by Travis
+# repo defaults to USERNAME.github.io
+# Branch defaults to "source" for USERNAME.github.io
+# or "master" otherwise
+safe: false
+lsi: false
+username: raycoarana
+repo: raycoarana.github.io
+branch: source
+relative_source: /
+destination: ../raycoarana.github.io_master
+production_url:  https://biomadeira.github.io/jasper/
+source_url:      https://github.com/biomadeira/jasper/
+
+exclude:
+  - Rakefile
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .travis.yml
