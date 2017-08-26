@@ -955,6 +955,10 @@ body:not(.post-template) .post-title {
     line-height: 1.7em;
 }
 
+.post-excerpt p + p {
+    margin-top: 8px;
+}
+
 .read-more {
     text-decoration: none;
 }
