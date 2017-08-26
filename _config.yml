@@ -5,6 +5,7 @@ markdown: kramdown
 highlighter: rouge
 paginate: 5
 language: 'en-uk'
+timezone: Europe/Madrid
 
 # Website info
 name: 'raycoarana'
@@ -26,10 +27,11 @@ disqus: username
 baseurl: ""
 
 # Permalinks
-permalink: /post/:title/
+permalink: /blog/:year/:month/:title/
 # permalink: /author/:username
 # permalink: /tag/:tag
 
+excerpt_separator: <!--more-->
 
 # gems and other configs
 plugins: 
