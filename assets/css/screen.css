@@ -777,9 +777,12 @@ body.nav-opened .nav {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     display: block;
-    height: 38px;
     padding: 1px 0 5px 0;
     width: auto;
+}
+
+.no-cover .main-nav {
+    margin-bottom: 0;
 }
 
 .menu-button {
@@ -1215,7 +1218,7 @@ body:not(.post-template) .post-title {
     height: 85px;
     min-height: 0;
     margin-bottom: 0;
-    background: transparent;
+    background-color: #333
 }
 
 .tag-head.main-header {
