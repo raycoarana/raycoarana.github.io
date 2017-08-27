@@ -7,7 +7,6 @@ tags: fiction
 subclass: 'post tag-fiction'
 categories: 'raycoarana'
 navigation: True
-logo: 'assets/images/ghost.png'
 cover: 'assets/images/cover1.jpg'
 ---
 

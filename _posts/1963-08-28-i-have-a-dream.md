@@ -7,7 +7,6 @@ tags: speeches
 subclass: 'post tag-speeches'
 categories: 'raycoarana'
 navigation: True
-logo: 'assets/images/ghost.png'
 cover: 'assets/images/cover4.jpg'
 ---
 
