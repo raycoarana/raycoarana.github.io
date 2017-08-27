@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- [[! Page Meta ]] -->
-    <title>About</title>
+    <title>Contact</title>
     <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -72,8 +72,8 @@
         <li class="nav-speeches " role="presentation"><a href="/tag/speeches">Speeches</a></li>
         <li class="nav-fiction " role="presentation"><a href="/tag/fiction">Fiction</a></li>
         <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
-        <li class="nav-about  nav-current" role="presentation"><a href="/about">About</a></li>
-        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact  nav-current" role="presentation"><a href="/contact">Contact</a></li>
     </ul>
     <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
 </div>
@@ -104,16 +104,75 @@
         <!-- Everything inside the #post tags pulls data from the post -->
 
         <header class="post-header">
-            <h1 class="post-title">About</h1>
+            <h1 class="post-title">Contact</h1>
         </header>
 
         <section class="post-content">
-            <p>This is a demo blog for Ghost, it contains dummy content which allows you to click around and see what a Ghost blog running the default theme looks like.</p>
+            <p>You can contact me using any of the social networks you can see in the about section but you can also use this form to send me an e-mail. I will contact you back as soon as posible.</p>
 
-<p>We use this for testing and for reference!</p>
 
-<p>If you’d like to set up your own blog, head on over to <a href="https://ghost.org">https://ghost.org</a> and sign up.</p>
+<div id="success" style="display:none">Thanks for contacting me! I will ping you back soon.</div>
+<form id="contact-form" action="javascript:submit()">
+    <input type="text" name="name" value size="40" placeholder="Name*"/>
+    <input type="email" name="email" value size="40" placeholder="E-Mail *"/>
+    <input type="text" name="subject" value size="40" placeholder="Subject *"/>
+    <textarea name="message" cols="40" rows="10" placeholder="Write your message*"></textarea>
+    <div class="g-recaptcha" data-sitekey="6LfwFCYTAAAAAH6u2cZrFknPj1uGd7WNMc_opA2x"></div>
+    <div id="recaptcha-error" class="form-error" style="display:none">reCAPTCHA is not valid</div>
+    <div id="error" class="form-error" style="display:none">Your message can't be sent in this moment, try again later.</div>
+    <input id="submit" type="submit" value="Send"/>
+</form>
 
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+    function isValidRecaptcha() {
+        let isValid = grecaptcha.getResponse().length > 0;
+        let error = $('#recaptcha-error');
+        isValid ? error.hide() : error.show();
+        return isValid;
+    }
+
+    function isValid(field) {
+        let isValid = field.val().length > 0;
+        isValid ? field.removeClass('form-input-error') : field.addClass('form-input-error');
+        return isValid;
+    }
+
+    function submit() {
+        var name = $("[name='name']");
+        var email = $("[name='email']");
+        var subject = $("[name='subject']");
+        var message = $("[name='message']");
+
+        if (!isValid(name) || !isValid(email) || !isValid(subject) || !isValid(message) || !isValidRecaptcha()) {
+            return;
+        }
+
+        var url = "https://formspree.io/";
+        url += "me";
+        url += "@";
+        url += "raycoarana.com";
+        $.ajax({
+            url: url, 
+            method: "POST",
+            data: {
+                name: name.val(),
+                email: email.val(),
+                subject: subject.val(),
+                message: message.val()
+            },
+            dataType: "json"
+        }).done(function (result) {
+            $('#error').hide();
+            $('#contact-form').hide();
+            $('#success').show();
+        }).fail(function(result) {
+            console.log(JSON.stringify(result));
+            $('#error').show();
+        });
+        return true;
+    }
+</script>
         </section>
 
     </article>
