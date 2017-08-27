@@ -19,6 +19,7 @@ bio: 'Software engineer, gamer, photographer and "mother of dragons" follower.'
 location: 'Madrid, Spain'
 url: 'http://raycoarana.com/'
 image: 'assets/images/casper.png'
+logo: 'assets/images/ghost.png'
 
 short_url: 'raycoarana.com'
 google_analytics: UA-00000000-0
