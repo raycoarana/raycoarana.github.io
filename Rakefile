@@ -31,7 +31,7 @@ namespace :site do
   desc "Check html"
   task :check => :build do
     check_destination
-    sh "bundle exec htmlproofer ./_site/"
+    sh "bundle exec htmlproofer #{CONFIG["destination"]}"
   end
 
   desc "Generate the site and serve locally"
