@@ -1,0 +1,31 @@
+#contact-form input, #contact-form textarea {
+    margin-bottom: 8px;
+    width: 93%;
+    padding: 12px 3%;
+    border: none;
+    background: #f2f2f2;
+    border-radius: 3px;
+    font-size: 1.8rem;
+    resize: vertical;
+}
+
+#contact-form #submit {
+    font-family: "Merriweather";
+    background-color: #f4793d;
+    color: #FFFFFF;
+    margin-top: 8px;
+    width: inherit;
+    text-transform: uppercase;
+}
+
+#success {
+    font-weight: bold;
+}
+
+.g-recaptcha iframe {
+    margin: 0;
+}
+
+.form-input-error {
+    border: 1px #FF0000 solid;
+}
