@@ -22,7 +22,7 @@ image: 'assets/images/avatar.jpg'
 logo: 'assets/images/ghost.png'
 
 short_url: 'raycoarana.com'
-google_analytics: UA-00000000-0
+google_analytics: UA-48361320-1
 disqus: username
 # edit baseurl to simply '/' if using as your personal page (instead of a project page)
 baseurl: ""
