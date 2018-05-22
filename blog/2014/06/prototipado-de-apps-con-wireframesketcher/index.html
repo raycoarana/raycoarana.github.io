@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [[! Document Settings ]] -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- [[! Page Meta ]] -->
+    <title>Prototipado de apps con WireframeSketcher</title>
+    <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- [[! Styles'n'Scripts ]] -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+        <link rel="canonical" href="/" />
+    <meta name="referrer" content="origin" />
+
+    <meta property="og:site_name" content="raycoarana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="raycoarana" />
+    <meta property="og:description" content="My coding adventures and other random stuff" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/images/cover1.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raycoarana" />
+    <meta name="twitter:description" content="My coding adventures and other random stuff" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "url": "/",
+    "image": "/assets/images/cover1.jpg",
+    "description": "My coding adventures and other random stuff"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
+</head>
+<body class="home-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- < default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-test tag-content">
+
+        <header class="post-header">
+            <h1 class="post-title">Prototipado de apps con WireframeSketcher</h1>
+            <section class="post-meta">
+            <!-- <a href='/'>Rayco Araña</a> -->
+            <time class="post-date" datetime="2014-06-19">19 Jun 2014</time>
+                <!-- [[tags prefix=" on "]] -->
+                 
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/assets'>Assets</a>,
+                       
+                
+                    
+                       <a href='/tag/prototipado'>Prototipado</a>,
+                       
+                
+                    
+                       <a href='/tag/wireframe'>Wireframe</a>,
+                       
+                
+                    
+                       <a href='/tag/wireframesketcher'>Wireframesketcher</a>,
+                       
+                
+                    
+                       <a href='/tag/design'>Design</a>
+                       
+                
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+            
+            <p>Aunque este es un blog fundamentalmente de desarrollo, hoy quería comentar un poco algo que nos toca siempre al comenzar una aplicación: la conceptualización. En el desarrollo móvil no es ningún secreto que tenemos <strong>el problema del tamaño de la pantalla</strong> -a pesar de los pseudo tablets que tenemos ahora por teléfonos-. A la hora de conceptualizar la aplicación, es fundamental utilizar una <strong>herramienta que nos permita de forma rápida poder organizar la información</strong> y cómo se comportará nuestra app.</p>
+
+<p>Desde hace un tiempo he estado buscando la mejor herramienta para esta labor. Algo fundamental que debe tener una herramienta de este tipo es que <strong>respete las proporciones de los componentes nativos</strong> de la plataforma. Sin esto, conceptualizar una pantalla es un disparate, ya que estamos organizando la información en base a una premisa que puede ser falsa y a la hora de llevarla a la práctica, podemos ver que las cosas no nos caben -o nos sobra espacio-. En esta búsqueda me he topado con <strong>WireframeSketcher</strong>, una herramienta la mar de interesante, basada en Eclipse y con todos los elementos nativos de Android 4.X -también tiene los de iOS y Windows Phone entre otros-. Vamos a ver las principales características de esta herramienta.</p>
+
+<!--more-->
+
+<h3 id="proyectos-y-pantallas">Proyectos y pantallas</h3>
+<p>En WireframeSketcher, como podemos imaginar al estar basado en Eclipse, tenemos un workspace en el que trabajamos y creamos nuestros proyectos. Un proyecto no será más que una serie de <em>screens</em> y <em>assets</em>.</p>
+
+<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/new_project.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/new_project-300x280.png" alt="new_project" /></a></p>
+
+<p>En esta carpeta de <em>assets</em>, se agregarán inicialmente todos los iconos y componentes nativos del sistema. Por ejemplo, si usamos Android como base para nuestro proyecto, nos agregará todos los componentes e iconos de Android. También, como podemos ver en la siguiente imagen, nos agrega una primera pantalla con la que podemos trabajar.</p>
+
+<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/project-structure.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/project-structure.png" alt="project-structure" /></a></p>
+
+<h3 id="elementos-de-pantalla">Elementos de pantalla</h3>
+<p>Si vemos la parte derecha del espacio de trabajo, veremos que tenemos la paleta de componentes que podemos utilizar para crear nuestros wireframes. Estos están basados en una librería básica -que tienen todos los proyectos- y una librería de componentes incluidos en nuestro proyecto. Y digo incluidos en nuestro proyecto porque podemos crear nuestros propios componentes incluso crear proyectos que sirvan como librerías de componentes que podemos referenciar desde otros. Como veis una herramienta muy potente en este sentido.</p>
+
+<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/assets_library.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/assets_library-188x300.png" alt="assets_library" /></a></p>
+
+<p>Los componentes con los que podemos trabajar son prácticamente todos los controles con los que contamos de forma nativa en Android. <em>ActionBar, CAB, Navigation Drawer, TextView, EditText, Button</em>, etc. Con unos pocos clicks de ratón, montamos una interfaz Android 4.X pura, de componentes nativos y proporciones correctas. Para editar estos componentes, basta con hacer doble-click sobre ellos para entrar en su jerarquía y poder así editar los elementos internos para cambiar imágenes, textos, color, tamaños de texto, etc.</p>
+
+<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/example_screen.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/example_screen-156x300.png" alt="example_screen" /></a></p>
+
+<h3 id="iconos">Iconos</h3>
+<p>Una cosa bastante reseñable y que le da un toque de calidad a nuestros wireframes es la posibilidad de utilizar el paquete de iconos nativos para poner elementos de menú, icono de la app o cualquier otra imagen.
+Además de los iconos nativos, tenemos también otros paquetes de iconos -además de los que podemos añadir nosotros a nuestro proyecto por supuesto-, como la famosa fuente <strong>awesome</strong> entre otros paquetes que podemos descargarnos desde su web.</p>
+
+<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/icons_android.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/icons_android-245x300.png" alt="icons_android" /></a></p>
+
+<p>Si queremos añadir imágenes o iconos a nuestro proyecto, podemos agregarlos a la carpeta <strong>assets/icons</strong>, en formato SVG.</p>
+
+<h3 id="navegación">Navegación</h3>
+<p>La navegación es otra cosa que podemos dejar indicada en nuestros proyectos, lo cual nos servirá para movernos a través de las pantallas mientras las desarrollamos, así como servir de enlaces cuando hagamos una exportación como veremos más adelante. Para añadir un enlace a alguno de los elementos, basta con seleccionar el elemento en el que queremos crear el enlace. Acto seguido, en el panel de la izquierda, donde tenemos las propiedades del elemento, cambiamos a la pestaña Links y desde ahí, seleccionamos la pantalla destino del enlace.</p>
+
+<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/links.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/links-300x150.png" alt="links" /></a></p>
+
+<p>Podemos ver cómo queda el mapa de navegación por nuestra app creando un <em>Storyboard</em>. Este tipo de fichero nos permite agregar pantallas de nuestro proyecto las cuales podemos luego exportar como un HTML con enlaces entre ellas.</p>
+
+<h3 id="exportación-a-html-pdf-y-png">Exportación a HTML, PDF y PNG</h3>
+<p>Ya por último en este repaso a las principales funciones que nos presta WireframeSketcher, nos queda exportar nuestro proyecto para que otras personas puedan interactuar con ellas y hacerse una idea de cómo ha de ser la aplicación.</p>
+
+<p>La primera forma que tenemos es HTML, como hemos comentado anteriormente, <strong>podremos exportar un Storyboard a HTML</strong>, teniendo así un subconjunto de pantallas navegables a través del navegador, algo que podemos entregar a un cliente para que valide que es así como se debe organizar la aplicación.</p>
+
+<p>Otras formas más estáticas de exportar nuestro trabajo es usando ficheros PDF y/o imágenes en formato PNG.</p>
+
+<h3 id="conclusiones">Conclusiones</h3>
+<p>Después de experimentar distintas herramientas disponibles en el mercado, WireframeSketcher es para mí una de las mejores, por $99 tenemos una herramienta extensible y muy fiel al diseño final. Su uso es bastante sencillo y nos da la opción a exportar a HTML, algo ideal para enviar a clientes o compañeros. Como está integrado con Eclipse y como se puede instalar como plug-in también, nos permite integrar la herramienta en nuestro entorno habitual de trabajo -bueno si no estamos usando Android Studio- lo que nos permite la integración con otros plug-ins como control de versiones, pudiendo así colaborar y tener un historial de todo el trabajo realizado.</p>
+
+<p>Más info y descarga: <a href="http://wireframesketcher.com/">http://wireframesketcher.com/</a></p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+
+            
+            <figure class="author-image">
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">'s Picture</span></a>
+            </figure>
+            
+
+            <section class="author">
+                <h4><a href="/author/raycoarana">Rayco Araña</a></h4>
+                
+                
+                    <p> Software engineer, gamer, photographer and "mother of dragons" follower.</p>
+                
+                <div class="author-meta">
+                    <span class="author-location icon-location"> Madrid, Spain</span> 
+                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                </div>
+            </section>
+
+            <!-- /author  -->
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Prototipado de apps con WireframeSketcher&amp;url=http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            <!-- Add Disqus Comments -->
+            
+            
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story no-cover" href="/blog/2014/08/patron-promise-con-jdeferred/">
+            <section class="post">
+                <h2>Patrón Promise con jdeferred</h2>
+                <p>El patrón Promise es un patrón que trata de simplificar la estructura de nuestro código...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev no-cover" href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">
+            <section class="post">
+                <h2>Calligraphy, fuentes personalizadas en Android</h2>
+                <p>Si hay una cosa que es un dolor de muelas en Android es cuando tienes...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-48361320-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>   
+</body>
+</html>

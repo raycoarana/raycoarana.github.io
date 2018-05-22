@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [[! Document Settings ]] -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- [[! Page Meta ]] -->
+    <title>Baindo, un MVVM diferente para Android</title>
+    <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- [[! Styles'n'Scripts ]] -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+        <link rel="canonical" href="/" />
+    <meta name="referrer" content="origin" />
+
+    <meta property="og:site_name" content="raycoarana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="raycoarana" />
+    <meta property="og:description" content="My coding adventures and other random stuff" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/images/cover1.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raycoarana" />
+    <meta name="twitter:description" content="My coding adventures and other random stuff" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "url": "/",
+    "image": "/assets/images/cover1.jpg",
+    "description": "My coding adventures and other random stuff"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
+</head>
+<body class="home-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- < default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="post tag-test tag-content">
+
+        <header class="post-header">
+            <h1 class="post-title">Baindo, un MVVM diferente para Android</h1>
+            <section class="post-meta">
+            <!-- <a href='/'>Rayco Araña</a> -->
+            <time class="post-date" datetime="2015-01-20">20 Jan 2015</time>
+                <!-- [[tags prefix=" on "]] -->
+                 
+                on 
+                
+                    
+                       <a href='/tag/misc'>Misc</a>
+                       
+                
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+            
+            <p>Hoy os vengo a presentar algo en lo que llevo un tiempo trabajando, <strong>Baindo</strong>, un framework para aplicar <strong>MVVM en aplicaciones Android</strong>, del que quiero mostraros un <em>Sneak Peek</em> del estado actual.
+¿Por qué otro framework MVVM si existen miles? La respuesta a esta pregunta está en las ideas base que inspiran Baindo:</p>
+
+<ul>
+  <li>Evitar el uso de cualquier tipo de Reflection.</li>
+  <li>Sintaxis cómoda en código Java. Nada de Custom Views o Custom Attributes en nuestros layouts.</li>
+  <li>ViewModels sencillos y con ninguna dependencia con Android.</li>
+  <li>Maximizar el rendimiento del hilo de UI. Comandos y eventos de modificación de las propiedades se ejecutan en Background.</li>
+  <li>Actualización de UI desde cualquier hilo a través de las propiedades del ViewModel. Olvidate de tener que usar AsyncTask, Handlers o similares para hacer cambios en la UI.</li>
+</ul>
+
+<p>Pinta bien, ¿no? ;-). Pues además será OpenSource y estará disponible en GitHub muy pronto. Veamos que pinta tiene.</p>
+
+<!--more-->
+
+<h3 id="un-ejemplo-sencillo">Un ejemplo sencillo</h3>
+
+<p>Vamos a hacer un ejemplo sencillo de como seria su uso. Hagamos un simple hola mundo con un Button y un TextView que al pulsar dicho botón, nos muestre el mensaje <em>“HelloWorld!”</em> en el TextView.</p>
+
+<p>Lo primero es hacer el layout de la vista.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:id=</span><span class="s">"@+id/message"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;Button</span>
+        <span class="na">android:id=</span><span class="s">"@+id/button"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"Tap me!"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
+
+<p>Ahora creamos el ViewModel para nuestro ejemplo, tenemos una acción a ejecutar, luego pondremos un comando y una propiedad de tipo CharSequence a la que asignar el valor <strong>“HelloWorld!”</strong>.
+Creamos la propiedad como un atributo público de tipo <code class="highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
+A continuación el comando como un atributo público de tipo <code class="highlighter-rouge">Command</code>, que llamamos <code class="highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="highlighter-rouge">setValue()</code> de la propiedad <code class="highlighter-rouge">Message</code>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Property</span><span class="o">&lt;</span><span class="n">CharSequence</span><span class="o">&gt;</span> <span class="n">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Property</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Command</span> <span class="n">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Sencillo, limpio y fácil de probar.</p>
+
+<p>A continuación creamos un <code class="highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
+
+<p>En este <code class="highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="highlighter-rouge">bindViews()</code> justo después del <code class="highlighter-rouge">setContentView()</code>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="n">BaindoActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewModel</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
+
+        <span class="n">bindViews</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="highlighter-rouge">Button</code> del layout y el comando <code class="highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="highlighter-rouge">TextView</code> y la propiedad <code class="highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="highlighter-rouge">readOnly</code>) o bidireccional (<code class="highlighter-rouge">readWrite</code>).</p>
+
+<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
+
+<p>En este caso vamos a ponerlo en modo readOnly, ya que solo queremos que la vista muestre lo que tiene el ViewModel sin modificarlo en ningún caso.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">bind</span><span class="o">().</span><span class="na">text</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">Message</span><span class="o">).</span><span class="na">readOnly</span><span class="o">();</span>
+        <span class="n">bind</span><span class="o">().</span><span class="na">click</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">SayHelloCommand</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
+
+<p>El código que hemos escrito en el comando se ejecuta en un hilo separado, un hilo que llamaremos <strong>hilo del ViewModel</strong>, así pues tendremos en nuestra app <strong>un hilo de UI y tantos hilos como Activities/Fragments tengamos en pantalla</strong>. Estos hilos son avisados cuando se producen cambios en la UI y notifican cambios en el ViewModel al hilo de UI.</p>
+
+<h3 id="puedo-hacer-cualquier-cosa-en-un-hilo-de-viewmodel">¿Puedo hacer cualquier cosa en un hilo de ViewModel?</h3>
+<p>Pues si y no, depende de tu ViewModel y tu vista, hay que tener en cuenta que si bien no vas a bloquear nunca la UI, si que puedes producir el efecto de que al pulsar un botón no pasa nada hasta pasado un tiempo. <strong>Si el hilo del ViewModel está ocupado, no puede atender a ese nuevo evento de UI</strong>, los cuales serán atendidos una vez el hilo del ViewModel quede liberado. Lo ideal del hilo de ViewModel es hacer esos pequeños cálculos previos a pintar nuestros modelos. No es un proceso de negocio, sino un proceso de  preparación para ser mostrado en UI como manejo de cadenas, pequeñas operaciones, coordinar operaciones en background, etc.</p>
+
+<p>Con este esquema <strong>conseguimos la mejor respuesta de la UI al usuario</strong>. Adiós parones, bajadas de framerate en animaciones, etc., gracias a Baindo podemos olvidarnos de todo esto. Estad atentos al blog, <strong>muy pronto publicaré la primera alpha</strong> para que podáis trastear con ella, hasta entonces, sed pacientes!!</p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+
+            
+            <figure class="author-image">
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">'s Picture</span></a>
+            </figure>
+            
+
+            <section class="author">
+                <h4><a href="/author/raycoarana">Rayco Araña</a></h4>
+                
+                
+                    <p> Software engineer, gamer, photographer and "mother of dragons" follower.</p>
+                
+                <div class="author-meta">
+                    <span class="author-location icon-location"> Madrid, Spain</span> 
+                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                </div>
+            </section>
+
+            <!-- /author  -->
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Baindo, un MVVM diferente para Android&amp;url=http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            <!-- Add Disqus Comments -->
+            
+            
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story no-cover" href="/blog/2015/04/concurrency-with-promise-style-droidcon-2015/">
+            <section class="post">
+                <h2>Concurrency with Promise Style. DroidCon 2015</h2>
+                <p>Os dejo por aquí la presentación de mi charla de hoy en la DroidCon Spain...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev no-cover" href="/blog/2014/11/roborouter/">
+            <section class="post">
+                <h2>RoboRouter, mi primera librería OpenSource</h2>
+                <p>Hace tiempo que no escribo nada en el Blog, pero hoy tengo el orgullo de...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-48361320-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>   
+</body>
+</html>

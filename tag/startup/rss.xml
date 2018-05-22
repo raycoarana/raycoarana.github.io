@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+      <title>raycoarana.com</title>
+   
+   <link>http://raycoarana.com/</link>
+   <description>My coding adventures and other random stuff</description>
+   <language>en-uk</language>
+   <managingEditor> Rayco Araña</managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+	<item>
+	  <title>RoboRouter, mi primera librería OpenSource</title>
+	  <link>//blog/2014/11/roborouter/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2014-11-03T23:17:07+01:00</pubDate>
+	  <guid>//blog/2014/11/roborouter/</guid>
+	  <description><![CDATA[
+	     <p>Hace tiempo que no escribo nada en el Blog, pero hoy tengo el orgullo de presentar mi primera librería <em>OpenSource</em>: RoboRouter. Es para Android y disponible a través de <strong>Maven/Gradle</strong>.
+<!--more--></p>
+
+<h3 id="qué-es-roborouter">¿Qué es RoboRouter?</h3>
+<p>RoboRouter es un pequeña librería <em>-de apenas dos clases-</em> que permite mediante la activación/desactivación de componentes <strong>manejar el punto de arranque de nuestra aplicación</strong> cuando esta tiene una pantalla de inicio de sesión y/o un asistente de bienvenida o tutorial inicial. Cosas que es muestran escasamente una vez en la vida de la aplicación en el móvil de un usuario y que no debería <em>ensuciar</em> el código de la actividad principal con la que arrancamos la aplicación normalmente. RoboRouter permite gestionar este tipo de escenarios de una forma <strong>muy fácil y sin apenas escribir código</strong>.</p>
+
+<p>Pasaos por <a href="https://github.com/raycoarana/roborouter">GitHub</a> y mirad como funciona, descargad el proyecto de ejemplo y jugad con él. Cualquier sugerencia será bienvenida.</p>
+
+<p>[github repo=”raycoarana/roborouter”]</p>
+
+	  ]]></description>
+	</item>
+
+
+</channel>
+</rss>

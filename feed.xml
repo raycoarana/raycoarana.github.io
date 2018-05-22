@@ -8,6 +8,137 @@
     
       
       <item>
+        <title>Concurrency with Promise Style. DroidCon 2015</title>
+        
+          <description>&lt;p&gt;Os dejo por aquí la presentación de mi charla de hoy en la DroidCon Spain 2015 dónde hablamos del patrón Promise, como implementarlo con jDeferred y como podemos beneficiarnos de su uso.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://speakerd.s3.amazonaws.com/presentations/ef9ad55c34fe4a68b961eb0a214f34ce/Concurrency-with-Promise-Style.pdf&quot;&gt;&lt;strong&gt;Descargar&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;ef9ad55c34fe4a68b961eb0a214f34ce&quot; data-ratio=&quot;1.77777777777778&quot; src=&quot;//speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;
+
+</description>
+        
+        <pubDate>Sat, 25 Apr 2015 17:25:02 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Baindo, un MVVM diferente para Android</title>
+        
+          <description>&lt;p&gt;Hoy os vengo a presentar algo en lo que llevo un tiempo trabajando, &lt;strong&gt;Baindo&lt;/strong&gt;, un framework para aplicar &lt;strong&gt;MVVM en aplicaciones Android&lt;/strong&gt;, del que quiero mostraros un &lt;em&gt;Sneak Peek&lt;/em&gt; del estado actual.
+¿Por qué otro framework MVVM si existen miles? La respuesta a esta pregunta está en las ideas base que inspiran Baindo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Evitar el uso de cualquier tipo de Reflection.&lt;/li&gt;
+  &lt;li&gt;Sintaxis cómoda en código Java. Nada de Custom Views o Custom Attributes en nuestros layouts.&lt;/li&gt;
+  &lt;li&gt;ViewModels sencillos y con ninguna dependencia con Android.&lt;/li&gt;
+  &lt;li&gt;Maximizar el rendimiento del hilo de UI. Comandos y eventos de modificación de las propiedades se ejecutan en Background.&lt;/li&gt;
+  &lt;li&gt;Actualización de UI desde cualquier hilo a través de las propiedades del ViewModel. Olvidate de tener que usar AsyncTask, Handlers o similares para hacer cambios en la UI.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Pinta bien, ¿no? ;-). Pues además será OpenSource y estará disponible en GitHub muy pronto. Veamos que pinta tiene.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 20 Jan 2015 22:59:40 +0100</pubDate>
+        <link>
+        http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>RoboRouter, mi primera librería OpenSource</title>
+        
+          <description>&lt;p&gt;Hace tiempo que no escribo nada en el Blog, pero hoy tengo el orgullo de presentar mi primera librería &lt;em&gt;OpenSource&lt;/em&gt;: RoboRouter. Es para Android y disponible a través de &lt;strong&gt;Maven/Gradle&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 03 Nov 2014 23:17:07 +0100</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/11/roborouter/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/11/roborouter/</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Full text search contra otras formas de búsqueda</title>
+        
+          <description>&lt;p&gt;Algo muy común en cualquier aplicación Android es el añadir la posibilidad de realizar búsquedas sobre un ListView. Dado que para mostrar los datos sobre un ListView probablemente ya hemos realizado una consulta a la base de datos SQLite donde estos residen, podemos creer que lo mejor es filtrar los datos que ya tenemos cargados en memoria. De esta forma no pagamos de nuevo el precio del acceso a la base de datos que está en disco y es lenta; ni tampoco tenemos que volver a crear los objetos a partir del Cursor que esta nos devuelve. Pero, ¿hemos pensado bien el coste de buscar texto sobre los datos cargados en memoria? ¿Es esto mejor que un acceso a disco? ¿Escala?&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Sun, 07 Sep 2014 22:28:14 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Patrón Promise con jdeferred</title>
+        
+          <description>&lt;p&gt;El patrón Promise es un patrón que trata de simplificar la estructura de nuestro código cuando trabajamos con operaciones asíncronas, algo que está a la orden del día en cualquier aplicación con interfaz gráfica, pero también importante en servicios que tienen distintas dependencias para realizar su trabajo y este puede realizarse en paralelo.&lt;/p&gt;
+
+&lt;p&gt;En primer lugar vamos a plantear el problema que trata de resolverse y cómo lo simplificamos con este patrón y en concreto con la librería &lt;strong&gt;jdeferred&lt;/strong&gt;. Luego veremos el caso de particular de Android y el soporte específico que nos ofrece &lt;strong&gt;jdeferred&lt;/strong&gt; que nos simplifican aún más el trabajo.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Fri, 08 Aug 2014 00:02:48 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/08/patron-promise-con-jdeferred/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/08/patron-promise-con-jdeferred/</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Prototipado de apps con WireframeSketcher</title>
+        
+          <description>&lt;p&gt;Aunque este es un blog fundamentalmente de desarrollo, hoy quería comentar un poco algo que nos toca siempre al comenzar una aplicación: la conceptualización. En el desarrollo móvil no es ningún secreto que tenemos &lt;strong&gt;el problema del tamaño de la pantalla&lt;/strong&gt; -a pesar de los pseudo tablets que tenemos ahora por teléfonos-. A la hora de conceptualizar la aplicación, es fundamental utilizar una &lt;strong&gt;herramienta que nos permita de forma rápida poder organizar la información&lt;/strong&gt; y cómo se comportará nuestra app.&lt;/p&gt;
+
+&lt;p&gt;Desde hace un tiempo he estado buscando la mejor herramienta para esta labor. Algo fundamental que debe tener una herramienta de este tipo es que &lt;strong&gt;respete las proporciones de los componentes nativos&lt;/strong&gt; de la plataforma. Sin esto, conceptualizar una pantalla es un disparate, ya que estamos organizando la información en base a una premisa que puede ser falsa y a la hora de llevarla a la práctica, podemos ver que las cosas no nos caben -o nos sobra espacio-. En esta búsqueda me he topado con &lt;strong&gt;WireframeSketcher&lt;/strong&gt;, una herramienta la mar de interesante, basada en Eclipse y con todos los elementos nativos de Android 4.X -también tiene los de iOS y Windows Phone entre otros-. Vamos a ver las principales características de esta herramienta.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Thu, 19 Jun 2014 10:59:16 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/</guid>
+      </item>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+      <item>
         <title>A Full and Comprehensive Style Test</title>
         
           <description>&lt;p&gt;This is just an &lt;em&gt;ipsis verbis&lt;/em&gt; copy of the first example running on the &lt;a href=&quot;http://demo.ghost.io&quot;&gt;Ghost Demo&lt;/a&gt;. This shows how you can use html styling to achieve your hopes.&lt;/p&gt;
@@ -15,127 +146,10 @@
 
 </description>
         
-        <pubDate>Sat, 27 Sep 2014 12:18:00 +0200</pubDate>
+        <pubDate>Sat, 01 Jan 2000 11:18:00 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/09/a-full-and-comprehensive-style-test/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/09/a-full-and-comprehensive-style-test/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>The Businessman &amp; the fisherman</title>
-        
-          <description>&lt;p&gt;An American businessman took a vacation to a small coastal Mexican village on doctor’s orders. Unable to sleep after an urgent phone call from the office the first morning, he walked out to the pier to clear his head. A small boat with just one fisherman had docked, and inside the boat were several large yellowfin tuna. The American complimented the Mexican on the quality of his fish.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Tue, 12 Aug 2014 12:18:00 +0200</pubDate>
-        <link>
-        http://raycoarana.com//blog/2014/08/the-businessman-and-fisherman/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/08/the-businessman-and-fisherman/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>I Have a Dream</title>
-        
-          <description>&lt;p&gt;I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation.&lt;/p&gt;
-
-&lt;p&gt;Five score years ago, a great American, in whose symbolic shadow we stand today, signed the Emancipation Proclamation. This momentous decree came as a great beacon light of hope to millions of Negro slaves who had been seared in the flames of withering injustice. It came as a joyous daybreak to end the long night of their captivity.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Wed, 28 Aug 1963 11:18:00 +0100</pubDate>
-        <link>
-        http://raycoarana.com//blog/1963/08/i-have-a-dream/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/1963/08/i-have-a-dream/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>The Purpose of Education</title>
-        
-          <description>&lt;p&gt;As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that education should equip them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.&lt;/p&gt;
-
-&lt;p&gt;It seems to me that education has a two-fold function to perform in the life of man and in society: the one is utility and the other is culture. Education must enable a man to become more efficient, to achieve with increasing facility the ligitimate goals of his life.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 12 Dec 1948 11:18:00 +0100</pubDate>
-        <link>
-        http://raycoarana.com//blog/1948/12/the-purpose-of-education/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/1948/12/the-purpose-of-education/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Out to Sea</title>
-        
-          <description>&lt;p&gt;I had this story from one who had no business to tell it to me, or to any other. I may credit the seductive influence of an old vintage upon the narrator for the beginning of it, and my own skeptical incredulity during the days that followed for the balance of the strange tale.&lt;/p&gt;
-
-&lt;p&gt;When my convivial host discovered that he had told me so much, and that I was prone to doubtfulness, his foolish pride assumed the task the old vintage had commenced, and so he unearthed written evidence in the form of musty manuscript, and dry official records of the British Colonial Office to support many of the salient features of his remarkable narrative.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Wed, 24 Jul 1912 10:18:00 +0000</pubDate>
-        <link>
-        http://raycoarana.com//blog/1912/07/out-to-sea/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/1912/07/out-to-sea/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Looking-Glass house</title>
-        
-          <description>&lt;p&gt;One thing was certain, that the white kitten had had nothing to do with it:— it was the black kitten’s fault entirely. For the white kitten had been having its face washed by the old cat for the last quarter of an hour (and bearing it pretty well, considering); so you see that it couldn’t have had any hand in the mischief. 
-The way Dinah washed her children’s faces was this: first she held the poor thing down by its ear with one paw, and then with the other paw she rubbed its face all over, the wrong way, beginning at the nose: and just now, as I said, she was hard at work on the white kitten, which was lying quite still and trying to purr — no doubt feeling that it was all meant for its good. 
-But the black kitten had been finished with earlier in the afternoon, and so, while Alice was sitting curled up in a corner of the great arm-chair, half talking to herself and half asleep, the kitten had been having a grand game of romps with the ball of worsted Alice had been trying to wind up, and had been rolling it up and down till it had all come undone again; and there it was, spread over the hearth-rug, all knots and tangles, with the kitten running after its own tail in the middle.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sat, 18 Mar 1871 10:03:16 -0014</pubDate>
-        <link>
-        http://raycoarana.com//blog/1871/03/looking-glass-house/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/1871/03/looking-glass-house/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Down The Rabbit Hole</title>
-        
-          <description>&lt;p&gt;Alice was beginning to get very tired of sitting by her sister on the bank, and of having nothing to do: once or twice she had peeped into the book her sister was reading, but it had no pictures or conversations in it, ‘and what is the use of a book,’ thought Alice ‘without pictures or conversation?’&lt;/p&gt;
-
-&lt;p&gt;So she was considering in her own mind (as well as she could, for the hot day made her feel very sleepy and stupid), whether the pleasure of making a daisy-chain would be worth the trouble of getting up and picking the daisies, when suddenly a White Rabbit with pink eyes ran close by her.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Sun, 26 Nov 1865 10:03:16 -0014</pubDate>
-        <link>
-        http://raycoarana.com//blog/1865/11/down-the-rabbit-hole/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/1865/11/down-the-rabbit-hole/</guid>
-      </item>
-      
-    
-      
-      <item>
-        <title>Gettysburg Address</title>
-        
-          <description>&lt;p&gt;Fourscore and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.&lt;/p&gt;
-
-&lt;p&gt;Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure. We are met on a great battle-field of that war. We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live. It is altogether fitting and proper that we should do this.&lt;/p&gt;
-
-</description>
-        
-        <pubDate>Thu, 19 Nov 1863 10:03:16 -0014</pubDate>
-        <link>
-        http://raycoarana.com//blog/1863/11/gettysburg-address/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/1863/11/gettysburg-address/</guid>
+        http://raycoarana.com//blog/2000/01/a-full-and-comprehensive-style-test/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2000/01/a-full-and-comprehensive-style-test/</guid>
       </item>
       
     

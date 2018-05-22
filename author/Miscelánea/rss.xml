@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+      <title>raycoarana.com</title>
+   
+   <link>http://raycoarana.com/</link>
+   <description>My coding adventures and other random stuff</description>
+   <language>en-uk</language>
+   <managingEditor> Rayco Araña</managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+	<item>
+	  <title>En un equipo es más importante...</title>
+	  <link>//blog/2014/03/cita-equipo-mas-importante-calidad-nivel-personas-equipo-que-forma-que-decida-trabajar-equipo/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2014-03-03T23:09:16+01:00</pubDate>
+	  <guid>//blog/2014/03/cita-equipo-mas-importante-calidad-nivel-personas-equipo-que-forma-que-decida-trabajar-equipo/</guid>
+	  <description><![CDATA[
+	     <p>En un equipo es más importante la calidad y el nivel de las personas del equipo, que la forma en la que decida trabajar el equipo.</p>
+
+<p>El Bruno (http://elbruno.com)</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>Esto empieza...</title>
+	  <link>//blog/2014/02/hello-world/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2014-02-23T12:50:21+01:00</pubDate>
+	  <guid>//blog/2014/02/hello-world/</guid>
+	  <description><![CDATA[
+	     <p>[code language=”java”]
+package com.raycoarana.blog;</p>
+
+<p>public class Blog {</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public static void main(String[] args) {
+    Blog blog = new Blog();
+    blog.addTheme("feather");
+    blog.prepare();
+    blog.publish(new PublishListener(){
+        public void onSuccess() {
+            System.out.println("Let's start coding!");
+        }
+    });
+} } [/code]
+</code></pre>
+</div>
+
+	  ]]></description>
+	</item>
+
+
+</channel>
+</rss>

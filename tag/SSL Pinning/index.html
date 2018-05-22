@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [[! Document Settings ]] -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- [[! Page Meta ]] -->
+    <title>raycoarana</title>
+    <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- [[! Styles'n'Scripts ]] -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+        <link rel="canonical" href="/" />
+    <meta name="referrer" content="origin" />
+
+    <meta property="og:site_name" content="raycoarana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="raycoarana" />
+    <meta property="og:description" content="My coding adventures and other random stuff" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/images/cover1.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raycoarana" />
+    <meta name="twitter:description" content="My coding adventures and other random stuff" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "url": "/",
+    "image": "/assets/images/cover1.jpg",
+    "description": "My coding adventures and other random stuff"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
+</head>
+<body class="tag-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- < dynamically overriding backgrounds for tags as well as descriptions -->
+
+
+<!-- < default}} -->
+<!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
+
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/cover2.jpg) ">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Ssl pinning</h1>
+            <h2 class="page-description">
+            
+			    A 1-post collection
+            
+            </h2>
+        </div>
+    </div>
+</header>
+
+<!-- The main content area on the homepage -->
+<main id="content" class="content" role="main">
+
+    <!-- The tag below includes the post loop - partials/loop.hbs -->
+        <!-- Previous/next page links - only displayed on page 2+ -->
+    <div class="extra-pagination inner">
+        
+            <nav class="pagination" role="pagination">
+    
+    <span class="page-number"> Page 1 of 1 </span>
+     
+</nav>
+        
+    </div>
+
+    <!-- This is the post loop - each post will be output using this markup -->
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/03/ssl-pinning-ataques-man-in-the-middle/">SSL Pinning y ataques man-in-the-middle</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Un problema que cada vez más está de actualidad es la seguridad y la privacidad en las aplicaciones móviles. Existe además un problema mayor que en otros entornos dado que es más plausible el conectarse a redes externas como WiFi’s públicas. Como desde nuestras apps no podemos controlar que redes utiliza el usuario, debemos securizar las conexiones con SSL. Pero…, ¿es esto suficiente? <em>Pues va a ser que no</em>.</p>
+
+<!-- more -->
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="qué-es-ssl-pinning">¿Qué es SSL Pinning?</h3>
+
+<p>Cuando se hace la negociación SSL y el servidor nos envía su certificado, por defecto Android (aunque ocurre igual en otras plataformas) comprueba que este pertenece a una autoridad certificadora de confianza y que este no está revocado o caducado. El problema es que cuando estamos en una red pública, es posible que un atacante se ponga “en medio” y se haga pasar por el servidor, haciendo de puente entre este y nosotros. Si esto lo hace con un certificado válido, nuestro sistema comprueba el certificado y lo dará por válido, pudiendo este atacante hacerse con todos los datos que intercambiamos con el servidor en <strong>texto claro</strong>.
+SSL Pinning de denomina al proceso de verificar además que el certificado que ha enviado el servidor sea solo el de nuestro servidor y no cualquiera válido. Así, si detectamos un certificado válido pero que no es el de nuestro servidor, podemos rechazar la conexión, ya que existe alguien en medio <em>con el oído puesto</em>.</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="cómo-implementamos-ssl-pinning-en-android">¿Cómo implementamos SSL Pinning en Android?</h3>
+
+<p>Para poder implementar SSL Pinning en Android necesitamos en primer lugar preparar el certificado del servidor con el que vamos a conectarnos e incorporarlo a un almacén de certificados de Java. Para ello haremos uso de la herramienta <strong>keytool</strong> que viene con el JDK. Para hacer esto, ejecutaremos el siguiente comando:</p>
+
+<p>[code language=”plain”]
+keytool -importcert
+        -trustcacerts
+        -file “MICERTIFICADO.cer”
+        -alias MIALIAS
+        -keystore “sslpinning.ks”
+        -provider org.bouncycastle.jce.provider.BouncyCastleProvider
+        -providerpath “bcprov-jdk16-145.jar”
+        -storetype BKS
+        -storepass AQUI_VA_TU_PASSWORD
+[/code]</p>
+
+<p>Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero <a href="http://www.bouncycastle.org/download/bcprov-jdk16-145.jar"><strong>bcprov-jdk16-145.jar</strong></a> en el lugar donde estamos ejecutándolo.</p>
+
+<p>Una vez creado nuestro almacén de certificados con nombre <strong>sslpinning.ks</strong>, nos lo llevamos a nuestro proyecto. Lo copiaremos en la carpeta <strong>res/raw</strong>.</p>
+
+<p>Ahora que tenemos todo listo, abrimos nuestro Eclipse/AndroidStudio y comenzamos a escribir código. Lo que vamos a necesitar será proporcionar al objeto HttpClient de Apache (que viene incluida en el SDK de Android) este almacén de certificados como únicos certificados válidos para realizar conexiones SSL. Para ello, vamos a sobrescribir la clase DefaultHttpClient. Crearemos un constructor que recibirá como parámetro el contexto para poder acceder al recurso donde tenemos el almacén de certificados.</p>
+
+<p>[code language=”java”]
+import android.content.Context;
+import android.content.res.Resources;
+import org.apache.http.impl.client.DefaultHttpClient;</p>
+
+<p>public class SecureHttpClient extends DefaultHttpClient {</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Resources mResources;
+
+public SecureHttpClient(Context context) {
+    mResources = context.getResources();
+}
+</code></pre>
+</div>
+
+<p>}
+[/code]</p>
+
+<p>Una vez tenemos la clase, vamos a añadirle un método que se encargará de construir una factoría de sockets SSL, al que le proporcionaremos el almacén de certificados que debe utilizar como certificados de confianza.</p>
+
+<p>[code language=”java”]
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import java.io.InputStream;
+import java.security.KeyStore;</p>
+
+<p>…</p>
+
+<p>private SSLSocketFactory buildSSLSocketFactory() {
+    try {
+        KeyStore trusted = KeyStore.getInstance(“BKS”);
+        InputStream in = mResources.openRawResource(R.raw.sslpinning);
+        try {
+            trusted.load(in, “AQUI_VA_TU_PASSWORD”.toCharArray());
+        } finally {
+            in.close();
+        }
+        SSLSocketFactory sf = new SSLSocketFactory(trusted);
+        sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
+        return sf;
+    } catch (Exception e) {
+        throw new AssertionError(e);
+    }
+}</p>
+
+<p>…</p>
+
+<p>[/code]</p>
+
+<p>Una vez tenemos el método anterior, vamos a sobrescribir el método <em>createClientConnectionManager()</em>. En él vamos a registrar nuestra factoría de sockets SSL cuando se solicita una conexión sobre https. De esta forma, cada vez que el cliente Http va a realizar una conexión, creará el Socket SSL basado en nuestra configuración.</p>
+
+<p>[code language=”java”]
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;</p>
+
+<p>…</p>
+
+<p>@Override
+protected ClientConnectionManager createClientConnectionManager() {
+    SchemeRegistry registry = new SchemeRegistry();
+    registry.register(new Scheme(“http”, PlainSocketFactory.getSocketFactory(), 80));
+    registry.register(new Scheme(“https”, this.buildSSLSocketFactory(), 443));
+    return new ThreadSafeClientConnManager(getParams(), registry);
+}</p>
+
+<p>…</p>
+
+<p>[/code]</p>
+
+<p>Y listo, con esto ya tenemos un cliente Http seguro que realiza una estricta comprobación de los certificados, confiando únicamente en aquellos que hemos incluido en nuestro almacén de certificados. Ya solo nos queda hacer las peticiones de la misma forma que lo hacemos normalmente.</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="y-qué-pasa-con-las-aplicaciones-híbridas">¿Y qué pasa con las aplicaciones híbridas?</h3>
+
+<p>En el caso de las aplicaciones híbridas lo anterior no vale. Las conexiones con el servidor no las hacemos nosotros sino que las hace el WebView que muestra nuestra aplicación. Luego debemos meternos en la negociación SSL que realiza el WebView para rechazar aquellas conexiones que no se hacen con el certificado de nuestro servidor. Pero esto es algo que dejaremos para un próximo artículo.</p>
+
+ <a class="read-more" href="/blog/2014/03/ssl-pinning-ataques-man-in-the-middle/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/Man in the middle'>Man in the middle</a>,
+                       
+                
+                    
+                       <a href='/tag/seguridad'>Seguridad</a>,
+                       
+                
+                    
+                       <a href='/tag/SSL'>Ssl</a>,
+                       
+                
+                    
+                       <a href='/tag/SSL Pinning'>Ssl pinning</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-03-05">05 Mar 2014</time>
+        </footer>
+    </article>
+    
+
+    <!-- Previous/next page links - displayed on every page -->
+    
+        <nav class="pagination" role="pagination">
+    
+    <span class="page-number"> Page 1 of 1 </span>
+     
+</nav>
+    
+
+
+</main>
+
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-48361320-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>   
+</body>
+</html>

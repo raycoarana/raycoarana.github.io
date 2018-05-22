@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+   
+      <title>raycoarana.com</title>
+   
+   <link>http://raycoarana.com/</link>
+   <description>My coding adventures and other random stuff</description>
+   <language>en-uk</language>
+   <managingEditor> Rayco Araña</managingEditor>
+   <atom:link href="rss" rel="self" type="application/rss+xml" />
+   
+	<item>
+	  <title>Calligraphy, fuentes personalizadas en Android</title>
+	  <link>//blog/2014/06/calligraphy-fuentes-personalizadas-android/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2014-06-16T21:15:48+02:00</pubDate>
+	  <guid>//blog/2014/06/calligraphy-fuentes-personalizadas-android/</guid>
+	  <description><![CDATA[
+	     <p>Si hay una cosa que es un <strong>dolor de muelas</strong> en Android es cuando tienes que hacer una app que usa <strong>fuentes personalizadas</strong>. Aunque es incluso peor, si queremos usar la moderna Roboto, ya tenemos el lío formado, ya que en Android 2.3 no la tendremos tampoco. Y es que utilizar fuentes personalizadas es algo que está muy mal resuelto incluso aún hoy en la última versión del sistema (4.4.3 a día de hoy).</p>
+
+<p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
+
+<p>[code language=”java”]
+Typeface tf = Typeface.createFromAsset(getAssets(), 
+                                       “fonts/mycustomfont.ttf”);</p>
+
+<p>TextView myView = (TextView) findViewById(android.R.id.text1);
+myView.setTypeface(tf);
+[/code]</p>
+
+<p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
+
+<!-- more -->
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="solución-1-controles-personalizados">Solución 1. Controles personalizados</h3>
+
+<p>Una primera solución a este problema es utilizar controles personalizados para agregarles un atributo en el que indiquemos que fuente utilizar. Existen varias librerías que implementan esta forma de trabajo con las que simplemente debes utilizar sus vistas en vez de las vistas por defecto. Por ejemplo la librería <a href="https://github.com/neopixl/PixlUI">PixlUI</a> utiliza esta aproximación.</p>
+
+<p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.neopixl.pixlui.components.textview.TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" pixlui:typeface="mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
+
+<p>Esta otra solución, implementada por esta librería llamada Calligraphy es tremendamente interesante, con <strong>una aproximación mucho más elegante</strong> a la hora de resolver el problema. En vez de regar nuestra aplicación con referencias a controles externos, esta librería crea un <strong>Wrapper tanto al objeto Context como al objeto LayoutInflater</strong> para interceptar toda referencia a las clases <em>TextView</em>, <em>Button</em>, <em>EditText</em>, <em>AutoCompleteTextView</em>, <em>MultiAutoCompleteTextView</em>, <em>CheckBox</em>, <em>RadioButton</em> y <em>ToggleButton</em>. Cuando detecta la instanciación de cualquiera de estos en nuestro <em>layout</em>, crea la fuente asociada y se la asigna a la vista. Esto además haciendo uso de una caché de fuentes y demás optimizaciones.</p>
+
+<p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
+
+<p>[code language=”java”]
+@Override
+protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+}
+[/code]</p>
+
+<p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" android:fontFamily="fonts/mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+<Resources>
+    <attr name="customFont" />
+</Resources>
+<p>[/code]</p>
+
+<p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
+
+<p>[code language=”java”]
+@Override
+protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(new CalligraphyContextWrapper(newBase, R.attr.customFont));
+}
+[/code]</p>
+
+<p>Y ya solo nos queda utilizarlo en las vistas.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" customFont="fonts/mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="conclusiones">Conclusiones</h3>
+
+<p>Sin duda Calligraphy <strong>es lo que Google debería haber soportado en Android desde hace mucho tiempo</strong>. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que <strong>podemos centralizar el uso de las fuentes en nuestros ficheros de estilos</strong>. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.</p>
+
+<p>[github repo=”chrisjenx/Calligraphy”]</p>
+
+	  ]]></description>
+	</item>
+
+
+</channel>
+</rss>

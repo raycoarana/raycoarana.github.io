@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [[! Document Settings ]] -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- [[! Page Meta ]] -->
+    <title>Voice triggers. Primeros pasos con Google Glass (III)</title>
+    <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- [[! Styles'n'Scripts ]] -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+        <link rel="canonical" href="/" />
+    <meta name="referrer" content="origin" />
+
+    <meta property="og:site_name" content="raycoarana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="raycoarana" />
+    <meta property="og:description" content="My coding adventures and other random stuff" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/images/cover1.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raycoarana" />
+    <meta name="twitter:description" content="My coding adventures and other random stuff" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "url": "/",
+    "image": "/assets/images/cover1.jpg",
+    "description": "My coding adventures and other random stuff"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
+</head>
+<body class="home-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- < default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="">
+
+        <header class="post-header">
+            <h1 class="post-title">Voice triggers. Primeros pasos con Google Glass (III)</h1>
+            <section class="post-meta">
+            <!-- <a href='/'>Rayco Araña</a> -->
+            <time class="post-date" datetime="2014-03-28">28 Mar 2014</time>
+                <!-- [[tags prefix=" on "]] -->
+                 
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/android studio'>Android studio</a>,
+                       
+                
+                    
+                       <a href='/tag/gdk'>Gdk</a>,
+                       
+                
+                    
+                       <a href='/tag/glassware'>Glassware</a>,
+                       
+                
+                    
+                       <a href='/tag/google glass'>Google glass</a>,
+                       
+                
+                    
+                       <a href='/tag/voice trigger'>Voice trigger</a>
+                       
+                
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+            
+            <p>En el anterior artículo sobre los primeros pasos con Google Glass empezamos a ver el concepto de <strong>Voice trigger</strong>, los comandos de voz que permiten lanzar nuestras aplicaciones. Vamos a hablar un poco más cerca de ellas y qué cosas podemos hacer a día de hoy con la API.</p>
+
+<!-- more -->
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="voice-triggers-con-prompt">Voice triggers con prompt</h3>
+
+<p>Una de las primeras cosas que podemos hacer con un Voice trigger es hacerle una pregunta al usuario. Es decir, el usuario dice <strong><em>Ok glass, google</em></strong>, entonces el sistema antes de abrir la aplicación de Google, abre una interfaz en la que muestra una pregunta y espera a que el usuario responda a ella. Luego una vez el usuario responde a la pregunta, lanza la aplicación proporcionando como parámetro el texto capturado.</p>
+
+<p>[caption id=”attachment_258” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/1.prompt.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/1.prompt-300x168.png" alt="Prompt de la aplicación de Google" /></a> Prompt de la aplicación de Google[/caption]</p>
+
+<p>Para asociar un prompt a nuestro voice trigger es tan sencillo como añadir una etiqueta <strong><em>input</em></strong> con un atributo <strong><em>prompt</em></strong> dentro de la etiqueta <strong><em>trigger</em></strong> de la siguiente forma:</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+<trigger keyword="@string/glass_voice_trigger">
+    <input prompt="@string/glass_voice_prompt" />
+</trigger>
+<p>[/code]</p>
+
+<p>Así de sencillo, con esto cuando el usuario lance nuestra aplicación, el sistema mostrará esa interfaz y capturará lo dicho por el usuario. Pero, ¿cómo recibimos esa información en nuestra aplicación? Pues como no podía ser de otra forma, a través del <strong>Intent</strong>. Para obtenerlo, debemos usar la constante <strong>RecognizerIntent.EXTRA_RESULTS</strong>, con la que obtendremos una lista de String con cada una de las palabras capturadas.</p>
+
+<p>[code language=”java”]
+ArrayList<String> voiceResults = getIntent().getExtras()
+        .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
+[/code]</String></p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="creando-un-voice-trigger-con-prompt">Creando un Voice trigger con prompt</h3>
+
+<p>Vamos a poner en práctica lo anterior, creamos una nueva actividad en nuestro proyecto (o creamos un proyecto nuevo como <a href="http://raycoarana.com/desarrollo/primeros-pasos-con-google-glass-ii/">ya vimos</a>) con su layout, donde vamos a mostrar el texto que hemos capturado del usuario.</p>
+
+<p>Creamos un layout con nombre <strong>activity_askmesomething.xml</strong>, cuyo contenido será el siguiente.</p>
+
+<p>[code language=”xml”]</p>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textSize="18sp" android:text="I ask you something and you respond" />
+
+    <TextView android:id="@+id/captured_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" />
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>Ahora creamos la actividad, enlazando con este layout.</p>
+
+<p>[code language=”java”]
+public class AskMeSomethingActivity extends Activity {</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_askmesomething);
+} } [/code]
+</code></pre>
+</div>
+
+<p>Ahora vamos a obtener una referencia al <strong>TextView</strong> donde vamos a mostrar el texto capturado, recomponemos el texto capturado con un <strong>StringBuilder</strong> y lo asignamos al <strong>TextView</strong>. Quedaría algo así:</p>
+
+<p>[code language=”java”]
+…
+        ArrayList<String> voiceResults = getIntent().getExtras()
+                .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);</String></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>    StringBuilder inputBuilder = new StringBuilder();
+    for(String voiceToken : voiceResults) {
+        inputBuilder.append(voiceToken);
+        inputBuilder.append(" ");
+    }
+
+    TextView capturedInputText = (TextView)findViewById(R.id.captured_input);
+    capturedInputText.setText(inputBuilder.toString()); ... [/code]
+</code></pre>
+</div>
+
+<p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <strong><em>askmesomething_trigger.xml</em></strong> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
+
+<p>[code language=”xml”]</p>
+<trigger keyword="@string/trigger_ask_me_something">
+    <input prompt="@string/prompt_ask_me_something" />
+</trigger>
+<p>[/code]</p>
+
+<p>Modificamos el fichero <strong><em>strings.xml</em></strong> para agregar las nuevas cadenas.</p>
+
+<p>[code language=”xml”]</p>
+<string name="trigger_ask_me_something">ask me something</string>
+<string name="prompt_ask_me_something">What\'s your favourite color?</string>
+<p>[/code]</p>
+
+<p>Y por último agregamos la actividad al <strong><em>AndroidManifest.xml</em></strong>.</p>
+
+<p>[code language=”xml”]
+…
+        <activity android:name=".AskMeSomethingActivity" android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"></action>
+            </intent-filter></activity></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
+            android:resource="@xml/askmesomething_trigger" /&gt;
+    &lt;/activity&gt; ... [/code]
+</code></pre>
+</div>
+
+<p>Y ya tenemos todo listo, ahora solo nos falta lanzar la aplicación, decir <strong><em>Ok glass, ask me something</em></strong> y veremos la siguiente pantalla:</p>
+
+<p>[caption id=”attachment_259” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/2.our_prompt.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/2.our_prompt-300x168.png" alt="Prompt de nuestra aplicación" /></a> Prompt de nuestra aplicación[/caption]</p>
+
+<p>Al responder a la pregunta, se lanzará nuestra aplicación, mostrando por pantalla lo capturado:</p>
+
+<p>[caption id=”attachment_260” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/3.horse_is_black.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/3.horse_is_black-300x168.png" alt="Pantalla con el resultado de la captura" /></a> Pantalla con el resultado de la captura[/caption]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="restricciones">Restricciones</h3>
+
+<p>Una última cosa que nos queda por comentar de los Voice triggers es la posibilidad de <strong>deshabilitarlos en función del estado del sistema</strong>, es decir, si alguna de las características del dispositivo no está disponible por la razón que fuera, el sistema deshabilita aquellos comandos de voz que lo requieran. Actualmente existen tres:</p>
+
+<ul>
+  <li>
+    <p>camera</p>
+  </li>
+  <li>
+    <p>network</p>
+  </li>
+  <li>
+    <p>microphone</p>
+  </li>
+</ul>
+
+<p>Por ejemplo, si nuestra aplicación requiere de conexión a internet, podemos limitar su uso con el siguiente código, donde podemos ver que se ha añadido la etiqueta <strong>constraints</strong> con el atributo <strong>network</strong> a <strong>true</strong>.</p>
+
+<p>[code language=”xml”]</p>
+<trigger keyword="@string/trigger_ask_me_something">
+    <constraints network="true" />
+</trigger>
+<p>[/code]</p>
+
+<p>Y esto es todo, el código de este artículo lo tenéis en el repositorio de esta serie de artículos, bajo la carpeta <strong>2.VoiceTriggers</strong>.</p>
+
+<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="continuará">Continuará…</h3>
+
+<p>En el próximo artículo vamos a empezar a trabajar con la <strong>Card API</strong> para crear una interfaz con la que podamos navegar e interactuar. Veremos cómo utilizar las clases <em>Card</em>, <em>CardScrollView</em> y <em>CardScrollAdapter</em> para conseguir una interfaz similar a la que podemos ver en las aplicaciones Google Glass, sin ir más lejos, el propio <strong>Timeline</strong> usa esta dinámica.</p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+
+            
+            <figure class="author-image">
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">raycoarana's Picture</span></a>
+            </figure>
+            
+
+            <section class="author">
+                <h4><a href="/author/raycoarana">Rayco Araña</a></h4>
+                
+                
+                    <p> Software engineer, gamer, photographer and "mother of dragons" follower.</p>
+                
+                <div class="author-meta">
+                    <span class="author-location icon-location"> Madrid, Spain</span> 
+                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                </div>
+            </section>
+
+            <!-- /author  -->
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Voice triggers. Primeros pasos con Google Glass (III)&amp;url=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            <!-- Add Disqus Comments -->
+            
+            
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story no-cover" href="/blog/2014/03/cards-api-primeros-pasos-google-glass-iv/">
+            <section class="post">
+                <h2>Cards API. Primeros pasos con Google Glass (IV)</h2>
+                <p>Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev no-cover" href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">
+            <section class="post">
+                <h2>Primeros pasos con Google Glass (II)</h2>
+                <p>Siguiendo la serie de artículos de primeros pasos Google Glass, toca empezar a ponernos manos...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-48361320-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>   
+</body>
+</html>

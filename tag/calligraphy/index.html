@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [[! Document Settings ]] -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- [[! Page Meta ]] -->
+    <title>raycoarana</title>
+    <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- [[! Styles'n'Scripts ]] -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+        <link rel="canonical" href="/" />
+    <meta name="referrer" content="origin" />
+
+    <meta property="og:site_name" content="raycoarana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="raycoarana" />
+    <meta property="og:description" content="My coding adventures and other random stuff" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/images/cover1.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raycoarana" />
+    <meta name="twitter:description" content="My coding adventures and other random stuff" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "url": "/",
+    "image": "/assets/images/cover1.jpg",
+    "description": "My coding adventures and other random stuff"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
+</head>
+<body class="tag-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- < dynamically overriding backgrounds for tags as well as descriptions -->
+
+
+<!-- < default}} -->
+<!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
+
+<!-- If we have a tag cover, display that - else blog cover - else nothing -->
+<header class="main-header tag-head " style="background-image: url(/assets/images/cover2.jpg) ">
+    <nav class="main-nav overlay clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
+        
+            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+        
+    </nav>
+    <div class="vertical">
+        <div class="main-header-content inner">
+            <h1 class="page-title">Calligraphy</h1>
+            <h2 class="page-description">
+            
+			    A 1-post collection
+            
+            </h2>
+        </div>
+    </div>
+</header>
+
+<!-- The main content area on the homepage -->
+<main id="content" class="content" role="main">
+
+    <!-- The tag below includes the post loop - partials/loop.hbs -->
+        <!-- Previous/next page links - only displayed on page 2+ -->
+    <div class="extra-pagination inner">
+        
+            <nav class="pagination" role="pagination">
+    
+    <span class="page-number"> Page 1 of 1 </span>
+     
+</nav>
+        
+    </div>
+
+    <!-- This is the post loop - each post will be output using this markup -->
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">Calligraphy, fuentes personalizadas en Android</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Si hay una cosa que es un <strong>dolor de muelas</strong> en Android es cuando tienes que hacer una app que usa <strong>fuentes personalizadas</strong>. Aunque es incluso peor, si queremos usar la moderna Roboto, ya tenemos el lío formado, ya que en Android 2.3 no la tendremos tampoco. Y es que utilizar fuentes personalizadas es algo que está muy mal resuelto incluso aún hoy en la última versión del sistema (4.4.3 a día de hoy).</p>
+
+<p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
+
+<p>[code language=”java”]
+Typeface tf = Typeface.createFromAsset(getAssets(), 
+                                       “fonts/mycustomfont.ttf”);</p>
+
+<p>TextView myView = (TextView) findViewById(android.R.id.text1);
+myView.setTypeface(tf);
+[/code]</p>
+
+<p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
+
+<!-- more -->
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="solución-1-controles-personalizados">Solución 1. Controles personalizados</h3>
+
+<p>Una primera solución a este problema es utilizar controles personalizados para agregarles un atributo en el que indiquemos que fuente utilizar. Existen varias librerías que implementan esta forma de trabajo con las que simplemente debes utilizar sus vistas en vez de las vistas por defecto. Por ejemplo la librería <a href="https://github.com/neopixl/PixlUI">PixlUI</a> utiliza esta aproximación.</p>
+
+<p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.neopixl.pixlui.components.textview.TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" pixlui:typeface="mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
+
+<p>Esta otra solución, implementada por esta librería llamada Calligraphy es tremendamente interesante, con <strong>una aproximación mucho más elegante</strong> a la hora de resolver el problema. En vez de regar nuestra aplicación con referencias a controles externos, esta librería crea un <strong>Wrapper tanto al objeto Context como al objeto LayoutInflater</strong> para interceptar toda referencia a las clases <em>TextView</em>, <em>Button</em>, <em>EditText</em>, <em>AutoCompleteTextView</em>, <em>MultiAutoCompleteTextView</em>, <em>CheckBox</em>, <em>RadioButton</em> y <em>ToggleButton</em>. Cuando detecta la instanciación de cualquiera de estos en nuestro <em>layout</em>, crea la fuente asociada y se la asigna a la vista. Esto además haciendo uso de una caché de fuentes y demás optimizaciones.</p>
+
+<p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
+
+<p>[code language=”java”]
+@Override
+protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+}
+[/code]</p>
+
+<p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" android:fontFamily="fonts/mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+<Resources>
+    <attr name="customFont" />
+</Resources>
+<p>[/code]</p>
+
+<p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
+
+<p>[code language=”java”]
+@Override
+protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(new CalligraphyContextWrapper(newBase, R.attr.customFont));
+}
+[/code]</p>
+
+<p>Y ya solo nos queda utilizarlo en las vistas.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" customFont="fonts/mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="conclusiones">Conclusiones</h3>
+
+<p>Sin duda Calligraphy <strong>es lo que Google debería haber soportado en Android desde hace mucho tiempo</strong>. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que <strong>podemos centralizar el uso de las fuentes en nuestros ficheros de estilos</strong>. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.</p>
+
+<p>[github repo=”chrisjenx/Calligraphy”]</p>
+ <a class="read-more" href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/calligraphy'>Calligraphy</a>,
+                       
+                
+                    
+                       <a href='/tag/fuentes'>Fuentes</a>,
+                       
+                
+                    
+                       <a href='/tag/personalizadas'>Personalizadas</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-06-16">16 Jun 2014</time>
+        </footer>
+    </article>
+    
+
+    <!-- Previous/next page links - displayed on every page -->
+    
+        <nav class="pagination" role="pagination">
+    
+    <span class="page-number"> Page 1 of 1 </span>
+     
+</nav>
+    
+
+
+</main>
+
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-48361320-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>   
+</body>
+</html>

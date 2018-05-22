@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- [[! Document Settings ]] -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- [[! Page Meta ]] -->
+    <title>Primeros pasos con Google Glass (I)</title>
+    <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" >
+
+    <!-- [[! Styles'n'Scripts ]] -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    <link rel="stylesheet" type="text/css"
+          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    
+        <link rel="canonical" href="/" />
+    <meta name="referrer" content="origin" />
+
+    <meta property="og:site_name" content="raycoarana" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="raycoarana" />
+    <meta property="og:description" content="My coding adventures and other random stuff" />
+    <meta property="og:url" content="/" />
+    <meta property="og:image" content="/assets/images/cover1.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="raycoarana" />
+    <meta name="twitter:description" content="My coding adventures and other random stuff" />
+    <meta name="twitter:url" content="/" />
+    <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Website",
+    "publisher": "Finding The Way Home",
+    "url": "/",
+    "image": "/assets/images/cover1.jpg",
+    "description": "My coding adventures and other random stuff"
+}
+    </script>
+
+    <meta name="generator" content="Jekyll 3.0.0" />
+    <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
+</head>
+<body class="home-template nav-closed">
+
+    <div class="nav">
+    <h3 class="nav-title">Menu</h3>
+    <a href class="nav-close">
+        <span class="hidden">Close</span>
+    </a>
+    <ul>
+        <li class="nav-home " role="presentation"><a href="/">Home</a></li>
+        <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
+        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-about " role="presentation"><a href="/about">About</a></li>
+        <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
+    </ul>
+    <a class="subscribe-button icon-feed" href="/feed.xml">Subscribe</a>
+</div>
+<span class="nav-cover"></span>
+
+
+    <div class="site-wrapper">
+
+        <!-- < default -->
+
+<!-- The comment above "< default" means - insert everything in this file into -->
+    <!-- the [body] of the default.hbs template, which contains our header/footer. -->
+
+<!-- Everything inside the #post tags pulls data from the post -->
+<!-- #post -->
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+
+    <article class="">
+
+        <header class="post-header">
+            <h1 class="post-title">Primeros pasos con Google Glass (I)</h1>
+            <section class="post-meta">
+            <!-- <a href='/'>Rayco Araña</a> -->
+            <time class="post-date" datetime="2014-03-02">02 Mar 2014</time>
+                <!-- [[tags prefix=" on "]] -->
+                 
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/gdk'>Gdk</a>,
+                       
+                
+                    
+                       <a href='/tag/glassware'>Glassware</a>,
+                       
+                
+                    
+                       <a href='/tag/google glass'>Google glass</a>,
+                       
+                
+                    
+                       <a href='/tag/timeline'>Timeline</a>
+                       
+                
+                
+            </section>
+        </header>
+
+        <section class="post-content">
+            
+            <p>En esta serie de artículos, del que este es el primero, vamos a aprender a crear aplicaciones para Google Glass y esas legiones de <em>Explorers</em> que hay ahí fuera. Aunque tiene un precio aún prohibitivo y su disponibilidad es muy limitada (solo para residentes en EEUU y bajo invitación), está llamado a ser el gadget del futuro y rivalizar muy de tú a tú con otros gadgets que giran entorno a los Smartphones. Dispositivos que se conectan a nuestro Smartphone y lo complementan, permitiendo realizar ciertas acciones sin tener que sacarlo de nuestro bolsillo, como las pulseras, los relojes, etc.</p>
+
+<!-- more -->
+
+<p>Pero antes de empezar a hablar de cómo podemos crear Glassware (que es como se denominan estas apps), vamos a echar un vistazo a las características del hardware y del software:</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="características-técnicas">Características técnicas</h3>
+
+<ul>
+  <li>
+    <p>CPU OMAP 4430 SoC 1.2Ghz Dual</p>
+  </li>
+  <li>
+    <p>1 GB RAM</p>
+  </li>
+  <li>
+    <p>Pantalla de 640x360 pixels (hdpi)</p>
+  </li>
+  <li>
+    <p>Sistema operativo Android 4.0.4 (API 15)</p>
+  </li>
+  <li>
+    <p>Cámara de 5 MP con capacidad de grabación de video a 720p</p>
+  </li>
+  <li>
+    <p>TouchPad</p>
+  </li>
+  <li>
+    <p>GPS y SMS a tráves de conexión con smartphone</p>
+  </li>
+  <li>
+    <p>Bluetooth</p>
+  </li>
+  <li>
+    <p>WiFi 802.11b/g</p>
+  </li>
+  <li>
+    <p>16 GB de almacenamiento (12 GB libres para el usuario)</p>
+  </li>
+  <li>
+    <p>Giroscopio, acelerómetro, magnetómetro, sensor de luz ambiental y sensor de proximidad</p>
+  </li>
+  <li>
+    <p>Micrófono y transductor de conducción ósea que actúa como altavoz</p>
+  </li>
+  <li>
+    <p>Conector MicroUSB, tanto para conexión con el PC como para salida de auriculares</p>
+  </li>
+</ul>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="cómo-se-maneja">¿Cómo se maneja?</h3>
+
+<p>El manejo de Google Glass se realiza con una combinación entre voz, gestos con la cabeza e interacción con el TouchPad. Desde encenderlas moviendo la cabeza hacia arriba (o tocando el TouchPad) se puede interactuar con el ya famoso <strong>Ok glass…</strong> o interactuando con el TouchPad con Swipe hacia adelante/atrás, toques y Swipe abajo que hace las veces de botón atrás. Adicionalmente y a discreción de la aplicación que tengamos abierta, esta puede hacer uso de otro tipo de gestos en el TouchPad, como veremos en próximos artículos.</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="google-glass-es-un-dispositivo-android-más">Google Glass es un dispositivo Android más</h3>
+
+<p>Como hemos comentado anteriormente, las Google Glass tienen como sistema operativo un Android 4.0.4, una revisión de Android 4.0.3 en el que se mantiene su nivel de API (API 15). Por lo tanto, el modelo de programación es exactamente el mismo y la API es exactamente la misma a la de cualquier aplicación Android, salvo unas pequeñas excepciones a tener en cuenta y que iremos comentando poco a poco.</p>
+
+<p>El entorno de desarrollo a utilizar para desarrollar Glassware será Eclipse con el plug-in ADT o Android Studio, igual que para una aplicación Android para Smartphones o Tablets. Lo que deberemos tener en cuenta a la hora de crear un proyecto para Google Glass es que la API a la que nos dirigimos es la 15.</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="el-timeline-un-launcher-propio">El Timeline, un launcher propio</h3>
+
+<p>[caption id=”attachment_173” align=”aligncenter” width=”520”]<img src="http://raycoarana.com/wp-content/uploads/2014/03/timeline.png" alt="Representación del Timeline" /> Representación del Timeline[/caption]</p>
+
+<p>Cuando un usuario inicia o activa su Google Glass, verá en primer lugar lo que se llama el Timeline. Este Timeline no es más que un launcher propio, desde el que se lanzan las aplicaciones y en el que se pueden visualizar notificaciones y widgets, que en el caso de Google Glass reciben el nombre de tarjetas o Cards. Estas son siempre a pantalla completa. Luego el Timeline es un conjunto de estas tarjetas, colocadas de forma longitudinal y sobre las que el usuario se puede mover usando el TouchPad. Es por ello que las tarjetas tienen acceso restringido al TouchPad, para evitar entrar en conflicto con los gestos de Swipe adelante/atrás.</p>
+
+<p>[caption id=”attachment_179” align=”aligncenter” width=”520”]<img src="http://raycoarana.com/wp-content/uploads/2014/03/ok-glass-e1393787954995.png" alt="Pantalla inicial de Google Glass" /> Pantalla inicial de Google Glass[/caption]</p>
+
+<p>La tarjeta principal, aquella que muestra la hora y el texto “ok glass” es la que nos permite lanzar aplicaciones. Y aquí es donde nos encontramos una de las principales diferencias entre una aplicación Android <em>normal</em> y una aplicación para Google Glass. El inicio de una aplicación no se marca con <strong>android.intent.action.MAIN</strong>, sino que nuestra aplicación debe responder a la intención <strong>com.google.android.glass.action.VOICE_TRIGGER</strong>. Además de esta intención, debemos indicar en forma de meta-datos, una frase. Esta será la frase que el usuario diga tras decir “ok glass” y que hará que se abra nuestra aplicación. En principio esta frase es la que nosotros queramos, tenemos una guía a seguir con una serie de <a href="https://developers.google.com/glass/distribute/voice-checklist">reglas en la estructura y forma</a> de la misma. Pero si pretendemos que Google nos publique la aplicación en MyGlass, debemos ceñirnos al uso de <a href="https://developers.google.com/glass/develop/gdk/input/voice#existing_voice_commands">una lista de frases</a>. Si queremos utilizar otra frase, debemos antes enviarla para su aprobación. Si más de una aplicación está <em>suscrita</em> a una misma frase, el Timeline le dará la opción al usuario de elegir cual de ellas quiere lanzar, de forma similar a como ocurre  actualmente en las aplicaciones para Smartphones y Tablets cuando dos aplicaciones responden a una misma intención.</p>
+
+<p>Para el manejo del Timeline y poder crear y agregar nuestras propias tarjetas, será necesario utilizar una API que está fuera del SDK normal de Android, el llamado GDK (Glass Development Kit). Esto es una librería <strong>jar</strong> con un stub de clases necesarias para poder compilar nuestro proyecto. En ella se incluye esta API para el manejo del Timeline, así como algunas otras clases de ayuda y controles para manejar y crear interfaces apropiadas para el dispositivo. Ya exploraremos estas clases con más detenimiento en próximos artículos.</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="continuará">Continuará…</h3>
+
+<p>En el próximo artículo crearemos nuestra primera aplicación para Google Glass. Exploraremos los pequeños ajustes que debemos hacer en un proyecto Android por defecto para hacerlo compatible y cómo incorporar el GDK.</p>
+
+
+        </section>
+
+        <footer class="post-footer">
+
+            <!-- Everything inside the #author tags pulls data from the author -->
+            <!-- #author-->
+
+            
+            <figure class="author-image">
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">raycoarana's Picture</span></a>
+            </figure>
+            
+
+            <section class="author">
+                <h4><a href="/author/raycoarana">Rayco Araña</a></h4>
+                
+                
+                    <p> Software engineer, gamer, photographer and "mother of dragons" follower.</p>
+                
+                <div class="author-meta">
+                    <span class="author-location icon-location"> Madrid, Spain</span> 
+                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                </div>
+            </section>
+
+            <!-- /author  -->
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="http://twitter.com/share?text=Primeros pasos con Google Glass (I)&amp;url=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+            
+            <!-- Add Disqus Comments -->
+            
+            
+        </footer>
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+
+    <!-- [[! next_post ]] -->
+    
+        <a class="read-next-story no-cover" href="/blog/2014/03/cita-equipo-mas-importante-calidad-nivel-personas-equipo-que-forma-que-decida-trabajar-equipo/">
+            <section class="post">
+                <h2>En un equipo es más importante...</h2>
+                <p>En un equipo es más importante la calidad y el nivel de las personas del...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /next_post ]] -->
+    <!-- [[! prev_post ]] -->
+    
+        <a class="read-next-story prev no-cover" href="/blog/2014/03/antipatrones-de-navegacion-en-android/">
+            <section class="post">
+                <h2>10 antipatrones de navegación en Android</h2>
+                <p>Los chicos de Android Design in Action han publicado un video en YouTube donde nos...</p>
+            </section>
+        </a>
+    
+    <!-- [[! /prev_post ]] -->
+</aside>
+
+<!-- /post -->
+
+
+        <footer class="site-footer clearfix">
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
+        </footer>
+    </div>
+    <script type="text/javascript" src="/assets/js/jquery.fitvids.js"></script>
+    <script type="text/javascript" src="/assets/js/index.js"></script>
+
+    <!-- Add Google Analytics  -->
+        <!-- Google Analytics Tracking code -->
+     <script>
+	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	    ga('create', 'UA-48361320-1', 'auto');
+	    ga('send', 'pageview');
+
+     </script>   
+</body>
+</html>
