@@ -86,12 +86,14 @@
     <nav class="main-nav  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
+            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+        
     </nav>
 </header>
 
 <main class="content" role="main">
 
-    <article class="">
+    <article class="post tag-test tag-content">
 
         <header class="post-header">
             <h1 class="post-title">Esto empieza...</h1>
@@ -99,27 +101,34 @@
             <!-- <a href='/'>Rayco Araña</a> -->
             <time class="post-date" datetime="2014-02-23">23 Feb 2014</time>
                 <!-- [[tags prefix=" on "]] -->
+                 
+                on 
+                
+                    
+                       <a href='/tag/misc'>Misc</a>
+                       
+                
                 
             </section>
         </header>
 
         <section class="post-content">
             
-            <p>[code language=”java”]
-package com.raycoarana.blog;</p>
+            <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">raycoarana</span><span class="o">.</span><span class="na">blog</span><span class="o">;</span>
 
-<p>public class Blog {</p>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="o">{</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>public static void main(String[] args) {
-    Blog blog = new Blog();
-    blog.addTheme("feather");
-    blog.prepare();
-    blog.publish(new PublishListener(){
-        public void onSuccess() {
-            System.out.println("Let's start coding!");
-        }
-    });
-} } [/code]
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Blog</span> <span class="n">blog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Blog</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">addTheme</span><span class="o">(</span><span class="s">"feather"</span><span class="o">);</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="k">new</span> <span class="n">PublishListener</span><span class="o">(){</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Let's start coding!"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 
@@ -133,7 +142,7 @@ package com.raycoarana.blog;</p>
 
             
             <figure class="author-image">
-                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">raycoarana's Picture</span></a>
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">'s Picture</span></a>
             </figure>
             
 

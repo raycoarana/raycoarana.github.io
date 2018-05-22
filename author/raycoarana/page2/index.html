@@ -104,7 +104,7 @@
             <span class="author-location icon-location">Madrid, Spain</span>
             <span class="author-link icon-link"><a href="http://raycoarana.com/">raycoarana.com</a></span>
             <!-- <span class="author-stats"><i class="icon-stats"></i> [[plural ../pagination.total empty='No posts' singular='% post' plural='% posts']]</span> -->
-            <span class="author-stats"><i class="icon-stats"></i>6 posts</span>
+            <span class="author-stats"><i class="icon-stats"></i>7 posts</span>
         </div>
     </section>
 <!-- /author -->
@@ -175,6 +175,47 @@
                 
             
             <time class="post-date" datetime="2014-06-19">19 Jun 2014</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/02/hello-world/">Esto empieza...</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">raycoarana</span><span class="o">.</span><span class="na">blog</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Blog</span> <span class="n">blog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Blog</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">addTheme</span><span class="o">(</span><span class="s">"feather"</span><span class="o">);</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="k">new</span> <span class="n">PublishListener</span><span class="o">(){</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Let's start coding!"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+ <a class="read-more" href="/blog/2014/02/hello-world/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/misc'>Misc</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-02-23">23 Feb 2014</time>
         </footer>
     </article>
     

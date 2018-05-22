@@ -12,6 +12,138 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>Concurrency with Promise Style. DroidCon 2015</title>
+	  <link>//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2015-04-25T17:25:02+02:00</pubDate>
+	  <guid>//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</guid>
+	  <description><![CDATA[
+	     <p>Os dejo por aquí la presentación de mi charla de hoy en la DroidCon Spain 2015 dónde hablamos del patrón Promise, como implementarlo con jDeferred y como podemos beneficiarnos de su uso.</p>
+
+<p><a href="https://speakerd.s3.amazonaws.com/presentations/ef9ad55c34fe4a68b961eb0a214f34ce/Concurrency-with-Promise-Style.pdf"><strong>Descargar</strong></a></p>
+
+<script async="" class="speakerdeck-embed" data-id="ef9ad55c34fe4a68b961eb0a214f34ce" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>Baindo, un MVVM diferente para Android</title>
+	  <link>//blog/2015/01/baindo-un-mvvm-diferente-para-android/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2015-01-20T22:59:40+01:00</pubDate>
+	  <guid>//blog/2015/01/baindo-un-mvvm-diferente-para-android/</guid>
+	  <description><![CDATA[
+	     <p>Hoy os vengo a presentar algo en lo que llevo un tiempo trabajando, <strong>Baindo</strong>, un framework para aplicar <strong>MVVM en aplicaciones Android</strong>, del que quiero mostraros un <em>Sneak Peek</em> del estado actual.
+¿Por qué otro framework MVVM si existen miles? La respuesta a esta pregunta está en las ideas base que inspiran Baindo:</p>
+
+<ul>
+  <li>Evitar el uso de cualquier tipo de Reflection.</li>
+  <li>Sintaxis cómoda en código Java. Nada de Custom Views o Custom Attributes en nuestros layouts.</li>
+  <li>ViewModels sencillos y con ninguna dependencia con Android.</li>
+  <li>Maximizar el rendimiento del hilo de UI. Comandos y eventos de modificación de las propiedades se ejecutan en Background.</li>
+  <li>Actualización de UI desde cualquier hilo a través de las propiedades del ViewModel. Olvidate de tener que usar AsyncTask, Handlers o similares para hacer cambios en la UI.</li>
+</ul>
+
+<p>Pinta bien, ¿no? ;-). Pues además será OpenSource y estará disponible en GitHub muy pronto. Veamos que pinta tiene.</p>
+
+<!--more-->
+
+<h3 id="un-ejemplo-sencillo">Un ejemplo sencillo</h3>
+
+<p>Vamos a hacer un ejemplo sencillo de como seria su uso. Hagamos un simple hola mundo con un Button y un TextView que al pulsar dicho botón, nos muestre el mensaje <em>“HelloWorld!”</em> en el TextView.</p>
+
+<p>Lo primero es hacer el layout de la vista.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:id=</span><span class="s">"@+id/message"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;Button</span>
+        <span class="na">android:id=</span><span class="s">"@+id/button"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"Tap me!"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
+
+<p>Ahora creamos el ViewModel para nuestro ejemplo, tenemos una acción a ejecutar, luego pondremos un comando y una propiedad de tipo CharSequence a la que asignar el valor <strong>“HelloWorld!”</strong>.
+Creamos la propiedad como un atributo público de tipo <code class="highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
+A continuación el comando como un atributo público de tipo <code class="highlighter-rouge">Command</code>, que llamamos <code class="highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="highlighter-rouge">setValue()</code> de la propiedad <code class="highlighter-rouge">Message</code>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Property</span><span class="o">&lt;</span><span class="n">CharSequence</span><span class="o">&gt;</span> <span class="n">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Property</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Command</span> <span class="n">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Sencillo, limpio y fácil de probar.</p>
+
+<p>A continuación creamos un <code class="highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
+
+<p>En este <code class="highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="highlighter-rouge">bindViews()</code> justo después del <code class="highlighter-rouge">setContentView()</code>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="n">BaindoActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewModel</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
+
+        <span class="n">bindViews</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="highlighter-rouge">Button</code> del layout y el comando <code class="highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="highlighter-rouge">TextView</code> y la propiedad <code class="highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="highlighter-rouge">readOnly</code>) o bidireccional (<code class="highlighter-rouge">readWrite</code>).</p>
+
+<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
+
+<p>En este caso vamos a ponerlo en modo readOnly, ya que solo queremos que la vista muestre lo que tiene el ViewModel sin modificarlo en ningún caso.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">bind</span><span class="o">().</span><span class="na">text</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">Message</span><span class="o">).</span><span class="na">readOnly</span><span class="o">();</span>
+        <span class="n">bind</span><span class="o">().</span><span class="na">click</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">SayHelloCommand</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
+
+<p>El código que hemos escrito en el comando se ejecuta en un hilo separado, un hilo que llamaremos <strong>hilo del ViewModel</strong>, así pues tendremos en nuestra app <strong>un hilo de UI y tantos hilos como Activities/Fragments tengamos en pantalla</strong>. Estos hilos son avisados cuando se producen cambios en la UI y notifican cambios en el ViewModel al hilo de UI.</p>
+
+<h3 id="puedo-hacer-cualquier-cosa-en-un-hilo-de-viewmodel">¿Puedo hacer cualquier cosa en un hilo de ViewModel?</h3>
+<p>Pues si y no, depende de tu ViewModel y tu vista, hay que tener en cuenta que si bien no vas a bloquear nunca la UI, si que puedes producir el efecto de que al pulsar un botón no pasa nada hasta pasado un tiempo. <strong>Si el hilo del ViewModel está ocupado, no puede atender a ese nuevo evento de UI</strong>, los cuales serán atendidos una vez el hilo del ViewModel quede liberado. Lo ideal del hilo de ViewModel es hacer esos pequeños cálculos previos a pintar nuestros modelos. No es un proceso de negocio, sino un proceso de  preparación para ser mostrado en UI como manejo de cadenas, pequeñas operaciones, coordinar operaciones en background, etc.</p>
+
+<p>Con este esquema <strong>conseguimos la mejor respuesta de la UI al usuario</strong>. Adiós parones, bajadas de framerate en animaciones, etc., gracias a Baindo podemos olvidarnos de todo esto. Estad atentos al blog, <strong>muy pronto publicaré la primera alpha</strong> para que podáis trastear con ella, hasta entonces, sed pacientes!!</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>RoboRouter, mi primera librería OpenSource</title>
 	  <link>//blog/2014/11/roborouter/</link>
 	  <author>Rayco Araña</author>
@@ -1286,346 +1418,6 @@ private void onMenuClose() {
 <h3 id="continuará">Continuará…</h3>
 
 <p>Ahora que ya sabemos como manejar las tarjetas y mostrar acciones sobre ellas, vamos a ver cómo podemos trabajar con el Timeline, veremos cómo podemos crear tarjetas estáticas, tarjetas dináminas e incorporarlas en el Timeline, pudiendo el usuario interactuar con ellas sin la necesidad de abrir nuestra aplicación.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>Voice triggers. Primeros pasos con Google Glass (III)</title>
-	  <link>//blog/2014/03/primeros-pasos-con-google-glass-iii/</link>
-	  <author>Rayco Araña</author>
-	  <pubDate>2014-03-28T18:47:02+01:00</pubDate>
-	  <guid>//blog/2014/03/primeros-pasos-con-google-glass-iii/</guid>
-	  <description><![CDATA[
-	     <p>En el anterior artículo sobre los primeros pasos con Google Glass empezamos a ver el concepto de <strong>Voice trigger</strong>, los comandos de voz que permiten lanzar nuestras aplicaciones. Vamos a hablar un poco más cerca de ellas y qué cosas podemos hacer a día de hoy con la API.</p>
-
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="voice-triggers-con-prompt">Voice triggers con prompt</h3>
-
-<p>Una de las primeras cosas que podemos hacer con un Voice trigger es hacerle una pregunta al usuario. Es decir, el usuario dice <strong><em>Ok glass, google</em></strong>, entonces el sistema antes de abrir la aplicación de Google, abre una interfaz en la que muestra una pregunta y espera a que el usuario responda a ella. Luego una vez el usuario responde a la pregunta, lanza la aplicación proporcionando como parámetro el texto capturado.</p>
-
-<p>[caption id=”attachment_258” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/1.prompt.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/1.prompt-300x168.png" alt="Prompt de la aplicación de Google" /></a> Prompt de la aplicación de Google[/caption]</p>
-
-<p>Para asociar un prompt a nuestro voice trigger es tan sencillo como añadir una etiqueta <strong><em>input</em></strong> con un atributo <strong><em>prompt</em></strong> dentro de la etiqueta <strong><em>trigger</em></strong> de la siguiente forma:</p>
-
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-<trigger keyword="@string/glass_voice_trigger">
-    <input prompt="@string/glass_voice_prompt" />
-</trigger>
-<p>[/code]</p>
-
-<p>Así de sencillo, con esto cuando el usuario lance nuestra aplicación, el sistema mostrará esa interfaz y capturará lo dicho por el usuario. Pero, ¿cómo recibimos esa información en nuestra aplicación? Pues como no podía ser de otra forma, a través del <strong>Intent</strong>. Para obtenerlo, debemos usar la constante <strong>RecognizerIntent.EXTRA_RESULTS</strong>, con la que obtendremos una lista de String con cada una de las palabras capturadas.</p>
-
-<p>[code language=”java”]
-ArrayList<String> voiceResults = getIntent().getExtras()
-        .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
-[/code]</String></p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="creando-un-voice-trigger-con-prompt">Creando un Voice trigger con prompt</h3>
-
-<p>Vamos a poner en práctica lo anterior, creamos una nueva actividad en nuestro proyecto (o creamos un proyecto nuevo como <a href="http://raycoarana.com/desarrollo/primeros-pasos-con-google-glass-ii/">ya vimos</a>) con su layout, donde vamos a mostrar el texto que hemos capturado del usuario.</p>
-
-<p>Creamos un layout con nombre <strong>activity_askmesomething.xml</strong>, cuyo contenido será el siguiente.</p>
-
-<p>[code language=”xml”]</p>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
-
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textSize="18sp" android:text="I ask you something and you respond" />
-
-    <TextView android:id="@+id/captured_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" />
-
-</LinearLayout>
-<p>[/code]</p>
-
-<p>Ahora creamos la actividad, enlazando con este layout.</p>
-
-<p>[code language=”java”]
-public class AskMeSomethingActivity extends Activity {</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_askmesomething);
-} } [/code]
-</code></pre>
-</div>
-
-<p>Ahora vamos a obtener una referencia al <strong>TextView</strong> donde vamos a mostrar el texto capturado, recomponemos el texto capturado con un <strong>StringBuilder</strong> y lo asignamos al <strong>TextView</strong>. Quedaría algo así:</p>
-
-<p>[code language=”java”]
-…
-        ArrayList<String> voiceResults = getIntent().getExtras()
-                .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);</String></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    StringBuilder inputBuilder = new StringBuilder();
-    for(String voiceToken : voiceResults) {
-        inputBuilder.append(voiceToken);
-        inputBuilder.append(" ");
-    }
-
-    TextView capturedInputText = (TextView)findViewById(R.id.captured_input);
-    capturedInputText.setText(inputBuilder.toString()); ... [/code]
-</code></pre>
-</div>
-
-<p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <strong><em>askmesomething_trigger.xml</em></strong> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
-
-<p>[code language=”xml”]</p>
-<trigger keyword="@string/trigger_ask_me_something">
-    <input prompt="@string/prompt_ask_me_something" />
-</trigger>
-<p>[/code]</p>
-
-<p>Modificamos el fichero <strong><em>strings.xml</em></strong> para agregar las nuevas cadenas.</p>
-
-<p>[code language=”xml”]</p>
-<string name="trigger_ask_me_something">ask me something</string>
-<string name="prompt_ask_me_something">What\'s your favourite color?</string>
-<p>[/code]</p>
-
-<p>Y por último agregamos la actividad al <strong><em>AndroidManifest.xml</em></strong>.</p>
-
-<p>[code language=”xml”]
-…
-        <activity android:name=".AskMeSomethingActivity" android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"></action>
-            </intent-filter></activity></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
-            android:resource="@xml/askmesomething_trigger" /&gt;
-    &lt;/activity&gt; ... [/code]
-</code></pre>
-</div>
-
-<p>Y ya tenemos todo listo, ahora solo nos falta lanzar la aplicación, decir <strong><em>Ok glass, ask me something</em></strong> y veremos la siguiente pantalla:</p>
-
-<p>[caption id=”attachment_259” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/2.our_prompt.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/2.our_prompt-300x168.png" alt="Prompt de nuestra aplicación" /></a> Prompt de nuestra aplicación[/caption]</p>
-
-<p>Al responder a la pregunta, se lanzará nuestra aplicación, mostrando por pantalla lo capturado:</p>
-
-<p>[caption id=”attachment_260” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/3.horse_is_black.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/3.horse_is_black-300x168.png" alt="Pantalla con el resultado de la captura" /></a> Pantalla con el resultado de la captura[/caption]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="restricciones">Restricciones</h3>
-
-<p>Una última cosa que nos queda por comentar de los Voice triggers es la posibilidad de <strong>deshabilitarlos en función del estado del sistema</strong>, es decir, si alguna de las características del dispositivo no está disponible por la razón que fuera, el sistema deshabilita aquellos comandos de voz que lo requieran. Actualmente existen tres:</p>
-
-<ul>
-  <li>
-    <p>camera</p>
-  </li>
-  <li>
-    <p>network</p>
-  </li>
-  <li>
-    <p>microphone</p>
-  </li>
-</ul>
-
-<p>Por ejemplo, si nuestra aplicación requiere de conexión a internet, podemos limitar su uso con el siguiente código, donde podemos ver que se ha añadido la etiqueta <strong>constraints</strong> con el atributo <strong>network</strong> a <strong>true</strong>.</p>
-
-<p>[code language=”xml”]</p>
-<trigger keyword="@string/trigger_ask_me_something">
-    <constraints network="true" />
-</trigger>
-<p>[/code]</p>
-
-<p>Y esto es todo, el código de este artículo lo tenéis en el repositorio de esta serie de artículos, bajo la carpeta <strong>2.VoiceTriggers</strong>.</p>
-
-<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="continuará">Continuará…</h3>
-
-<p>En el próximo artículo vamos a empezar a trabajar con la <strong>Card API</strong> para crear una interfaz con la que podamos navegar e interactuar. Veremos cómo utilizar las clases <em>Card</em>, <em>CardScrollView</em> y <em>CardScrollAdapter</em> para conseguir una interfaz similar a la que podemos ver en las aplicaciones Google Glass, sin ir más lejos, el propio <strong>Timeline</strong> usa esta dinámica.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>Primeros pasos con Google Glass (II)</title>
-	  <link>//blog/2014/03/primeros-pasos-con-google-glass-ii/</link>
-	  <author>Rayco Araña</author>
-	  <pubDate>2014-03-26T08:42:01+01:00</pubDate>
-	  <guid>//blog/2014/03/primeros-pasos-con-google-glass-ii/</guid>
-	  <description><![CDATA[
-	     <p>Siguiendo la serie de artículos de primeros pasos Google Glass, toca empezar a ponernos manos a la obra con nuestra primera aplicación. En el último artículo sobre Google Glass, dimos un vistazo general de sus características técnicas y de uso, que nos sirve para tener idea de que se puede y que no se puede hacer con ellas. Si bien hay que tener en cuenta que estamos ante un producto que está aún en una fase temprana de desarrollo y que muchas cosas cambiarán hasta que su salida a la venta al público general.</p>
-
-<!-- more -->
-
-<p>Si no lo has leído, te recomiendo que hagas un repaso rápido al artículo antes de seguir con este, ya que te aclarará aspectos básicos de Google Glass.</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="configurando-el-entorno-de-desarrollo">Configurando el entorno de desarrollo</h3>
-
-<p>El primer paso necesario para desarrollar para Google Glass será hacernos con el <strong>GDK (Glass Development Kit)</strong>, actualmente se encuentra disponible la versión <strong>Sneak Peak</strong>, que nos da indicaciones de que es en <strong>una versión muy inmadura</strong> y todo puede cambiar de una actualización a otra sin previo aviso.</p>
-
-<p>Para instalar el GDK, nos vamos a Android Studio (actualmente versión 0.5.2), y abrimos el SDK Manager. Como comentamos en el artículo anterior, Google Glass funciona con Android 4.0.3, por lo que el GDK lo veremos bajo grupo <strong>Android 4.0.3 (API 15)</strong>, ahí encontraremos el Glass Development Kit Sneak Peek listo para instalar.</p>
-
-<p>[caption id=”attachment_220” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/1.InstalandoGDK.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/1.InstalandoGDK-300x214.png" alt="Instalando GDK" /></a> Instalando GDK[/caption]</p>
-
-<p>Una vez instalado el GDK, ya podemos comenzar el desarrollo de nuestra primera aplicación. Antes os debo dar una mala noticia, a día de hoy <strong>no existe un emulador de Google Glass</strong>, así que no busquéis una imagen del sistema para Google Glass. A día de hoy la única forma de probar una aplicación Google Glass <strong>es tener una físicamente</strong> sobre la que instalar y depurar las mismas.</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="creación-del-proyecto">Creación del proyecto</h3>
-
-<p>Vamos a crear nuestra primera aplicación, para ello iniciamos el asistente de nuevo proyecto en nuestro Android Studio y lo configuramos como podéis ver en la siguiente imagen. Básicamente dado que Google Glass a día de hoy funciona solo con Android 4.0.3, pondremos este nivel de API como <strong><em>Minimum required SDK</em></strong> y <strong><em>Target SDK</em></strong>. Así tendremos la seguridad de no utilizar API que no tengamos disponible. Si en un futuro como ya se comienza a rumorear se actualiza Glass a una versión de Android más nueva, sería conveniente cambiar el <strong><em>Target SDK</em></strong> a la nueva versión.
-Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 15, sino el <strong>Glass Development Kit Sneak Peak (Google Inc.) (API 15)</strong>. Os recomiendo desmarcar la opción de crear una primera actividad, a mi siempre me gusta <strong>partir de un proyecto vacío</strong> y crear, más que partir de un proyecto lleno de código demo y tener que estar haciendo limpieza.</p>
-
-<p>[caption id=”attachment_225” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/2.CreandoElProyecto.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/2.CreandoElProyecto-300x194.png" alt="Creando el proyecto" /></a> Creando el proyecto[/caption]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="retocando-el-buildgradle">Retocando el build.gradle</h3>
-
-<p>Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
-
-<p>[code language=”plain”]
-apply plugin: ‘android’</p>
-
-<p>android {
-    compileSdkVersion “Google Inc.:Glass Development Kit Sneak Peek:15”
-    buildToolsVersion “19.0.2”</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion 15 ... [/code]
-</code></pre>
-</div>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="androidmanifest-y-estilos">AndroidManifest y estilos</h3>
-
-<p>El siguiente paso que debemos hacer será modificar el <strong><em>AndroidManifest.xml</em></strong> para requerir el GDK. Esto es opcional, si no lo requerimos no pasa nada, pero hay que tener en cuenta que entonces nuestra aplicación <strong>se podría instalar en otros dispositivos</strong> y al no tener estos la API del GDK, <strong>fallará</strong> al no encontrarlas.</p>
-
-<p>Necesitamos agregar el siguiente trozo de código dentro de la etiqueta <em><strong>application</strong></em>:</p>
-
-<p>[code language=”xml”]</p>
-<uses-library android:name="com.google.android.glass" android:required="true" />
-
-<p>[/code]</p>
-
-<p>Para terminar de configurar el proyecto antes de comenzar a escribir código de verdad, tendremos que modificar el fichero <strong><em>res/values/styles.xml</em></strong>, para cambiar el tema base que usará nuestra aplicación. Si dejamos el que pone Android Studio, <strong>nos aparecerá en nuestra aplicación Google Glass el Action Bar</strong>, cosa nada deseable. Debemos configurar el tema para que herede del tema que trae el sistema por defecto, quedando nuestro fichero <strong><em>styles.xml</em></strong> de la siguiente forma:</p>
-
-<p>[code language=”xml”]</p>
-<resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.DeviceDefault">
-        <!-- Customize your theme here. -->
-    </style>
-
-</resources>
-<p>[/code]</p>
-
-<p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <em>drawable-mdpi</em>, <em>drawable-xhdpi</em>, <em>drawable-xxhdpi</em>, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="helloworld-from-glass">Helloworld from Glass!</h3>
-
-<p>Ya tenemos nuestro proyecto listo para comenzar a desarrollar, los pasos anteriores hasta que mejore el soporte de Android Studio para el desarrollo de Glassware, serán el pan de cada día. A partir de ahora, vamos a generar una simple actividad, que muestre un mensaje en pantalla y configuraremos nuestra aplicación para que el usuario pueda lanzarla con un comando de voz.</p>
-
-<p>Creamos una nueva clase llamada <strong><em>HelloWorldActivity</em></strong>, haciendo que extienda de <strong><em>Activity</em></strong>. Y como siempre en cualquier aplicación Android, sobrescribimos el método <em><strong>onCreate()</strong></em> y establecemos el layout para nuestra actividad.</p>
-
-<p>[code language=”java”]
-import android.app.Activity;
-import android.os.Bundle;</p>
-
-<p>public class HelloWorldActivity extends Activity {</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_helloworld);
-} } [/code]
-</code></pre>
-</div>
-
-<p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <strong><em>res/layout/activity_helloworld.xml</em></strong>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
-
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="HelloWorld!" />
-
-<p>[/code]</p>
-
-<p>Ahora que ya tenemos nuestra actividad, vamos a crear el lanzador por comando de voz. Para ello tenemos que <strong>crear un Voice Trigger</strong>. Un Voice Trigger es un pequeño fichero XML en el que indicamos a Android el <strong>comando de voz</strong> que queremos que lance nuestra aplicación. Para ello, crear un fichero en <strong><em>res/xml/trigger.xml</em></strong>. En él, pondremos el siguiente código:</p>
-
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-
-<trigger keyword="@string/glass_voice_trigger" />
-
-<p>[/code]</p>
-
-<p>Muy simple, solo estamos indicando cuál es la frase que lanza nuestra aplicación. Vamos ahora a nuestro fichero <em><strong>res/values/string.xml</strong></em> y creamos la cadena <strong><em>glass_voice_trigger</em></strong> con el valor <em>say hello</em>.</p>
-
-<p>[code language=”xml”]</p>
-<resources>
-
-...
-
-    <string name="glass_voice_trigger">say hello</string>
-
-...
-
-</resources>
-<p>[/code]</p>
-
-<p>Pero, ¿cómo relaciona Glass el comando de voz con la actividad que queremos que lance? Pues como siempre en Android, todo ello se configura como un <strong><em>intent-filter</em></strong>, con el cual indicaremos al sistema qué comando de voz queremos que dispare nuestra actividad. Nos vamos al <strong><em>AndroidManifest.xml</em></strong> y agregamos la actividad que hemos creado, añadiendo un <strong><em>intent-filter</em></strong> que capture la acción <strong><em>com.google.android.glass.action.VOICE_TRIGGER</em></strong> y añadimos como metadatos el fichero xml que creamos anteriormente, quedando así:</p>
-
-<p>[code language=”xml”]
-…
-    &lt;application …&gt;</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    ...
-
-    &lt;activity
-        android:name=".HelloWorldActivity"
-        android:label="@string/app_name"&gt;
-        &lt;intent-filter&gt;
-            &lt;action android:name="com.google.android.glass.action.VOICE_TRIGGER" /&gt;
-        &lt;/intent-filter&gt;
-
-        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
-                   android:resource="@xml/trigger" /&gt;
-    &lt;/activity&gt;
-
-&lt;/application&gt; ... [/code]
-</code></pre>
-</div>
-
-<p>Y con esto ya tenemos nuestra aplicación lista para ser lanzada. Conectamos la Google Glass y lanzamos la aplicación. Una cosa que notaréis es que el entorno os dirá que no tenéis definido ninguna actividad principal. Ignoradlo y haced que se lance sin configurar ninguna actividad por defecto.</p>
-
-<p>[caption id=”attachment_246” align=”aligncenter” width=”180”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/3.LanzandoLaApp.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/3.LanzandoLaApp-180x300.png" alt="Configurar el lanzamiento de nuestra app" /></a> Configurar el lanzamiento de nuestra app[/caption]</p>
-
-<p>Una vez instalada, solo nos queda decir “Ok glass, say hello”. En el desarrollo normal de la aplicación, nos interesará que esta se lance directamente sin tener que decir el comando de voz, simplemente tenemos que volver a acceder a la pantalla anterior y establecer la actividad que queremos que se inicie cada vez que lancemos la aplicación desde Android Studio.</p>
-
-<p>[caption id=”attachment_247” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/4.HelloWorld.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/4.HelloWorld-300x168.png" alt="App HelloWorld" /></a> App HelloWorld[/caption]</p>
-
-<p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <strong>1.Helloworld</strong>. <em>Happy coding!</em></p>
-
-<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="continuará">Continuará…</h3>
-
-<p>En el próximo artículo veremos cómo jugar un poco más con los trigger, qué configuración nos permite y cómo podemos obtener datos de lo que nos diga el usuario.</p>
 
 	  ]]></description>
 	</item>

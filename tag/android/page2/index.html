@@ -93,7 +93,7 @@
             <h1 class="page-title">Android</h1>
             <h2 class="page-description">
             
-			    A 13-post collection
+			    A 15-post collection
             
             </h2>
         </div>
@@ -122,6 +122,194 @@
     </div>
 
     <!-- This is the post loop - each post will be output using this markup -->
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/06/prototipado-de-apps-con-wireframesketcher/">Prototipado de apps con WireframeSketcher</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Aunque este es un blog fundamentalmente de desarrollo, hoy quería comentar un poco algo que nos toca siempre al comenzar una aplicación: la conceptualización. En el desarrollo móvil no es ningún secreto que tenemos <strong>el problema del tamaño de la pantalla</strong> -a pesar de los pseudo tablets que tenemos ahora por teléfonos-. A la hora de conceptualizar la aplicación, es fundamental utilizar una <strong>herramienta que nos permita de forma rápida poder organizar la información</strong> y cómo se comportará nuestra app.</p>
+
+<p>Desde hace un tiempo he estado buscando la mejor herramienta para esta labor. Algo fundamental que debe tener una herramienta de este tipo es que <strong>respete las proporciones de los componentes nativos</strong> de la plataforma. Sin esto, conceptualizar una pantalla es un disparate, ya que estamos organizando la información en base a una premisa que puede ser falsa y a la hora de llevarla a la práctica, podemos ver que las cosas no nos caben -o nos sobra espacio-. En esta búsqueda me he topado con <strong>WireframeSketcher</strong>, una herramienta la mar de interesante, basada en Eclipse y con todos los elementos nativos de Android 4.X -también tiene los de iOS y Windows Phone entre otros-. Vamos a ver las principales características de esta herramienta.</p>
+
+ <a class="read-more" href="/blog/2014/06/prototipado-de-apps-con-wireframesketcher/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/assets'>Assets</a>,
+                       
+                
+                    
+                       <a href='/tag/prototipado'>Prototipado</a>,
+                       
+                
+                    
+                       <a href='/tag/wireframe'>Wireframe</a>,
+                       
+                
+                    
+                       <a href='/tag/wireframesketcher'>Wireframesketcher</a>,
+                       
+                
+                    
+                       <a href='/tag/design'>Design</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-06-19">19 Jun 2014</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">Calligraphy, fuentes personalizadas en Android</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Si hay una cosa que es un <strong>dolor de muelas</strong> en Android es cuando tienes que hacer una app que usa <strong>fuentes personalizadas</strong>. Aunque es incluso peor, si queremos usar la moderna Roboto, ya tenemos el lío formado, ya que en Android 2.3 no la tendremos tampoco. Y es que utilizar fuentes personalizadas es algo que está muy mal resuelto incluso aún hoy en la última versión del sistema (4.4.3 a día de hoy).</p>
+
+<p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
+
+<p>[code language=”java”]
+Typeface tf = Typeface.createFromAsset(getAssets(), 
+                                       “fonts/mycustomfont.ttf”);</p>
+
+<p>TextView myView = (TextView) findViewById(android.R.id.text1);
+myView.setTypeface(tf);
+[/code]</p>
+
+<p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
+
+<!-- more -->
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="solución-1-controles-personalizados">Solución 1. Controles personalizados</h3>
+
+<p>Una primera solución a este problema es utilizar controles personalizados para agregarles un atributo en el que indiquemos que fuente utilizar. Existen varias librerías que implementan esta forma de trabajo con las que simplemente debes utilizar sus vistas en vez de las vistas por defecto. Por ejemplo la librería <a href="https://github.com/neopixl/PixlUI">PixlUI</a> utiliza esta aproximación.</p>
+
+<p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <com.neopixl.pixlui.components.textview.TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" pixlui:typeface="mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
+
+<p>Esta otra solución, implementada por esta librería llamada Calligraphy es tremendamente interesante, con <strong>una aproximación mucho más elegante</strong> a la hora de resolver el problema. En vez de regar nuestra aplicación con referencias a controles externos, esta librería crea un <strong>Wrapper tanto al objeto Context como al objeto LayoutInflater</strong> para interceptar toda referencia a las clases <em>TextView</em>, <em>Button</em>, <em>EditText</em>, <em>AutoCompleteTextView</em>, <em>MultiAutoCompleteTextView</em>, <em>CheckBox</em>, <em>RadioButton</em> y <em>ToggleButton</em>. Cuando detecta la instanciación de cualquiera de estos en nuestro <em>layout</em>, crea la fuente asociada y se la asigna a la vista. Esto además haciendo uso de una caché de fuentes y demás optimizaciones.</p>
+
+<p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
+
+<p>[code language=”java”]
+@Override
+protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+}
+[/code]</p>
+
+<p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" android:fontFamily="fonts/mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+<Resources>
+    <attr name="customFont" />
+</Resources>
+<p>[/code]</p>
+
+<p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
+
+<p>[code language=”java”]
+@Override
+protected void attachBaseContext(Context newBase) {
+    super.attachBaseContext(new CalligraphyContextWrapper(newBase, R.attr.customFont));
+}
+[/code]</p>
+
+<p>Y ya solo nos queda utilizarlo en las vistas.</p>
+
+<p>[code language=”xml”]
+<?xml version="1.0" encoding="utf-8"?></p>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" customFont="fonts/mycustomfont.ttf" />
+
+...
+
+</LinearLayout>
+<p>[/code]</p>
+
+<p>[sh_margin margin=”20”]</p>
+
+<h3 id="conclusiones">Conclusiones</h3>
+
+<p>Sin duda Calligraphy <strong>es lo que Google debería haber soportado en Android desde hace mucho tiempo</strong>. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que <strong>podemos centralizar el uso de las fuentes en nuestros ficheros de estilos</strong>. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.</p>
+
+<p>[github repo=”chrisjenx/Calligraphy”]</p>
+ <a class="read-more" href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/calligraphy'>Calligraphy</a>,
+                       
+                
+                    
+                       <a href='/tag/fuentes'>Fuentes</a>,
+                       
+                
+                    
+                       <a href='/tag/personalizadas'>Personalizadas</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-06-16">16 Jun 2014</time>
+        </footer>
+    </article>
     
     <article class="post">
         <header class="post-header">
@@ -966,412 +1154,6 @@ private void onMenuClose() {
                 
             
             <time class="post-date" datetime="2014-03-31">31 Mar 2014</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/blog/2014/03/primeros-pasos-con-google-glass-iii/">Voice triggers. Primeros pasos con Google Glass (III)</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>En el anterior artículo sobre los primeros pasos con Google Glass empezamos a ver el concepto de <strong>Voice trigger</strong>, los comandos de voz que permiten lanzar nuestras aplicaciones. Vamos a hablar un poco más cerca de ellas y qué cosas podemos hacer a día de hoy con la API.</p>
-
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="voice-triggers-con-prompt">Voice triggers con prompt</h3>
-
-<p>Una de las primeras cosas que podemos hacer con un Voice trigger es hacerle una pregunta al usuario. Es decir, el usuario dice <strong><em>Ok glass, google</em></strong>, entonces el sistema antes de abrir la aplicación de Google, abre una interfaz en la que muestra una pregunta y espera a que el usuario responda a ella. Luego una vez el usuario responde a la pregunta, lanza la aplicación proporcionando como parámetro el texto capturado.</p>
-
-<p>[caption id=”attachment_258” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/1.prompt.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/1.prompt-300x168.png" alt="Prompt de la aplicación de Google" /></a> Prompt de la aplicación de Google[/caption]</p>
-
-<p>Para asociar un prompt a nuestro voice trigger es tan sencillo como añadir una etiqueta <strong><em>input</em></strong> con un atributo <strong><em>prompt</em></strong> dentro de la etiqueta <strong><em>trigger</em></strong> de la siguiente forma:</p>
-
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-<trigger keyword="@string/glass_voice_trigger">
-    <input prompt="@string/glass_voice_prompt" />
-</trigger>
-<p>[/code]</p>
-
-<p>Así de sencillo, con esto cuando el usuario lance nuestra aplicación, el sistema mostrará esa interfaz y capturará lo dicho por el usuario. Pero, ¿cómo recibimos esa información en nuestra aplicación? Pues como no podía ser de otra forma, a través del <strong>Intent</strong>. Para obtenerlo, debemos usar la constante <strong>RecognizerIntent.EXTRA_RESULTS</strong>, con la que obtendremos una lista de String con cada una de las palabras capturadas.</p>
-
-<p>[code language=”java”]
-ArrayList<String> voiceResults = getIntent().getExtras()
-        .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);
-[/code]</String></p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="creando-un-voice-trigger-con-prompt">Creando un Voice trigger con prompt</h3>
-
-<p>Vamos a poner en práctica lo anterior, creamos una nueva actividad en nuestro proyecto (o creamos un proyecto nuevo como <a href="http://raycoarana.com/desarrollo/primeros-pasos-con-google-glass-ii/">ya vimos</a>) con su layout, donde vamos a mostrar el texto que hemos capturado del usuario.</p>
-
-<p>Creamos un layout con nombre <strong>activity_askmesomething.xml</strong>, cuyo contenido será el siguiente.</p>
-
-<p>[code language=”xml”]</p>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center">
-
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" android:textSize="18sp" android:text="I ask you something and you respond" />
-
-    <TextView android:id="@+id/captured_input" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center" />
-
-</LinearLayout>
-<p>[/code]</p>
-
-<p>Ahora creamos la actividad, enlazando con este layout.</p>
-
-<p>[code language=”java”]
-public class AskMeSomethingActivity extends Activity {</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_askmesomething);
-} } [/code]
-</code></pre>
-</div>
-
-<p>Ahora vamos a obtener una referencia al <strong>TextView</strong> donde vamos a mostrar el texto capturado, recomponemos el texto capturado con un <strong>StringBuilder</strong> y lo asignamos al <strong>TextView</strong>. Quedaría algo así:</p>
-
-<p>[code language=”java”]
-…
-        ArrayList<String> voiceResults = getIntent().getExtras()
-                .getStringArrayList(RecognizerIntent.EXTRA_RESULTS);</String></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    StringBuilder inputBuilder = new StringBuilder();
-    for(String voiceToken : voiceResults) {
-        inputBuilder.append(voiceToken);
-        inputBuilder.append(" ");
-    }
-
-    TextView capturedInputText = (TextView)findViewById(R.id.captured_input);
-    capturedInputText.setText(inputBuilder.toString()); ... [/code]
-</code></pre>
-</div>
-
-<p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <strong><em>askmesomething_trigger.xml</em></strong> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
-
-<p>[code language=”xml”]</p>
-<trigger keyword="@string/trigger_ask_me_something">
-    <input prompt="@string/prompt_ask_me_something" />
-</trigger>
-<p>[/code]</p>
-
-<p>Modificamos el fichero <strong><em>strings.xml</em></strong> para agregar las nuevas cadenas.</p>
-
-<p>[code language=”xml”]</p>
-<string name="trigger_ask_me_something">ask me something</string>
-<string name="prompt_ask_me_something">What\'s your favourite color?</string>
-<p>[/code]</p>
-
-<p>Y por último agregamos la actividad al <strong><em>AndroidManifest.xml</em></strong>.</p>
-
-<p>[code language=”xml”]
-…
-        <activity android:name=".AskMeSomethingActivity" android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"></action>
-            </intent-filter></activity></p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
-            android:resource="@xml/askmesomething_trigger" /&gt;
-    &lt;/activity&gt; ... [/code]
-</code></pre>
-</div>
-
-<p>Y ya tenemos todo listo, ahora solo nos falta lanzar la aplicación, decir <strong><em>Ok glass, ask me something</em></strong> y veremos la siguiente pantalla:</p>
-
-<p>[caption id=”attachment_259” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/2.our_prompt.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/2.our_prompt-300x168.png" alt="Prompt de nuestra aplicación" /></a> Prompt de nuestra aplicación[/caption]</p>
-
-<p>Al responder a la pregunta, se lanzará nuestra aplicación, mostrando por pantalla lo capturado:</p>
-
-<p>[caption id=”attachment_260” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/03/3.horse_is_black.png"><img src="http://raycoarana.com/wp-content/uploads/2014/03/3.horse_is_black-300x168.png" alt="Pantalla con el resultado de la captura" /></a> Pantalla con el resultado de la captura[/caption]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="restricciones">Restricciones</h3>
-
-<p>Una última cosa que nos queda por comentar de los Voice triggers es la posibilidad de <strong>deshabilitarlos en función del estado del sistema</strong>, es decir, si alguna de las características del dispositivo no está disponible por la razón que fuera, el sistema deshabilita aquellos comandos de voz que lo requieran. Actualmente existen tres:</p>
-
-<ul>
-  <li>
-    <p>camera</p>
-  </li>
-  <li>
-    <p>network</p>
-  </li>
-  <li>
-    <p>microphone</p>
-  </li>
-</ul>
-
-<p>Por ejemplo, si nuestra aplicación requiere de conexión a internet, podemos limitar su uso con el siguiente código, donde podemos ver que se ha añadido la etiqueta <strong>constraints</strong> con el atributo <strong>network</strong> a <strong>true</strong>.</p>
-
-<p>[code language=”xml”]</p>
-<trigger keyword="@string/trigger_ask_me_something">
-    <constraints network="true" />
-</trigger>
-<p>[/code]</p>
-
-<p>Y esto es todo, el código de este artículo lo tenéis en el repositorio de esta serie de artículos, bajo la carpeta <strong>2.VoiceTriggers</strong>.</p>
-
-<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="continuará">Continuará…</h3>
-
-<p>En el próximo artículo vamos a empezar a trabajar con la <strong>Card API</strong> para crear una interfaz con la que podamos navegar e interactuar. Veremos cómo utilizar las clases <em>Card</em>, <em>CardScrollView</em> y <em>CardScrollAdapter</em> para conseguir una interfaz similar a la que podemos ver en las aplicaciones Google Glass, sin ir más lejos, el propio <strong>Timeline</strong> usa esta dinámica.</p>
- <a class="read-more" href="/blog/2014/03/primeros-pasos-con-google-glass-iii/">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
-            <!-- author -->
-            <a href='/author/raycoarana'>Rayco Araña</a>
-            <!-- [[tags prefix=" on "]] -->
-             
-                on 
-                
-                    
-                       <a href='/tag/android'>Android</a>,
-                       
-                
-                    
-                       <a href='/tag/android studio'>Android studio</a>,
-                       
-                
-                    
-                       <a href='/tag/gdk'>Gdk</a>,
-                       
-                
-                    
-                       <a href='/tag/glassware'>Glassware</a>,
-                       
-                
-                    
-                       <a href='/tag/google glass'>Google glass</a>,
-                       
-                
-                    
-                       <a href='/tag/voice trigger'>Voice trigger</a>
-                       
-                
-            
-            <time class="post-date" datetime="2014-03-28">28 Mar 2014</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">Primeros pasos con Google Glass (II)</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>Siguiendo la serie de artículos de primeros pasos Google Glass, toca empezar a ponernos manos a la obra con nuestra primera aplicación. En el último artículo sobre Google Glass, dimos un vistazo general de sus características técnicas y de uso, que nos sirve para tener idea de que se puede y que no se puede hacer con ellas. Si bien hay que tener en cuenta que estamos ante un producto que está aún en una fase temprana de desarrollo y que muchas cosas cambiarán hasta que su salida a la venta al público general.</p>
-
-<!-- more -->
-
-<p>Si no lo has leído, te recomiendo que hagas un repaso rápido al artículo antes de seguir con este, ya que te aclarará aspectos básicos de Google Glass.</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="configurando-el-entorno-de-desarrollo">Configurando el entorno de desarrollo</h3>
-
-<p>El primer paso necesario para desarrollar para Google Glass será hacernos con el <strong>GDK (Glass Development Kit)</strong>, actualmente se encuentra disponible la versión <strong>Sneak Peak</strong>, que nos da indicaciones de que es en <strong>una versión muy inmadura</strong> y todo puede cambiar de una actualización a otra sin previo aviso.</p>
-
-<p>Para instalar el GDK, nos vamos a Android Studio (actualmente versión 0.5.2), y abrimos el SDK Manager. Como comentamos en el artículo anterior, Google Glass funciona con Android 4.0.3, por lo que el GDK lo veremos bajo grupo <strong>Android 4.0.3 (API 15)</strong>, ahí encontraremos el Glass Development Kit Sneak Peek listo para instalar.</p>
-
-<p>[caption id=”attachment_220” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/1.InstalandoGDK.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/1.InstalandoGDK-300x214.png" alt="Instalando GDK" /></a> Instalando GDK[/caption]</p>
-
-<p>Una vez instalado el GDK, ya podemos comenzar el desarrollo de nuestra primera aplicación. Antes os debo dar una mala noticia, a día de hoy <strong>no existe un emulador de Google Glass</strong>, así que no busquéis una imagen del sistema para Google Glass. A día de hoy la única forma de probar una aplicación Google Glass <strong>es tener una físicamente</strong> sobre la que instalar y depurar las mismas.</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="creación-del-proyecto">Creación del proyecto</h3>
-
-<p>Vamos a crear nuestra primera aplicación, para ello iniciamos el asistente de nuevo proyecto en nuestro Android Studio y lo configuramos como podéis ver en la siguiente imagen. Básicamente dado que Google Glass a día de hoy funciona solo con Android 4.0.3, pondremos este nivel de API como <strong><em>Minimum required SDK</em></strong> y <strong><em>Target SDK</em></strong>. Así tendremos la seguridad de no utilizar API que no tengamos disponible. Si en un futuro como ya se comienza a rumorear se actualiza Glass a una versión de Android más nueva, sería conveniente cambiar el <strong><em>Target SDK</em></strong> a la nueva versión.
-Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 15, sino el <strong>Glass Development Kit Sneak Peak (Google Inc.) (API 15)</strong>. Os recomiendo desmarcar la opción de crear una primera actividad, a mi siempre me gusta <strong>partir de un proyecto vacío</strong> y crear, más que partir de un proyecto lleno de código demo y tener que estar haciendo limpieza.</p>
-
-<p>[caption id=”attachment_225” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/2.CreandoElProyecto.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/2.CreandoElProyecto-300x194.png" alt="Creando el proyecto" /></a> Creando el proyecto[/caption]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="retocando-el-buildgradle">Retocando el build.gradle</h3>
-
-<p>Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
-
-<p>[code language=”plain”]
-apply plugin: ‘android’</p>
-
-<p>android {
-    compileSdkVersion “Google Inc.:Glass Development Kit Sneak Peek:15”
-    buildToolsVersion “19.0.2”</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion 15 ... [/code]
-</code></pre>
-</div>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="androidmanifest-y-estilos">AndroidManifest y estilos</h3>
-
-<p>El siguiente paso que debemos hacer será modificar el <strong><em>AndroidManifest.xml</em></strong> para requerir el GDK. Esto es opcional, si no lo requerimos no pasa nada, pero hay que tener en cuenta que entonces nuestra aplicación <strong>se podría instalar en otros dispositivos</strong> y al no tener estos la API del GDK, <strong>fallará</strong> al no encontrarlas.</p>
-
-<p>Necesitamos agregar el siguiente trozo de código dentro de la etiqueta <em><strong>application</strong></em>:</p>
-
-<p>[code language=”xml”]</p>
-<uses-library android:name="com.google.android.glass" android:required="true" />
-
-<p>[/code]</p>
-
-<p>Para terminar de configurar el proyecto antes de comenzar a escribir código de verdad, tendremos que modificar el fichero <strong><em>res/values/styles.xml</em></strong>, para cambiar el tema base que usará nuestra aplicación. Si dejamos el que pone Android Studio, <strong>nos aparecerá en nuestra aplicación Google Glass el Action Bar</strong>, cosa nada deseable. Debemos configurar el tema para que herede del tema que trae el sistema por defecto, quedando nuestro fichero <strong><em>styles.xml</em></strong> de la siguiente forma:</p>
-
-<p>[code language=”xml”]</p>
-<resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="@android:style/Theme.DeviceDefault">
-        <!-- Customize your theme here. -->
-    </style>
-
-</resources>
-<p>[/code]</p>
-
-<p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <em>drawable-mdpi</em>, <em>drawable-xhdpi</em>, <em>drawable-xxhdpi</em>, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="helloworld-from-glass">Helloworld from Glass!</h3>
-
-<p>Ya tenemos nuestro proyecto listo para comenzar a desarrollar, los pasos anteriores hasta que mejore el soporte de Android Studio para el desarrollo de Glassware, serán el pan de cada día. A partir de ahora, vamos a generar una simple actividad, que muestre un mensaje en pantalla y configuraremos nuestra aplicación para que el usuario pueda lanzarla con un comando de voz.</p>
-
-<p>Creamos una nueva clase llamada <strong><em>HelloWorldActivity</em></strong>, haciendo que extienda de <strong><em>Activity</em></strong>. Y como siempre en cualquier aplicación Android, sobrescribimos el método <em><strong>onCreate()</strong></em> y establecemos el layout para nuestra actividad.</p>
-
-<p>[code language=”java”]
-import android.app.Activity;
-import android.os.Bundle;</p>
-
-<p>public class HelloWorldActivity extends Activity {</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_helloworld);
-} } [/code]
-</code></pre>
-</div>
-
-<p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <strong><em>res/layout/activity_helloworld.xml</em></strong>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
-
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:text="HelloWorld!" />
-
-<p>[/code]</p>
-
-<p>Ahora que ya tenemos nuestra actividad, vamos a crear el lanzador por comando de voz. Para ello tenemos que <strong>crear un Voice Trigger</strong>. Un Voice Trigger es un pequeño fichero XML en el que indicamos a Android el <strong>comando de voz</strong> que queremos que lance nuestra aplicación. Para ello, crear un fichero en <strong><em>res/xml/trigger.xml</em></strong>. En él, pondremos el siguiente código:</p>
-
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-
-<trigger keyword="@string/glass_voice_trigger" />
-
-<p>[/code]</p>
-
-<p>Muy simple, solo estamos indicando cuál es la frase que lanza nuestra aplicación. Vamos ahora a nuestro fichero <em><strong>res/values/string.xml</strong></em> y creamos la cadena <strong><em>glass_voice_trigger</em></strong> con el valor <em>say hello</em>.</p>
-
-<p>[code language=”xml”]</p>
-<resources>
-
-...
-
-    <string name="glass_voice_trigger">say hello</string>
-
-...
-
-</resources>
-<p>[/code]</p>
-
-<p>Pero, ¿cómo relaciona Glass el comando de voz con la actividad que queremos que lance? Pues como siempre en Android, todo ello se configura como un <strong><em>intent-filter</em></strong>, con el cual indicaremos al sistema qué comando de voz queremos que dispare nuestra actividad. Nos vamos al <strong><em>AndroidManifest.xml</em></strong> y agregamos la actividad que hemos creado, añadiendo un <strong><em>intent-filter</em></strong> que capture la acción <strong><em>com.google.android.glass.action.VOICE_TRIGGER</em></strong> y añadimos como metadatos el fichero xml que creamos anteriormente, quedando así:</p>
-
-<p>[code language=”xml”]
-…
-    &lt;application …&gt;</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>    ...
-
-    &lt;activity
-        android:name=".HelloWorldActivity"
-        android:label="@string/app_name"&gt;
-        &lt;intent-filter&gt;
-            &lt;action android:name="com.google.android.glass.action.VOICE_TRIGGER" /&gt;
-        &lt;/intent-filter&gt;
-
-        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
-                   android:resource="@xml/trigger" /&gt;
-    &lt;/activity&gt;
-
-&lt;/application&gt; ... [/code]
-</code></pre>
-</div>
-
-<p>Y con esto ya tenemos nuestra aplicación lista para ser lanzada. Conectamos la Google Glass y lanzamos la aplicación. Una cosa que notaréis es que el entorno os dirá que no tenéis definido ninguna actividad principal. Ignoradlo y haced que se lance sin configurar ninguna actividad por defecto.</p>
-
-<p>[caption id=”attachment_246” align=”aligncenter” width=”180”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/3.LanzandoLaApp.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/3.LanzandoLaApp-180x300.png" alt="Configurar el lanzamiento de nuestra app" /></a> Configurar el lanzamiento de nuestra app[/caption]</p>
-
-<p>Una vez instalada, solo nos queda decir “Ok glass, say hello”. En el desarrollo normal de la aplicación, nos interesará que esta se lance directamente sin tener que decir el comando de voz, simplemente tenemos que volver a acceder a la pantalla anterior y establecer la actividad que queremos que se inicie cada vez que lancemos la aplicación desde Android Studio.</p>
-
-<p>[caption id=”attachment_247” align=”aligncenter” width=”300”]<a href="http://raycoarana.com/wp-content/uploads/2014/02/4.HelloWorld.png"><img src="http://raycoarana.com/wp-content/uploads/2014/02/4.HelloWorld-300x168.png" alt="App HelloWorld" /></a> App HelloWorld[/caption]</p>
-
-<p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <strong>1.Helloworld</strong>. <em>Happy coding!</em></p>
-
-<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
-
-<p>[sh_margin margin=”20”]</p>
-
-<h3 id="continuará">Continuará…</h3>
-
-<p>En el próximo artículo veremos cómo jugar un poco más con los trigger, qué configuración nos permite y cómo podemos obtener datos de lo que nos diga el usuario.</p>
- <a class="read-more" href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
-            <!-- author -->
-            <a href='/author/raycoarana'>Rayco Araña</a>
-            <!-- [[tags prefix=" on "]] -->
-             
-                on 
-                
-                    
-                       <a href='/tag/android'>Android</a>,
-                       
-                
-                    
-                       <a href='/tag/android studio'>Android studio</a>,
-                       
-                
-                    
-                       <a href='/tag/gdk'>Gdk</a>,
-                       
-                
-                    
-                       <a href='/tag/glassware'>Glassware</a>,
-                       
-                
-                    
-                       <a href='/tag/google glass'>Google glass</a>,
-                       
-                
-                    
-                       <a href='/tag/voice trigger'>Voice trigger</a>
-                       
-                
-            
-            <time class="post-date" datetime="2014-03-26">26 Mar 2014</time>
         </footer>
     </article>
     

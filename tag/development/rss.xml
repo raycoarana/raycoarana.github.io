@@ -12,6 +12,138 @@
    <atom:link href="rss" rel="self" type="application/rss+xml" />
    
 	<item>
+	  <title>Concurrency with Promise Style. DroidCon 2015</title>
+	  <link>//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2015-04-25T17:25:02+02:00</pubDate>
+	  <guid>//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</guid>
+	  <description><![CDATA[
+	     <p>Os dejo por aquí la presentación de mi charla de hoy en la DroidCon Spain 2015 dónde hablamos del patrón Promise, como implementarlo con jDeferred y como podemos beneficiarnos de su uso.</p>
+
+<p><a href="https://speakerd.s3.amazonaws.com/presentations/ef9ad55c34fe4a68b961eb0a214f34ce/Concurrency-with-Promise-Style.pdf"><strong>Descargar</strong></a></p>
+
+<script async="" class="speakerdeck-embed" data-id="ef9ad55c34fe4a68b961eb0a214f34ce" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+
+
+	  ]]></description>
+	</item>
+
+	<item>
+	  <title>Baindo, un MVVM diferente para Android</title>
+	  <link>//blog/2015/01/baindo-un-mvvm-diferente-para-android/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2015-01-20T22:59:40+01:00</pubDate>
+	  <guid>//blog/2015/01/baindo-un-mvvm-diferente-para-android/</guid>
+	  <description><![CDATA[
+	     <p>Hoy os vengo a presentar algo en lo que llevo un tiempo trabajando, <strong>Baindo</strong>, un framework para aplicar <strong>MVVM en aplicaciones Android</strong>, del que quiero mostraros un <em>Sneak Peek</em> del estado actual.
+¿Por qué otro framework MVVM si existen miles? La respuesta a esta pregunta está en las ideas base que inspiran Baindo:</p>
+
+<ul>
+  <li>Evitar el uso de cualquier tipo de Reflection.</li>
+  <li>Sintaxis cómoda en código Java. Nada de Custom Views o Custom Attributes en nuestros layouts.</li>
+  <li>ViewModels sencillos y con ninguna dependencia con Android.</li>
+  <li>Maximizar el rendimiento del hilo de UI. Comandos y eventos de modificación de las propiedades se ejecutan en Background.</li>
+  <li>Actualización de UI desde cualquier hilo a través de las propiedades del ViewModel. Olvidate de tener que usar AsyncTask, Handlers o similares para hacer cambios en la UI.</li>
+</ul>
+
+<p>Pinta bien, ¿no? ;-). Pues además será OpenSource y estará disponible en GitHub muy pronto. Veamos que pinta tiene.</p>
+
+<!--more-->
+
+<h3 id="un-ejemplo-sencillo">Un ejemplo sencillo</h3>
+
+<p>Vamos a hacer un ejemplo sencillo de como seria su uso. Hagamos un simple hola mundo con un Button y un TextView que al pulsar dicho botón, nos muestre el mensaje <em>“HelloWorld!”</em> en el TextView.</p>
+
+<p>Lo primero es hacer el layout de la vista.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:orientation=</span><span class="s">"vertical"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:id=</span><span class="s">"@+id/message"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;Button</span>
+        <span class="na">android:id=</span><span class="s">"@+id/button"</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"Tap me!"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
+
+<p>Ahora creamos el ViewModel para nuestro ejemplo, tenemos una acción a ejecutar, luego pondremos un comando y una propiedad de tipo CharSequence a la que asignar el valor <strong>“HelloWorld!”</strong>.
+Creamos la propiedad como un atributo público de tipo <code class="highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
+A continuación el comando como un atributo público de tipo <code class="highlighter-rouge">Command</code>, que llamamos <code class="highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="highlighter-rouge">setValue()</code> de la propiedad <code class="highlighter-rouge">Message</code>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Property</span><span class="o">&lt;</span><span class="n">CharSequence</span><span class="o">&gt;</span> <span class="n">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Property</span><span class="o">&lt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Command</span> <span class="n">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Sencillo, limpio y fácil de probar.</p>
+
+<p>A continuación creamos un <code class="highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
+
+<p>En este <code class="highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="highlighter-rouge">bindViews()</code> justo después del <code class="highlighter-rouge">setContentView()</code>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="n">BaindoActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewModel</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
+
+        <span class="n">bindViews</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="highlighter-rouge">Button</code> del layout y el comando <code class="highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="highlighter-rouge">TextView</code> y la propiedad <code class="highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="highlighter-rouge">readOnly</code>) o bidireccional (<code class="highlighter-rouge">readWrite</code>).</p>
+
+<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
+
+<p>En este caso vamos a ponerlo en modo readOnly, ya que solo queremos que la vista muestre lo que tiene el ViewModel sin modificarlo en ningún caso.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">bind</span><span class="o">().</span><span class="na">text</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">Message</span><span class="o">).</span><span class="na">readOnly</span><span class="o">();</span>
+        <span class="n">bind</span><span class="o">().</span><span class="na">click</span><span class="o">()</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">SayHelloCommand</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
+
+<p>El código que hemos escrito en el comando se ejecuta en un hilo separado, un hilo que llamaremos <strong>hilo del ViewModel</strong>, así pues tendremos en nuestra app <strong>un hilo de UI y tantos hilos como Activities/Fragments tengamos en pantalla</strong>. Estos hilos son avisados cuando se producen cambios en la UI y notifican cambios en el ViewModel al hilo de UI.</p>
+
+<h3 id="puedo-hacer-cualquier-cosa-en-un-hilo-de-viewmodel">¿Puedo hacer cualquier cosa en un hilo de ViewModel?</h3>
+<p>Pues si y no, depende de tu ViewModel y tu vista, hay que tener en cuenta que si bien no vas a bloquear nunca la UI, si que puedes producir el efecto de que al pulsar un botón no pasa nada hasta pasado un tiempo. <strong>Si el hilo del ViewModel está ocupado, no puede atender a ese nuevo evento de UI</strong>, los cuales serán atendidos una vez el hilo del ViewModel quede liberado. Lo ideal del hilo de ViewModel es hacer esos pequeños cálculos previos a pintar nuestros modelos. No es un proceso de negocio, sino un proceso de  preparación para ser mostrado en UI como manejo de cadenas, pequeñas operaciones, coordinar operaciones en background, etc.</p>
+
+<p>Con este esquema <strong>conseguimos la mejor respuesta de la UI al usuario</strong>. Adiós parones, bajadas de framerate en animaciones, etc., gracias a Baindo podemos olvidarnos de todo esto. Estad atentos al blog, <strong>muy pronto publicaré la primera alpha</strong> para que podáis trastear con ella, hasta entonces, sed pacientes!!</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>RoboRouter, mi primera librería OpenSource</title>
 	  <link>//blog/2014/11/roborouter/</link>
 	  <author>Rayco Araña</author>

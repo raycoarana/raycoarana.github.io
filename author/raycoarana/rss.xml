@@ -568,6 +568,34 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 	  ]]></description>
 	</item>
 
+	<item>
+	  <title>Esto empieza...</title>
+	  <link>//blog/2014/02/hello-world/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2014-02-23T12:50:21+01:00</pubDate>
+	  <guid>//blog/2014/02/hello-world/</guid>
+	  <description><![CDATA[
+	     <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">raycoarana</span><span class="o">.</span><span class="na">blog</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Blog</span> <span class="n">blog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Blog</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">addTheme</span><span class="o">(</span><span class="s">"feather"</span><span class="o">);</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="k">new</span> <span class="n">PublishListener</span><span class="o">(){</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Let's start coding!"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+	  ]]></description>
+	</item>
+
 
 </channel>
 </rss>
