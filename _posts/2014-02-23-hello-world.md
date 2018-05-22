@@ -1,17 +1,17 @@
 ---
-author: raycoarana
-comments: true
-date: 2014-02-23 11:50:21+00:00
 layout: post
-link: http://raycoarana.com/misc/hello-world/
 slug: hello-world
 title: Esto empieza...
-wordpress_id: 1
-categories:
-- Miscelánea
+date: 2014-02-23 11:50:21+00:00
+tags:
+  - misc
+subclass: 'post tag-test tag-content'
+categories: 
+  - raycoarana
+navigation: True
 ---
 
-[code language="java"]
+```java
 package com.raycoarana.blog;
 
 public class Blog {
@@ -27,4 +27,4 @@ public class Blog {
         });
     }
 }
-[/code]
+```
