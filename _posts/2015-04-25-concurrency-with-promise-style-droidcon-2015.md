@@ -3,7 +3,9 @@ layout: post
 slug: concurrency-with-promise-style-droidcon-2015
 title: Concurrency with Promise Style. DroidCon 2015
 date: 2015-04-25 15:25:02+00:00
-tags: misc
+tags:
+  - android
+  - development
 subclass: 'post tag-test tag-content'
 categories:
   - raycoarana

@@ -3,7 +3,12 @@ layout: post
 slug: baindo-un-mvvm-diferente-para-android
 title: Baindo, un MVVM diferente para Android
 date: 2015-01-20 21:59:40+00:00
-tags: misc
+tags:
+  - android
+  - java
+  - development
+  - mvvm
+  - ui
 subclass: 'post tag-test tag-content'
 categories:
     - raycoarana
