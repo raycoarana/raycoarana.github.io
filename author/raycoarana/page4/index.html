@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- [[! Page Meta ]] -->
-    <title>raycoarana</title>
+    <title>Author</title>
     <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -53,7 +53,7 @@
     <meta name="generator" content="Jekyll 3.0.0" />
     <link rel="alternate" type="application/rss+xml" title="raycoarana" href="/feed.xml" />
 </head>
-<body class="tag-template nav-closed">
+<body class="paged archive-template nav-closed">
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
@@ -63,7 +63,7 @@
     <ul>
         <li class="nav-home " role="presentation"><a href="/">Home</a></li>
         <li class="nav-development " role="presentation"><a href="/tag/development">Development</a></li>
-        <li class="nav-author " role="presentation"><a href="/author/raycoarana">Author</a></li>
+        <li class="nav-author  nav-current" role="presentation"><a href="/author/raycoarana">Author</a></li>
         <li class="nav-about " role="presentation"><a href="/about">About</a></li>
         <li class="nav-contact " role="presentation"><a href="/contact">Contact</a></li>
     </ul>
@@ -74,42 +74,55 @@
 
     <div class="site-wrapper">
 
-        <!-- < dynamically overriding backgrounds for tags as well as descriptions -->
-
-
-<!-- < default}} -->
+        <!-- < default}} -->
 <!-- The tag above means - insert everything in this file into the [body] of the default.hbs template -->
 
-<!-- If we have a tag cover, display that - else blog cover - else nothing -->
-<header class="main-header tag-head " style="background-image: url(/assets/images/cover2.jpg) ">
-    <nav class="main-nav overlay clearfix">
-        <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
-        
-            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
-        
-    </nav>
-    <div class="vertical">
-        <div class="main-header-content inner">
-            <h1 class="page-title">Live card</h1>
-            <h2 class="page-description">
+<!-- The big featured header -->
+
+<!-- Everything inside the #author tags pulls data from the author -->
+<!-- #author  -->
+    <header class="main-header author-head " style="background-image: url(/assets/images/cover4.jpg) ">
+        <nav class="main-nav overlay clearfix">
+            <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
             
-			    A 1-post collection
+                <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
             
-            </h2>
+        </nav>
+    </header>
+
+    <section class="author-profile inner">
+        
+        <figure class="author-image">
+            <div class="img" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">Rayco Araña's Picture</span></div>
+        </figure>
+        
+        <h1 class="author-title">Rayco Araña</h1>
+        
+            <h2 class="author-bio">Software engineer, gamer, photographer and "mother of dragons" follower.</h2>
+        
+        <div class="author-meta">
+            <span class="author-location icon-location">Madrid, Spain</span>
+            <span class="author-link icon-link"><a href="http://raycoarana.com/">raycoarana.com</a></span>
+            <!-- <span class="author-stats"><i class="icon-stats"></i> [[plural ../pagination.total empty='No posts' singular='% post' plural='% posts']]</span> -->
+            <span class="author-stats"><i class="icon-stats"></i>16 posts</span>
         </div>
-    </div>
-</header>
+    </section>
+<!-- /author -->
 
 <!-- The main content area on the homepage -->
 <main id="content" class="content" role="main">
 
-    <!-- The tag below includes the post loop - partials/loop.hbs -->
+    <!-- The tag below includes the post loop - partials/loop.hbs  -->
         <!-- Previous/next page links - only displayed on page 2+ -->
     <div class="extra-pagination inner">
         
             <nav class="pagination" role="pagination">
     
-    <span class="page-number"> Page 1 of 1 </span>
+        
+            <a class="newer-posts" href="/author/raycoarana/page3/" title="Previous Page">&laquo; Newer Posts</a>
+      
+    
+    <span class="page-number"> Page 4 of 4 </span>
      
 </nav>
         
@@ -119,16 +132,27 @@
     
     <article class="post">
         <header class="post-header">
-            <h2 class="post-title"><a href="/blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/">Timeline y Live Cards. Primeros pasos con Google Glass (V)</a></h2>
+            <h2 class="post-title"><a href="/blog/2014/02/hello-world/">Esto empieza...</a></h2>
         </header>
         <section class="post-excerpt">
-            <p>Hace mucho que no escribía en el blog, entre otras cosas porque ando un poco liado con un proyecto personal. Además, como ya sabrás Google ha actualizado Google Glass a la versión de firmware XE16, subiendo la versión de Android a 4.4.2, actualizando también el GDK y por consiguiente, nos trae muchos cambios en la API. Esto ha implicado que parte de este artículo ya no tenga sentido, ya que Google ha eliminado la clase TimelineManager y por tanto, ya no es posible publicar en el Timeline tarjetas estáticas.</p>
+            <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">raycoarana</span><span class="o">.</span><span class="na">blog</span><span class="o">;</span>
 
-<h3 id="cambios-en-el-gdk">Cambios en el GDK</h3>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Blog</span> <span class="o">{</span>
 
-<p>Antes de continuar con la última entrega en esta serie de artículos de introducción a Google Glass, toca actualizar los anteriores. En el repositorio Git donde está el código de todos los artículos anteriores, podrás encontrar los proyectos actualizados con estos cambios, no son muchos y la mayoría no son más que cambios de nombres.</p>
-
- <a class="read-more" href="/blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/">&raquo;</a>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Blog</span> <span class="n">blog</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Blog</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">addTheme</span><span class="o">(</span><span class="s">"feather"</span><span class="o">);</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">prepare</span><span class="o">();</span>
+        <span class="n">blog</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="k">new</span> <span class="n">PublishListener</span><span class="o">(){</span>
+            <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">()</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Let's start coding!"</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">});</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+ <a class="read-more" href="/blog/2014/02/hello-world/">&raquo;</a>
         </section>
         <footer class="post-meta">
             <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
@@ -139,39 +163,11 @@
                 on 
                 
                     
-                       <a href='/tag/android'>Android</a>,
-                       
-                
-                    
-                       <a href='/tag/cards'>Cards</a>,
-                       
-                
-                    
-                       <a href='/tag/gdk'>Gdk</a>,
-                       
-                
-                    
-                       <a href='/tag/glassware'>Glassware</a>,
-                       
-                
-                    
-                       <a href='/tag/google glass'>Google glass</a>,
-                       
-                
-                    
-                       <a href='/tag/live card'>Live card</a>,
-                       
-                
-                    
-                       <a href='/tag/static card'>Static card</a>,
-                       
-                
-                    
-                       <a href='/tag/timeline'>Timeline</a>
+                       <a href='/tag/misc'>Misc</a>
                        
                 
             
-            <time class="post-date" datetime="2014-04-29">29 Apr 2014</time>
+            <time class="post-date" datetime="2014-02-23">23 Feb 2014</time>
         </footer>
     </article>
     
@@ -180,13 +176,18 @@
     
         <nav class="pagination" role="pagination">
     
-    <span class="page-number"> Page 1 of 1 </span>
+        
+            <a class="newer-posts" href="/author/raycoarana/page3/" title="Previous Page">&laquo; Newer Posts</a>
+      
+    
+    <span class="page-number"> Page 4 of 4 </span>
      
 </nav>
     
 
 
 </main>
+
 
         <footer class="site-footer clearfix">
           <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>

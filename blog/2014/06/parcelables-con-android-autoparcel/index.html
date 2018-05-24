@@ -86,12 +86,14 @@
     <nav class="main-nav  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
+            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+        
     </nav>
 </header>
 
 <main class="content" role="main">
 
-    <article class="">
+    <article class="post tag-content">
 
         <header class="post-header">
             <h1 class="post-title">Parcelables con Android AutoParcel</h1>
@@ -132,20 +134,16 @@
 
         <section class="post-content">
             
-            <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <strong>Activities</strong> y/o <strong>Fragments</strong>, el sistema operativo nos brinda la posibilidad de usar un <strong>Bundle</strong>, ya sea a través del <strong>Intent **(y el Bundle de extras) o a través del método <em>**setArguments()**</em> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que **no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el Activity o Fragment debido al ciclo de vida de la aplicación.</p>
+            <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="highlighter-rouge">Bundle</code>, ya sea a través del <code class="highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="highlighter-rouge">Activity</code> o <code class="highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
 
-<p>El problema viene con los tipos de datos que nos permite almacenar un Bundle, estos son tipos básicos u objetos que implementen la interfaz <strong>Serializable</strong> o <strong>Parcelable</strong>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de Parcelable, sin embargo, debemos implementar dos métodos para serializar -_writeToParcel()<em>- y deserializar -_constructor</em>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
+<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="highlighter-rouge">Serializable</code> o <code class="highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
 
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
+<!--more-->
 
 <h3 id="porqué-usar-parcelable-sobre-serializable">¿Porqué usar Parcelable sobre Serializable?</h3>
 
 <p>La principal razón para implementar Parcelable sobre Serializable es su velocidad de ejecución, se habla de hasta <strong>10x más rápido</strong> trabajar con objetos Parcelable. Si estamos en un entorno móvil, esto se traduce no solo en <strong>mayor rapidez</strong>, sino también en <strong>menor consumo de batería</strong>, algo que nunca debemos obviar a la hora de desarrollar apps.
 Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es que la implementación y sobre todo el mantenimiento de este tipo de objetos es muy tediosa, siendo una tarea muy repetitiva y donde es muy fácil cometer errores.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="android-autoparcel-al-rescate">Android AutoParcel al rescate</h3>
 
@@ -153,78 +151,76 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz <strong>build.gradle</strong>, donde agregaremos en las dependencias la siguiente línea:</p>
 
-<p>[code language=”groovy”]
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath ‘com.android.tools.build:gradle:0.11.+’
-        classpath ‘com.neenbedankt.gradle.plugins:android-apt:+’
-    }
-}</p>
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span> <span class="s1">'com.android.tools.build:gradle:0.11.+'</span>
+        <span class="n">classpath</span> <span class="s1">'com.neenbedankt.gradle.plugins:android-apt:+'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-<p>allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
-[/code]</p>
+<span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ahora nos vamos al fichero <strong>build.gradle</strong> de la aplicación, lo primero será aplicar el plug-in <strong>android-apt</strong> y luego agregamos en la sección de dependencias del proyecto tanto el procesador que generará el código en tiempo de compilación como la librería con las anotaciones de AutoParcel.</p>
 
-<p>[code language=”groovy”]
-apply plugin: ‘android’
-apply plugin: ‘android-apt’</p>
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android-apt'</span>
 
-<p>android {
-    …
-}</p>
+<span class="n">android</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
 
-<p>dependencies {
-    compile fileTree(dir: ‘libs’, include: [‘*.jar’])
-    compile ‘com.github.frankiesardo:android-auto-value:+’
-    apt ‘com.github.frankiesardo:android-auto-value-processor:+’
-}
-[/code]</p>
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s1">'libs'</span><span class="o">,</span> <span class="nl">include:</span> <span class="o">[</span><span class="s1">'*.jar'</span><span class="o">])</span>
+    <span class="n">compile</span> <span class="s1">'com.github.frankiesardo:android-auto-value:+'</span>
+    <span class="n">apt</span> <span class="s1">'com.github.frankiesardo:android-auto-value-processor:+'</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ahora refrescamos el proyecto y vamos a escribir nuestro primer objeto con AutoParcel. Nuestras <strong>clases tendrán que ser abstractas</strong> y <strong>por cada propiedad que queramos que tenga, debemos generar un método abstracto</strong> para obtener su valor.</p>
 
-<p>[code language=”java”]
-import android.auto.value.AutoValue;
-import android.os.Parcelable;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
-<p>@AutoValue
-public abstract class Foo implements Parcelable {</p>
+<span class="nd">@AutoValue</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
 
-<p>public abstract String fooString();
-   public abstract int fooInteger();</p>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
-<p>}
-[/code]</p>
+<span class="o">}</span>
+</code></pre>
+</div>
 
-<p>Solo nos falta una forma para poder construir objetos de tipo Foo, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <strong>AutoValue_Foo</strong> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
+<p>Solo nos falta una forma para poder construir objetos de tipo <code class="highlighter-rouge">Foo</code>, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <code class="highlighter-rouge">AutoValue_Foo</code> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
 
-<p>[code language=”java”]
-import android.auto.value.AutoValue;
-import android.os.Parcelable;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
-<p>@AutoValue
-public abstract class Foo implements Parcelable {</p>
+<span class="nd">@AutoValue</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
 
-<p>public abstract String fooString();
-   public abstract int fooInteger();</p>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
-<p>public static final Foo create(String fooString, int fooInteger) {
-      return new AutoValue_Foo(fooString, fooInteger);
-   }</p>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Foo</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">fooString</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fooInteger</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">AutoValue_Foo</span><span class="o">(</span><span class="n">fooString</span><span class="o">,</span> <span class="n">fooInteger</span><span class="o">);</span>
+   <span class="o">}</span>
 
-<p>}
-[/code]</p>
+<span class="o">}</span>
+</code></pre>
+</div>
 
-<p>Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos que utilizar como argumentos o extras para los <em>Fragments _y _Activities</em> que usemos en nuestras aplicaciones, reduciendo la cantidad de código que tenemos que escribir considerablemente y sin caer en malas prácticas acoplando los componentes de nuestra aplicación.</p>
-
-<p>[sh_margin margin=”20”]</p>
+<p>Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos que utilizar como argumentos o extras para los <em>Fragments</em> y <em>Activities</em> que usemos en nuestras aplicaciones, reduciendo la cantidad de código que tenemos que escribir considerablemente y sin caer en malas prácticas acoplando los componentes de nuestra aplicación.</p>
 
 <h3 id="más-info">Más info</h3>
 
@@ -242,7 +238,7 @@ public abstract class Foo implements Parcelable {</p>
 
             
             <figure class="author-image">
-                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">raycoarana's Picture</span></a>
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">'s Picture</span></a>
             </figure>
             
 

@@ -523,33 +523,33 @@ I/JDEFERRED_DEMO﹕ done() on thread 1
 <h3 id="proyectos-y-pantallas">Proyectos y pantallas</h3>
 <p>En WireframeSketcher, como podemos imaginar al estar basado en Eclipse, tenemos un workspace en el que trabajamos y creamos nuestros proyectos. Un proyecto no será más que una serie de <em>screens</em> y <em>assets</em>.</p>
 
-<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/new_project.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/new_project-300x280.png" alt="new_project" /></a></p>
+<p><img src="/assets/images/new_project.png" alt="new_project" /></p>
 
 <p>En esta carpeta de <em>assets</em>, se agregarán inicialmente todos los iconos y componentes nativos del sistema. Por ejemplo, si usamos Android como base para nuestro proyecto, nos agregará todos los componentes e iconos de Android. También, como podemos ver en la siguiente imagen, nos agrega una primera pantalla con la que podemos trabajar.</p>
 
-<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/project-structure.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/project-structure.png" alt="project-structure" /></a></p>
+<p><img src="/assets/images/project-structure.png" alt="project-structure" /></p>
 
 <h3 id="elementos-de-pantalla">Elementos de pantalla</h3>
 <p>Si vemos la parte derecha del espacio de trabajo, veremos que tenemos la paleta de componentes que podemos utilizar para crear nuestros wireframes. Estos están basados en una librería básica -que tienen todos los proyectos- y una librería de componentes incluidos en nuestro proyecto. Y digo incluidos en nuestro proyecto porque podemos crear nuestros propios componentes incluso crear proyectos que sirvan como librerías de componentes que podemos referenciar desde otros. Como veis una herramienta muy potente en este sentido.</p>
 
-<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/assets_library.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/assets_library-188x300.png" alt="assets_library" /></a></p>
+<p><img src="/assets/images/assets_library.png" alt="assets_library" /></p>
 
 <p>Los componentes con los que podemos trabajar son prácticamente todos los controles con los que contamos de forma nativa en Android. <em>ActionBar, CAB, Navigation Drawer, TextView, EditText, Button</em>, etc. Con unos pocos clicks de ratón, montamos una interfaz Android 4.X pura, de componentes nativos y proporciones correctas. Para editar estos componentes, basta con hacer doble-click sobre ellos para entrar en su jerarquía y poder así editar los elementos internos para cambiar imágenes, textos, color, tamaños de texto, etc.</p>
 
-<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/example_screen.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/example_screen-156x300.png" alt="example_screen" /></a></p>
+<p><img src="/assets/images/example_screen.png" alt="example_screen" /></p>
 
 <h3 id="iconos">Iconos</h3>
 <p>Una cosa bastante reseñable y que le da un toque de calidad a nuestros wireframes es la posibilidad de utilizar el paquete de iconos nativos para poner elementos de menú, icono de la app o cualquier otra imagen.
 Además de los iconos nativos, tenemos también otros paquetes de iconos -además de los que podemos añadir nosotros a nuestro proyecto por supuesto-, como la famosa fuente <strong>awesome</strong> entre otros paquetes que podemos descargarnos desde su web.</p>
 
-<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/icons_android.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/icons_android-245x300.png" alt="icons_android" /></a></p>
+<p><img src="/assets/images/icons_android.png" alt="icons_android" /></p>
 
 <p>Si queremos añadir imágenes o iconos a nuestro proyecto, podemos agregarlos a la carpeta <strong>assets/icons</strong>, en formato SVG.</p>
 
 <h3 id="navegación">Navegación</h3>
 <p>La navegación es otra cosa que podemos dejar indicada en nuestros proyectos, lo cual nos servirá para movernos a través de las pantallas mientras las desarrollamos, así como servir de enlaces cuando hagamos una exportación como veremos más adelante. Para añadir un enlace a alguno de los elementos, basta con seleccionar el elemento en el que queremos crear el enlace. Acto seguido, en el panel de la izquierda, donde tenemos las propiedades del elemento, cambiamos a la pestaña Links y desde ahí, seleccionamos la pantalla destino del enlace.</p>
 
-<p><a href="http://raycoarana.com/wp-content/uploads/2014/06/links.png"><img src="http://raycoarana.com/wp-content/uploads/2014/06/links-300x150.png" alt="links" /></a></p>
+<p><img src="/assets/images/links.png" alt="links" /></p>
 
 <p>Podemos ver cómo queda el mapa de navegación por nuestra app creando un <em>Storyboard</em>. Este tipo de fichero nos permite agregar pantallas de nuestro proyecto las cuales podemos luego exportar como un HTML con enlaces entre ellas.</p>
 
@@ -579,19 +579,17 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 
 <p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
 
-<p>[code language=”java”]
-Typeface tf = Typeface.createFromAsset(getAssets(), 
-                                       “fonts/mycustomfont.ttf”);</p>
-
-<p>TextView myView = (TextView) findViewById(android.R.id.text1);
-myView.setTypeface(tf);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
+                                       <span class="s">"fonts/mycustomfont.ttf"</span><span class="o">);</span>
+        
+<span class="n">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
+<span class="n">myView</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">tf</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
 
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
+<!--more-->
 
 <h3 id="solución-1-controles-personalizados">Solución 1. Controles personalizados</h3>
 
@@ -599,19 +597,27 @@ myView.setTypeface(tf);
 
 <p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui" android:layout_width="match_parent" android:layout_height="match_parent">
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
+    <span class="na">xmlns:pixlui=</span><span class="s">"http://schemas.android.com/apk/com.neopixl.pixlui"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
-    <com.neopixl.pixlui.components.textview.TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" pixlui:typeface="mycustomfont.ttf" />
+    <span class="nt">&lt;com.neopixl.pixlui.components.textview.TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"@string/text_of_my_view"</span>
+        <span class="na">android:gravity=</span><span class="s">"center"</span>
+        <span class="na">android:textSize=</span><span class="s">"36sp"</span>
+        <span class="na">pixlui:typeface=</span><span class="s">"mycustomfont.ttf"</span><span class="nt">/&gt;</span>
 
 ...
 
-</LinearLayout>
-<p>[/code]</p>
-
-<p>[sh_margin margin=”20”]</p>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
 
 <h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
 
@@ -619,60 +625,76 @@ myView.setTypeface(tf);
 
 <p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
 
-<p>[code language=”java”]
-@Override
-protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(new CalligraphyContextWrapper(newBase));
-}
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" android:fontFamily="fonts/mycustomfont.ttf" />
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"@string/text_of_my_view"</span>
+        <span class="na">android:gravity=</span><span class="s">"center"</span>
+        <span class="na">android:textSize=</span><span class="s">"36sp"</span>
+        <span class="na">android:fontFamily=</span><span class="s">"fonts/mycustomfont.ttf"</span><span class="nt">/&gt;</span>
 
 ...
 
-</LinearLayout>
-<p>[/code]</p>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
 
 <p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-<Resources>
-    <attr name="customFont" />
-</Resources>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;Resources&gt;</span>
+    <span class="nt">&lt;attr</span> <span class="na">name=</span><span class="s">"customFont"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Resources&gt;</span>
+</code></pre>
+</div>
 
 <p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
 
-<p>[code language=”java”]
-@Override
-protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(new CalligraphyContextWrapper(newBase, R.attr.customFont));
-}
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">customFont</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Y ya solo nos queda utilizarlo en las vistas.</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" customFont="fonts/mycustomfont.ttf" />
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"@string/text_of_my_view"</span>
+        <span class="na">android:gravity=</span><span class="s">"center"</span>
+        <span class="na">android:textSize=</span><span class="s">"36sp"</span>
+        <span class="na">customFont=</span><span class="s">"fonts/mycustomfont.ttf"</span><span class="nt">/&gt;</span>
 
 ...
 
-</LinearLayout>
-<p>[/code]</p>
-
-<p>[sh_margin margin=”20”]</p>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
@@ -690,20 +712,16 @@ protected void attachBaseContext(Context newBase) {
 	  <pubDate>2014-06-09T22:29:34+02:00</pubDate>
 	  <guid>//blog/2014/06/parcelables-con-android-autoparcel/</guid>
 	  <description><![CDATA[
-	     <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <strong>Activities</strong> y/o <strong>Fragments</strong>, el sistema operativo nos brinda la posibilidad de usar un <strong>Bundle</strong>, ya sea a través del <strong>Intent **(y el Bundle de extras) o a través del método <em>**setArguments()**</em> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que **no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el Activity o Fragment debido al ciclo de vida de la aplicación.</p>
+	     <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="highlighter-rouge">Bundle</code>, ya sea a través del <code class="highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="highlighter-rouge">Activity</code> o <code class="highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
 
-<p>El problema viene con los tipos de datos que nos permite almacenar un Bundle, estos son tipos básicos u objetos que implementen la interfaz <strong>Serializable</strong> o <strong>Parcelable</strong>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de Parcelable, sin embargo, debemos implementar dos métodos para serializar -_writeToParcel()<em>- y deserializar -_constructor</em>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
+<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="highlighter-rouge">Serializable</code> o <code class="highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
 
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
+<!--more-->
 
 <h3 id="porqué-usar-parcelable-sobre-serializable">¿Porqué usar Parcelable sobre Serializable?</h3>
 
 <p>La principal razón para implementar Parcelable sobre Serializable es su velocidad de ejecución, se habla de hasta <strong>10x más rápido</strong> trabajar con objetos Parcelable. Si estamos en un entorno móvil, esto se traduce no solo en <strong>mayor rapidez</strong>, sino también en <strong>menor consumo de batería</strong>, algo que nunca debemos obviar a la hora de desarrollar apps.
 Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es que la implementación y sobre todo el mantenimiento de este tipo de objetos es muy tediosa, siendo una tarea muy repetitiva y donde es muy fácil cometer errores.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="android-autoparcel-al-rescate">Android AutoParcel al rescate</h3>
 
@@ -711,78 +729,76 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz <strong>build.gradle</strong>, donde agregaremos en las dependencias la siguiente línea:</p>
 
-<p>[code language=”groovy”]
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath ‘com.android.tools.build:gradle:0.11.+’
-        classpath ‘com.neenbedankt.gradle.plugins:android-apt:+’
-    }
-}</p>
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+    <span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span> <span class="s1">'com.android.tools.build:gradle:0.11.+'</span>
+        <span class="n">classpath</span> <span class="s1">'com.neenbedankt.gradle.plugins:android-apt:+'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-<p>allprojects {
-    repositories {
-        mavenCentral()
-    }
-}
-[/code]</p>
+<span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ahora nos vamos al fichero <strong>build.gradle</strong> de la aplicación, lo primero será aplicar el plug-in <strong>android-apt</strong> y luego agregamos en la sección de dependencias del proyecto tanto el procesador que generará el código en tiempo de compilación como la librería con las anotaciones de AutoParcel.</p>
 
-<p>[code language=”groovy”]
-apply plugin: ‘android’
-apply plugin: ‘android-apt’</p>
+<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android-apt'</span>
 
-<p>android {
-    …
-}</p>
+<span class="n">android</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
 
-<p>dependencies {
-    compile fileTree(dir: ‘libs’, include: [‘*.jar’])
-    compile ‘com.github.frankiesardo:android-auto-value:+’
-    apt ‘com.github.frankiesardo:android-auto-value-processor:+’
-}
-[/code]</p>
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="nf">fileTree</span><span class="o">(</span><span class="nl">dir:</span> <span class="s1">'libs'</span><span class="o">,</span> <span class="nl">include:</span> <span class="o">[</span><span class="s1">'*.jar'</span><span class="o">])</span>
+    <span class="n">compile</span> <span class="s1">'com.github.frankiesardo:android-auto-value:+'</span>
+    <span class="n">apt</span> <span class="s1">'com.github.frankiesardo:android-auto-value-processor:+'</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ahora refrescamos el proyecto y vamos a escribir nuestro primer objeto con AutoParcel. Nuestras <strong>clases tendrán que ser abstractas</strong> y <strong>por cada propiedad que queramos que tenga, debemos generar un método abstracto</strong> para obtener su valor.</p>
 
-<p>[code language=”java”]
-import android.auto.value.AutoValue;
-import android.os.Parcelable;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
-<p>@AutoValue
-public abstract class Foo implements Parcelable {</p>
+<span class="nd">@AutoValue</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
 
-<p>public abstract String fooString();
-   public abstract int fooInteger();</p>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
-<p>}
-[/code]</p>
+<span class="o">}</span>
+</code></pre>
+</div>
 
-<p>Solo nos falta una forma para poder construir objetos de tipo Foo, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <strong>AutoValue_Foo</strong> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
+<p>Solo nos falta una forma para poder construir objetos de tipo <code class="highlighter-rouge">Foo</code>, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <code class="highlighter-rouge">AutoValue_Foo</code> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
 
-<p>[code language=”java”]
-import android.auto.value.AutoValue;
-import android.os.Parcelable;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
-<p>@AutoValue
-public abstract class Foo implements Parcelable {</p>
+<span class="nd">@AutoValue</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
 
-<p>public abstract String fooString();
-   public abstract int fooInteger();</p>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
-<p>public static final Foo create(String fooString, int fooInteger) {
-      return new AutoValue_Foo(fooString, fooInteger);
-   }</p>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Foo</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">fooString</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fooInteger</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">AutoValue_Foo</span><span class="o">(</span><span class="n">fooString</span><span class="o">,</span> <span class="n">fooInteger</span><span class="o">);</span>
+   <span class="o">}</span>
 
-<p>}
-[/code]</p>
+<span class="o">}</span>
+</code></pre>
+</div>
 
-<p>Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos que utilizar como argumentos o extras para los <em>Fragments _y _Activities</em> que usemos en nuestras aplicaciones, reduciendo la cantidad de código que tenemos que escribir considerablemente y sin caer en malas prácticas acoplando los componentes de nuestra aplicación.</p>
-
-<p>[sh_margin margin=”20”]</p>
+<p>Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos que utilizar como argumentos o extras para los <em>Fragments</em> y <em>Activities</em> que usemos en nuestras aplicaciones, reduciendo la cantidad de código que tenemos que escribir considerablemente y sin caer en malas prácticas acoplando los componentes de nuestra aplicación.</p>
 
 <h3 id="más-info">Más info</h3>
 
@@ -802,72 +818,60 @@ public abstract class Foo implements Parcelable {</p>
 	  <description><![CDATA[
 	     <p>Hace mucho que no escribía en el blog, entre otras cosas porque ando un poco liado con un proyecto personal. Además, como ya sabrás Google ha actualizado Google Glass a la versión de firmware XE16, subiendo la versión de Android a 4.4.2, actualizando también el GDK y por consiguiente, nos trae muchos cambios en la API. Esto ha implicado que parte de este artículo ya no tenga sentido, ya que Google ha eliminado la clase TimelineManager y por tanto, ya no es posible publicar en el Timeline tarjetas estáticas.</p>
 
-<p>[sh_margin margin=”20”]</p>
-
 <h3 id="cambios-en-el-gdk">Cambios en el GDK</h3>
 
 <p>Antes de continuar con la última entrega en esta serie de artículos de introducción a Google Glass, toca actualizar los anteriores. En el repositorio Git donde está el código de todos los artículos anteriores, podrás encontrar los proyectos actualizados con estos cambios, no son muchos y la mayoría no son más que cambios de nombres.</p>
 
-<!-- more -->
+<!--more-->
 
 <ul>
-  <li>
-    <p><strong>Nuevo permiso para comandos de voz propios.</strong> Si queremos utilizar comandos de voz que están fuera de la lista oficial de comandos, tendrás que añadir el permiso <em><strong>com.google.android.glass.permission.DEVELOPMENT</strong></em> en tu Manifest. Ni que decir tiene, que con este permiso no te permitirán subir la aplicación a MyGlass. Los comandos de voz permitidos están incluidos ahora como constantes en la clase <strong><em>VoiceTriggers.Command</em></strong> y en el tag <strong><em>trigger</em></strong> debemos indicar el comando usando el atributo <strong><em>command</em></strong>
-.</p>
-  </li>
+  <li><strong>Nuevo permiso para comandos de voz propios.</strong> Si queremos utilizar comandos de voz que están fuera de la lista oficial de comandos, tendrás que añadir el permiso <em><strong>com.google.android.glass.permission.DEVELOPMENT</strong></em> en tu Manifest. Ni que decir tiene, que con este permiso no te permitirán subir la aplicación a MyGlass. Los comandos de voz permitidos están incluidos ahora como constantes en la clase <strong><em>VoiceTriggers.Command</em></strong> y en el tag <strong><em>trigger</em></strong> debemos indicar el comando usando el atributo <strong><em>command</em></strong>
+.</li>
   <li>
     <p><strong>Clase Card.</strong> Cambia el nombre del método <em>toView()</em> a <em>getView()</em>. Además existe una sobrecarga para la reutilización de vistas cuando se utiliza dentro de un CardScrollView.</p>
   </li>
-  <li>
-    <p><strong>Clases CardScrollView y CardScrollAdapter.</strong> Hay varios métodos que ya no existen o que ya no se pueden sobrescribir.</p>
-  </li>
+  <li><strong>Clases CardScrollView y CardScrollAdapter.</strong> Hay varios métodos que ya no existen o que ya no se pueden sobrescribir.</li>
 </ul>
 
 <p>El resto de cambios afectan a API que no hemos visto, como la que ya hemos comentado, la desaparición de la clase <em>TimelineManager</em>. Si quieres ver el resto de cambios, puedes consultar las <a href="https://developers.google.com/glass/release-notes">Release Notes</a> que ha publicado Google.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="static-cards">Static Cards</h3>
 
 <p>Como decíamos anteriormente, las Static Cards ya no existen como tal. Anteriormente, usando la clase <em>TimelineManager</em> era posible publicar una tarjeta (objetos de tipo Card) directamente al Timeline, en la parte derecha que corresponde al pasado. El problema de esta API es que estas tarjetas no eran muy útiles, ya que el usuario no podía interactuar con ellas. No era posible asociarle un menú con el que poder interactuar y es esta seguramente la principal razón de su eliminación. Por lo tanto una Static Card no será más que una Live Card cuya vista permanece estática, aunque esto siempre será en la parte del futuro. ¿Y para el pasado? A mí esto me huele a próxima integración con la nueva API de Wearables que tenemos en Android y las tarjetas estáticas serán notificaciones.</p>
 
-<p>[sh_margin margin=”20”]</p>
-
 <h3 id="live-cards">Live Cards</h3>
 
 <p>Las Live Cards son por tanto la única forma que tenemos para insertar tarjetas en el Timeline de Google Glass (al menos por ahora). Para crear una tarjeta, basta con construir un objeto de tipo <strong><em>LiveCard</em></strong>, pasando el contexto y un tag con el que identificamos a la tarjeta.</p>
 
-<p>[code language=”java”]
-LiveCard liveCard = new LiveCard(this, “simple-card”);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LiveCard</span> <span class="n">liveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Una vez tenemos nuestra tarjeta, necesitamos decirle qué queremos mostrar. Existen dos tipos de Live Cards, en función de la frecuencia de actualización de la interfaz que necesitemos, las creadas a partir de una vista normal para baja frecuencia de actualización o las creadas sobre un SurfaceHolder, para por ejemplo, pintar con OpenGL, cuando se requiera una frecuencia de actualización alta. Es decir, si vamos a modificar el contenido de nuestra Live Card una o dos veces por segundo como mucho, la primera aproximación es la adecuada. Si por contra vamos a crear un compass, realidad aumentada o algo que necesite una frecuencia de 20-30 o más veces por segundo, debemos optar por la segunda opción.</p>
 
-<p>Para las primeras, debemos asignarle una <strong>RemoteView</strong>. Esto ya nos debería sonar, en Android las <strong>RemoteView **se utilizan para cuando queremos crear Widgets y en cierta manera es justo lo que queremos hacer ahora, queremos darle a otra aplicación (el Timeline) una vista para que la muestre desde nuestra aplicación. Hay que tener esto claro para entender por qué no podemos poner cualquier vista en una **RemoteView</strong> y como es además su forma de actualización a través del objeto <strong>RemoveView</strong>, realmente <strong>nos estamos comunicando con otra aplicación</strong>, que vive en otro contexto distinto al de nuestra app.</p>
+<p>Para las primeras, debemos asignarle una <strong>RemoteView</strong>. Esto ya nos debería sonar, en Android las <strong>RemoteView</strong> se utilizan para cuando queremos crear Widgets y en cierta manera es justo lo que queremos hacer ahora, queremos darle a otra aplicación (el Timeline) una vista para que la muestre desde nuestra aplicación. Hay que tener esto claro para entender por qué no podemos poner cualquier vista en una <strong>RemoteView</strong> y como es además su forma de actualización a través del objeto <strong>RemoveView</strong>, realmente <strong>nos estamos comunicando con otra aplicación</strong>, que vive en otro contexto distinto al de nuestra app.</p>
 
-<p>[code language=”java”]
-RemoteViews views = new RemoteViews(context.getPackageName(), 
-                                    R.layout.view_of_my_livecard);
-liveCard.setViews(views);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">RemoteViews</span> <span class="n">views</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> 
+                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">views</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.</p>
 
-<p>[code language=”java”]
-liveCard.setDirectRenderingEnabled(true);
-liveCard.getSurfaceHolder().addCallback(callback);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">getSurfaceHolder</span><span class="o">().</span><span class="na">addCallback</span><span class="o">(</span><span class="n">callback</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Una vez tenemos ya configurada nuestra Live Card, solo nos queda publicarla, para ello es tan sencillo como llamar al método <strong><em>publish()</em></strong>. Este método nos pide un parámetro para indicar la forma de publicación, <strong>REVEAL</strong> o <strong>SILENT</strong>. Con REVEAL le estamos indicando al Timeline que debe llevar al usuario a nuestra tarjeta recién publicada. Si por contra utilizamos SILENT, como nos podemos imaginar, la tarjeta se publicará sin <em>molestar</em> al usuario.</p>
 
 <p>Pero… ¿realmente ya está? La verdad es que no. Si ejecutamos el código que hemos ido viendo y lo ejecutamos en una actividad, veremos que al salir de esta y volver al Timeline, nuestra tarjeta no existe. El problema es el ciclo de vida de nuestra aplicación y la tarjeta. Si recordáis del desarrollo de Widgets en Android, era siempre necesario tener un servicio en el que se apoyase el Widget y en el caso de las Live Cards nos ocurre igual, debemos crear un servicio y asociarlo a nuestra <em>LiveCard</em> utilizando el método <strong><em>attach()</em></strong> o creándolo directamente desde el propio servicio y que este gestione explícitamente su ciclo de vida.</p>
 
-<p>[code language=”java”]
-liveCard.attach(myService);
-liveCard.publish(PublishMode.REVEAL);
-[/code]</p>
-
-<p>[sh_margin margin=”20”]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">myService</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <h3 id="manos-a-la-obra">Manos a la obra</h3>
 
@@ -875,62 +879,64 @@ liveCard.publish(PublishMode.REVEAL);
 
 <p>En primer lugar creamos el layout de nuestra Live Card. Vamos a hacer algo sencillo, simplemente un TextView en el que mostrar el texto.</p>
 
-<p>[code language=”xml”]</p>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/my_card_content" android:layout_width="match_parent" android:layout_height="match_parent" />
-
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:id=</span><span class="s">"@+id/my_card_content"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
 
 <p>Ahora vamos a crear el servicio, primero el esqueleto del mismo.</p>
 
-<p>[code language=”java”]
-public class Demo4Service extends Service {</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo4Service</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-public IBinder onBind(Intent intent) {
-    return null;
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
 
-@Override
-public int onStartCommand(Intent intent, int flags, int startId) {
-    ...
-    return START_STICKY;
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">START_STICKY</span><span class="o">;</span>
+    <span class="o">}</span>
 
-@Override
-public void onDestroy() {
-    ...
-} } [/code]
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 
 <p>Ahora en el método <strong><em>onStartCommand()</em></strong> recibiremos cada uno de los Intent que el usuario vaya lanzando, así que lo primero será transformar el texto obtenido desde la lista a una simple String.</p>
 
-<p>[code language=”java”]
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        ArrayList<String> voiceResults = intent.getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);</String></p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getExtras</span><span class="o">().</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    StringBuilder userContent = new StringBuilder();
-    for (String voiceToken : voiceResults) {
-        userContent.append(voiceToken);
-        userContent.append(" ");
-    } ... [/code]
+        <span class="n">StringBuilder</span> <span class="n">userContent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">voiceToken</span><span class="o">);</span>
+            <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">...</span>
 </code></pre>
 </div>
 
 <p>Una vez tenemos ya la cadena a mostrar, vamos a crear la tarjeta. La tarjeta solo será necesaria crearla si es la primera vez que el usuario lanza el comando desde el inicio del servicio. Si este ya estaba en ejecución, la tarjeta ya existe y solo tendremos que actualizarla. Para esto es importante quedarnos con una instancia siempre de la tarjeta a nivel de servicio.</p>
 
-<p>[code language=”java”]
-…
-        boolean haveToPublish = false;
-        if (mLiveCard == null) {
-            mLiveCard = new LiveCard(this, “simple-card”);
-            mLiveCard.setAction(PendingIntent.getActivity(this, 0, new Intent(this, MenuActivity.class), 0));
-            mRemoteViews = new RemoteViews(getPackageName(), R.layout.view_of_my_livecard);
-            haveToPublish = true;
-        }
-…
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+        <span class="kt">boolean</span> <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MenuActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="mi">0</span><span class="o">));</span>
+            <span class="n">mRemoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+            <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+<span class="o">...</span>
+</code></pre>
+</div>
 
 <p>En el trozo de código anterior podemos ver cómo creamos la tarjeta y cómo le asignamos una acción. <strong>¡Ojo con esto porque es obligatorio!</strong>, si no definimos una acción a nuestra tarjeta, esta no se publicará. <strong>Si nuestra tarjeta no tiene de verdad ninguna función a mostrar</strong> cuando el usuario pulsa sobre ella, debemos lanzar una actividad, que no haga ni muestre nada, pero que reproduzca el <strong>sonido correspondiente para indicar al usuario que no existe acción posible</strong>. Esto es algo en lo que insisto mucho siempre a los desarrolladores, siempre, siempre, siempre hay que dar feedback al usuario de lo que está pasando, para que no se quede dando TAPs al TouchPad para ver si se muestra algo y no saber si es que no hay nada, no funciona o el dispositivo no funciona bien.</p>
 
@@ -938,64 +944,63 @@ public void onDestroy() {
 
 <p>Lo siguiente será un código que se ejecutará siempre, independientemente de si la tarjeta existía con anterioridad o no y es la actualización de la vista con el texto dictado por el usuario. Para ello utilizamos uno de los métodos soportados por el objeto <strong>RemoteViews</strong> para actualizar el contenido de esa vista remota. Una vez lo hemos actualizado, necesitamos reasignarlo a la Live Card para que esta tenga conocimiento del cambio.</p>
 
-<p>[code language=”java”]
-…
-        mRemoteViews.setTextViewText(R.id.my_card_content, userContent);
-        mLiveCard.setViews(mRemoteViews);
-…
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+        <span class="n">mRemoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_card_content</span><span class="o">,</span> <span class="n">userContent</span><span class="o">);</span>
+        <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">mRemoteViews</span><span class="o">);</span>
+<span class="o">...</span>
+</code></pre>
+</div>
 
 <p>Ya por último dentro del método <em>onStartCommand()</em> nos falta publicar la tarjeta, si no estaba ya publicada o navegar hacia ella si ya lo estaba. Para ello nos ayudamos del flag que hemos definido anteriormente de la siguiente forma:</p>
 
-<p>[code language=”java”]
-…
-        if(haveToPublish) {
-            mLiveCard.publish(LiveCard.PublishMode.REVEAL);
-        } else {
-            mLiveCard.navigate();
-        }
-…
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">haveToPublish</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">LiveCard</span><span class="o">.</span><span class="na">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">navigate</span><span class="o">();</span>
+        <span class="o">}</span>
+<span class="o">...</span>
+</code></pre>
+</div>
 
 <p>Bien, ya tenemos creada nuestra tarjeta, ahora necesitamos implementar el evento onDestroy de nuestro servicio, donde vamos a retirar nuestra tarjeta del Timeline.</p>
 
-<p>[code language=”java”]
-    @Override
-    public void onDestroy() {
-        if (mLiveCard != null &amp;&amp; mLiveCard.isPublished()) {
-            mLiveCard.unpublish();
-            mLiveCard = null;
-        }
-        super.onDestroy();
-    }
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">mLiveCard</span><span class="o">.</span><span class="na">isPublished</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">unpublish</span><span class="o">();</span>
+            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ya lo tenemos todo, ahora solo nos falta configurar el <em>AndroidManifest</em> y el Voice Trigger con su Prompt como ya sabemos. Lo primero el Voice Trigger con el Prompt.</p>
 
-<p>[code language=”xml”]</p>
-<trigger keyword="@string/trigger_show_my_card">
-    <input prompt="@string/prompt_show_my_card" />
-</trigger>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_show_my_card"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_show_my_card"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/trigger&gt;</span>
+</code></pre>
+</div>
 
 <p>Y declaramos el servicio en el <em>AndroidManifest</em>, asociándolo al Voice Trigger.</p>
 
-<p>[code language=”xml”]
-…
-        <service android:name=".Demo4Service">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"></action>
-            </intent-filter></service></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+        <span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".Demo4Service"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span>
+                    <span class="na">android:name=</span><span class="s">"com.google.android.glass.action.VOICE_TRIGGER"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
-            android:resource="@xml/show_my_card_trigger" /&gt;
-    &lt;/service&gt; ... [/code]
+            <span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">"com.google.android.glass.VoiceTrigger"</span>
+                <span class="na">android:resource=</span><span class="s">"@xml/show_my_card_trigger"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/service&gt;</span>
+...
 </code></pre>
 </div>
 
 <p><strong>Recordad añadir el permiso para poder usar comandos personalizados</strong></p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="interactuando-con-nuestra-live-card">Interactuando con nuestra Live Card</h3>
 
@@ -1003,73 +1008,72 @@ public void onDestroy() {
 
 <p>Creamos el fichero de menú.</p>
 
-<p>[code language=”xml”]</p>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/one" android:title="One" />
-    <item android:id="@+id/two" android:title="Two" />
-</menu>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/one"</span>
+          <span class="na">android:title=</span><span class="s">"One"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/two"</span>
+          <span class="na">android:title=</span><span class="s">"Two"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+</code></pre>
+</div>
 
 <p>Creamos la actividad, en la cual no necesitaremos el método <em>onCreate()</em> ya que esta no va a tener interfaz gráfica. Para asociarle un menú a la actividad, lo hacemos como siempre. Para simplificar, no le vamos a añadir código para cuando se selecciona alguna de las opciones del menú, pero en caso de querer hacer algo, solo tendríamos que añadir el código que corresponda en el <strong>switch</strong>.</p>
 
-<p>[code language=”java”]
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my_menu, menu);
-        return true;
-    }</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-        default:
-            return super.onOptionsItemSelected(item);
-    }
-} [/code]
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
 </code></pre>
 </div>
 
 <p>Ahora para hacer que el menú se muestre al abrir la actividad y que la actividad se finalice cuando el menú se cierre implementamos los siguientes métodos.</p>
 
-<p>[code language=”java”]
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        openOptionsMenu();
-    }</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">();</span>
+        <span class="n">openOptionsMenu</span><span class="o">();</span>
+    <span class="o">}</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-public void onOptionsMenuClosed(Menu menu) {
-    finish();
-} [/code]
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOptionsMenuClosed</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">finish</span><span class="o">();</span>
+    <span class="o">}</span>
 </code></pre>
 </div>
 
 <p>Ya solo nos quedan un par de pequeños detalles para terminar nuestra aplicación y poder ver nuestra Live Card en acción. Lo primero es hacer nuestra actividad transparente, para eso vamos a sobrescribir el tema para esta actividad por uno que haga el fondo transparente y elimine cualquier animación de entrada de la actividad. En nuestro fichero de estilos agregamos el siguiente tema. Esperemos que en un futuro GDK este tema venga incluido por defecto en el sistema.</p>
 
-<p>[code language=”xml”]
-    <style name="MenuTheme" parent="@android:style/Theme.DeviceDefault">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@null</item>
-    </style>
-[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"MenuTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowBackground"</span><span class="nt">&gt;</span>@android:color/transparent<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:colorBackgroundCacheHint"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowIsTranslucent"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowAnimationStyle"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/style&gt;</span>
+</code></pre>
+</div>
 
 <p>Por último nos queda registrar la actividad en el <em>AndroidManifest</em>, donde le asociaremos el tema que hemos creado.</p>
 
-<p>[code language=”xml”]
-        <activity android:name=".MenuActivity" android:theme="@style/MenuTheme"></activity>
-[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MenuActivity"</span>
+                  <span class="na">android:theme=</span><span class="s">"@style/MenuTheme"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
 
 <p>Ejecutamos el proyecto y decimos “ok glass, show my card”, nos saltará el Prompt y a continuación, nuestra tarjeta.</p>
 
 <p>Y con esto terminamos esta serie de artículos dedicados a Google Glass. Esto es lo básico y que marca diferencia con una aplicación Android, si bien me reservo aún algún tema como la autenticación con cuentas Google y no Google en Glass, pero hay muchas más cosas con las que experimentar ahí fuera y por ahora y hasta que exista un gran cambio de API en Google Glass, creo que es algo ya superado. Como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>4.Timeline</strong>.</p>
 
 <p>[github repo=”raycoarana/google_glass_first_steps”]</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="conclusiones">Conclusiones</h3>
 

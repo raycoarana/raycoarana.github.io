@@ -20,72 +20,60 @@
 	  <description><![CDATA[
 	     <p>Hace mucho que no escribía en el blog, entre otras cosas porque ando un poco liado con un proyecto personal. Además, como ya sabrás Google ha actualizado Google Glass a la versión de firmware XE16, subiendo la versión de Android a 4.4.2, actualizando también el GDK y por consiguiente, nos trae muchos cambios en la API. Esto ha implicado que parte de este artículo ya no tenga sentido, ya que Google ha eliminado la clase TimelineManager y por tanto, ya no es posible publicar en el Timeline tarjetas estáticas.</p>
 
-<p>[sh_margin margin=”20”]</p>
-
 <h3 id="cambios-en-el-gdk">Cambios en el GDK</h3>
 
 <p>Antes de continuar con la última entrega en esta serie de artículos de introducción a Google Glass, toca actualizar los anteriores. En el repositorio Git donde está el código de todos los artículos anteriores, podrás encontrar los proyectos actualizados con estos cambios, no son muchos y la mayoría no son más que cambios de nombres.</p>
 
-<!-- more -->
+<!--more-->
 
 <ul>
-  <li>
-    <p><strong>Nuevo permiso para comandos de voz propios.</strong> Si queremos utilizar comandos de voz que están fuera de la lista oficial de comandos, tendrás que añadir el permiso <em><strong>com.google.android.glass.permission.DEVELOPMENT</strong></em> en tu Manifest. Ni que decir tiene, que con este permiso no te permitirán subir la aplicación a MyGlass. Los comandos de voz permitidos están incluidos ahora como constantes en la clase <strong><em>VoiceTriggers.Command</em></strong> y en el tag <strong><em>trigger</em></strong> debemos indicar el comando usando el atributo <strong><em>command</em></strong>
-.</p>
-  </li>
+  <li><strong>Nuevo permiso para comandos de voz propios.</strong> Si queremos utilizar comandos de voz que están fuera de la lista oficial de comandos, tendrás que añadir el permiso <em><strong>com.google.android.glass.permission.DEVELOPMENT</strong></em> en tu Manifest. Ni que decir tiene, que con este permiso no te permitirán subir la aplicación a MyGlass. Los comandos de voz permitidos están incluidos ahora como constantes en la clase <strong><em>VoiceTriggers.Command</em></strong> y en el tag <strong><em>trigger</em></strong> debemos indicar el comando usando el atributo <strong><em>command</em></strong>
+.</li>
   <li>
     <p><strong>Clase Card.</strong> Cambia el nombre del método <em>toView()</em> a <em>getView()</em>. Además existe una sobrecarga para la reutilización de vistas cuando se utiliza dentro de un CardScrollView.</p>
   </li>
-  <li>
-    <p><strong>Clases CardScrollView y CardScrollAdapter.</strong> Hay varios métodos que ya no existen o que ya no se pueden sobrescribir.</p>
-  </li>
+  <li><strong>Clases CardScrollView y CardScrollAdapter.</strong> Hay varios métodos que ya no existen o que ya no se pueden sobrescribir.</li>
 </ul>
 
 <p>El resto de cambios afectan a API que no hemos visto, como la que ya hemos comentado, la desaparición de la clase <em>TimelineManager</em>. Si quieres ver el resto de cambios, puedes consultar las <a href="https://developers.google.com/glass/release-notes">Release Notes</a> que ha publicado Google.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="static-cards">Static Cards</h3>
 
 <p>Como decíamos anteriormente, las Static Cards ya no existen como tal. Anteriormente, usando la clase <em>TimelineManager</em> era posible publicar una tarjeta (objetos de tipo Card) directamente al Timeline, en la parte derecha que corresponde al pasado. El problema de esta API es que estas tarjetas no eran muy útiles, ya que el usuario no podía interactuar con ellas. No era posible asociarle un menú con el que poder interactuar y es esta seguramente la principal razón de su eliminación. Por lo tanto una Static Card no será más que una Live Card cuya vista permanece estática, aunque esto siempre será en la parte del futuro. ¿Y para el pasado? A mí esto me huele a próxima integración con la nueva API de Wearables que tenemos en Android y las tarjetas estáticas serán notificaciones.</p>
 
-<p>[sh_margin margin=”20”]</p>
-
 <h3 id="live-cards">Live Cards</h3>
 
 <p>Las Live Cards son por tanto la única forma que tenemos para insertar tarjetas en el Timeline de Google Glass (al menos por ahora). Para crear una tarjeta, basta con construir un objeto de tipo <strong><em>LiveCard</em></strong>, pasando el contexto y un tag con el que identificamos a la tarjeta.</p>
 
-<p>[code language=”java”]
-LiveCard liveCard = new LiveCard(this, “simple-card”);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LiveCard</span> <span class="n">liveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Una vez tenemos nuestra tarjeta, necesitamos decirle qué queremos mostrar. Existen dos tipos de Live Cards, en función de la frecuencia de actualización de la interfaz que necesitemos, las creadas a partir de una vista normal para baja frecuencia de actualización o las creadas sobre un SurfaceHolder, para por ejemplo, pintar con OpenGL, cuando se requiera una frecuencia de actualización alta. Es decir, si vamos a modificar el contenido de nuestra Live Card una o dos veces por segundo como mucho, la primera aproximación es la adecuada. Si por contra vamos a crear un compass, realidad aumentada o algo que necesite una frecuencia de 20-30 o más veces por segundo, debemos optar por la segunda opción.</p>
 
-<p>Para las primeras, debemos asignarle una <strong>RemoteView</strong>. Esto ya nos debería sonar, en Android las <strong>RemoteView **se utilizan para cuando queremos crear Widgets y en cierta manera es justo lo que queremos hacer ahora, queremos darle a otra aplicación (el Timeline) una vista para que la muestre desde nuestra aplicación. Hay que tener esto claro para entender por qué no podemos poner cualquier vista en una **RemoteView</strong> y como es además su forma de actualización a través del objeto <strong>RemoveView</strong>, realmente <strong>nos estamos comunicando con otra aplicación</strong>, que vive en otro contexto distinto al de nuestra app.</p>
+<p>Para las primeras, debemos asignarle una <strong>RemoteView</strong>. Esto ya nos debería sonar, en Android las <strong>RemoteView</strong> se utilizan para cuando queremos crear Widgets y en cierta manera es justo lo que queremos hacer ahora, queremos darle a otra aplicación (el Timeline) una vista para que la muestre desde nuestra aplicación. Hay que tener esto claro para entender por qué no podemos poner cualquier vista en una <strong>RemoteView</strong> y como es además su forma de actualización a través del objeto <strong>RemoveView</strong>, realmente <strong>nos estamos comunicando con otra aplicación</strong>, que vive en otro contexto distinto al de nuestra app.</p>
 
-<p>[code language=”java”]
-RemoteViews views = new RemoteViews(context.getPackageName(), 
-                                    R.layout.view_of_my_livecard);
-liveCard.setViews(views);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">RemoteViews</span> <span class="n">views</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> 
+                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">views</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.</p>
 
-<p>[code language=”java”]
-liveCard.setDirectRenderingEnabled(true);
-liveCard.getSurfaceHolder().addCallback(callback);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">getSurfaceHolder</span><span class="o">().</span><span class="na">addCallback</span><span class="o">(</span><span class="n">callback</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Una vez tenemos ya configurada nuestra Live Card, solo nos queda publicarla, para ello es tan sencillo como llamar al método <strong><em>publish()</em></strong>. Este método nos pide un parámetro para indicar la forma de publicación, <strong>REVEAL</strong> o <strong>SILENT</strong>. Con REVEAL le estamos indicando al Timeline que debe llevar al usuario a nuestra tarjeta recién publicada. Si por contra utilizamos SILENT, como nos podemos imaginar, la tarjeta se publicará sin <em>molestar</em> al usuario.</p>
 
 <p>Pero… ¿realmente ya está? La verdad es que no. Si ejecutamos el código que hemos ido viendo y lo ejecutamos en una actividad, veremos que al salir de esta y volver al Timeline, nuestra tarjeta no existe. El problema es el ciclo de vida de nuestra aplicación y la tarjeta. Si recordáis del desarrollo de Widgets en Android, era siempre necesario tener un servicio en el que se apoyase el Widget y en el caso de las Live Cards nos ocurre igual, debemos crear un servicio y asociarlo a nuestra <em>LiveCard</em> utilizando el método <strong><em>attach()</em></strong> o creándolo directamente desde el propio servicio y que este gestione explícitamente su ciclo de vida.</p>
 
-<p>[code language=”java”]
-liveCard.attach(myService);
-liveCard.publish(PublishMode.REVEAL);
-[/code]</p>
-
-<p>[sh_margin margin=”20”]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">myService</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <h3 id="manos-a-la-obra">Manos a la obra</h3>
 
@@ -93,62 +81,64 @@ liveCard.publish(PublishMode.REVEAL);
 
 <p>En primer lugar creamos el layout de nuestra Live Card. Vamos a hacer algo sencillo, simplemente un TextView en el que mostrar el texto.</p>
 
-<p>[code language=”xml”]</p>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/my_card_content" android:layout_width="match_parent" android:layout_height="match_parent" />
-
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:id=</span><span class="s">"@+id/my_card_content"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
 
 <p>Ahora vamos a crear el servicio, primero el esqueleto del mismo.</p>
 
-<p>[code language=”java”]
-public class Demo4Service extends Service {</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo4Service</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-public IBinder onBind(Intent intent) {
-    return null;
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
 
-@Override
-public int onStartCommand(Intent intent, int flags, int startId) {
-    ...
-    return START_STICKY;
-}
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="k">return</span> <span class="n">START_STICKY</span><span class="o">;</span>
+    <span class="o">}</span>
 
-@Override
-public void onDestroy() {
-    ...
-} } [/code]
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="o">...</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 
 <p>Ahora en el método <strong><em>onStartCommand()</em></strong> recibiremos cada uno de los Intent que el usuario vaya lanzando, así que lo primero será transformar el texto obtenido desde la lista a una simple String.</p>
 
-<p>[code language=”java”]
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        ArrayList<String> voiceResults = intent.getExtras().getStringArrayList(RecognizerIntent.EXTRA_RESULTS);</String></p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getExtras</span><span class="o">().</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>    StringBuilder userContent = new StringBuilder();
-    for (String voiceToken : voiceResults) {
-        userContent.append(voiceToken);
-        userContent.append(" ");
-    } ... [/code]
+        <span class="n">StringBuilder</span> <span class="n">userContent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">voiceToken</span><span class="o">);</span>
+            <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
+        <span class="o">}</span>
+<span class="o">...</span>
 </code></pre>
 </div>
 
 <p>Una vez tenemos ya la cadena a mostrar, vamos a crear la tarjeta. La tarjeta solo será necesaria crearla si es la primera vez que el usuario lanza el comando desde el inicio del servicio. Si este ya estaba en ejecución, la tarjeta ya existe y solo tendremos que actualizarla. Para esto es importante quedarnos con una instancia siempre de la tarjeta a nivel de servicio.</p>
 
-<p>[code language=”java”]
-…
-        boolean haveToPublish = false;
-        if (mLiveCard == null) {
-            mLiveCard = new LiveCard(this, “simple-card”);
-            mLiveCard.setAction(PendingIntent.getActivity(this, 0, new Intent(this, MenuActivity.class), 0));
-            mRemoteViews = new RemoteViews(getPackageName(), R.layout.view_of_my_livecard);
-            haveToPublish = true;
-        }
-…
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+        <span class="kt">boolean</span> <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MenuActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="mi">0</span><span class="o">));</span>
+            <span class="n">mRemoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+            <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+        <span class="o">}</span>
+<span class="o">...</span>
+</code></pre>
+</div>
 
 <p>En el trozo de código anterior podemos ver cómo creamos la tarjeta y cómo le asignamos una acción. <strong>¡Ojo con esto porque es obligatorio!</strong>, si no definimos una acción a nuestra tarjeta, esta no se publicará. <strong>Si nuestra tarjeta no tiene de verdad ninguna función a mostrar</strong> cuando el usuario pulsa sobre ella, debemos lanzar una actividad, que no haga ni muestre nada, pero que reproduzca el <strong>sonido correspondiente para indicar al usuario que no existe acción posible</strong>. Esto es algo en lo que insisto mucho siempre a los desarrolladores, siempre, siempre, siempre hay que dar feedback al usuario de lo que está pasando, para que no se quede dando TAPs al TouchPad para ver si se muestra algo y no saber si es que no hay nada, no funciona o el dispositivo no funciona bien.</p>
 
@@ -156,64 +146,63 @@ public void onDestroy() {
 
 <p>Lo siguiente será un código que se ejecutará siempre, independientemente de si la tarjeta existía con anterioridad o no y es la actualización de la vista con el texto dictado por el usuario. Para ello utilizamos uno de los métodos soportados por el objeto <strong>RemoteViews</strong> para actualizar el contenido de esa vista remota. Una vez lo hemos actualizado, necesitamos reasignarlo a la Live Card para que esta tenga conocimiento del cambio.</p>
 
-<p>[code language=”java”]
-…
-        mRemoteViews.setTextViewText(R.id.my_card_content, userContent);
-        mLiveCard.setViews(mRemoteViews);
-…
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+        <span class="n">mRemoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_card_content</span><span class="o">,</span> <span class="n">userContent</span><span class="o">);</span>
+        <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">mRemoteViews</span><span class="o">);</span>
+<span class="o">...</span>
+</code></pre>
+</div>
 
 <p>Ya por último dentro del método <em>onStartCommand()</em> nos falta publicar la tarjeta, si no estaba ya publicada o navegar hacia ella si ya lo estaba. Para ello nos ayudamos del flag que hemos definido anteriormente de la siguiente forma:</p>
 
-<p>[code language=”java”]
-…
-        if(haveToPublish) {
-            mLiveCard.publish(LiveCard.PublishMode.REVEAL);
-        } else {
-            mLiveCard.navigate();
-        }
-…
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">haveToPublish</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">LiveCard</span><span class="o">.</span><span class="na">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">navigate</span><span class="o">();</span>
+        <span class="o">}</span>
+<span class="o">...</span>
+</code></pre>
+</div>
 
 <p>Bien, ya tenemos creada nuestra tarjeta, ahora necesitamos implementar el evento onDestroy de nuestro servicio, donde vamos a retirar nuestra tarjeta del Timeline.</p>
 
-<p>[code language=”java”]
-    @Override
-    public void onDestroy() {
-        if (mLiveCard != null &amp;&amp; mLiveCard.isPublished()) {
-            mLiveCard.unpublish();
-            mLiveCard = null;
-        }
-        super.onDestroy();
-    }
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">mLiveCard</span><span class="o">.</span><span class="na">isPublished</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">unpublish</span><span class="o">();</span>
+            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ya lo tenemos todo, ahora solo nos falta configurar el <em>AndroidManifest</em> y el Voice Trigger con su Prompt como ya sabemos. Lo primero el Voice Trigger con el Prompt.</p>
 
-<p>[code language=”xml”]</p>
-<trigger keyword="@string/trigger_show_my_card">
-    <input prompt="@string/prompt_show_my_card" />
-</trigger>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_show_my_card"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_show_my_card"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/trigger&gt;</span>
+</code></pre>
+</div>
 
 <p>Y declaramos el servicio en el <em>AndroidManifest</em>, asociándolo al Voice Trigger.</p>
 
-<p>[code language=”xml”]
-…
-        <service android:name=".Demo4Service">
-            <intent-filter>
-                <action android:name="com.google.android.glass.action.VOICE_TRIGGER"></action>
-            </intent-filter></service></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+        <span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".Demo4Service"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;intent-filter&gt;</span>
+                <span class="nt">&lt;action</span>
+                    <span class="na">android:name=</span><span class="s">"com.google.android.glass.action.VOICE_TRIGGER"</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/intent-filter&gt;</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>        &lt;meta-data android:name="com.google.android.glass.VoiceTrigger"
-            android:resource="@xml/show_my_card_trigger" /&gt;
-    &lt;/service&gt; ... [/code]
+            <span class="nt">&lt;meta-data</span> <span class="na">android:name=</span><span class="s">"com.google.android.glass.VoiceTrigger"</span>
+                <span class="na">android:resource=</span><span class="s">"@xml/show_my_card_trigger"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;/service&gt;</span>
+...
 </code></pre>
 </div>
 
 <p><strong>Recordad añadir el permiso para poder usar comandos personalizados</strong></p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="interactuando-con-nuestra-live-card">Interactuando con nuestra Live Card</h3>
 
@@ -221,73 +210,72 @@ public void onDestroy() {
 
 <p>Creamos el fichero de menú.</p>
 
-<p>[code language=”xml”]</p>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/one" android:title="One" />
-    <item android:id="@+id/two" android:title="Two" />
-</menu>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/one"</span>
+          <span class="na">android:title=</span><span class="s">"One"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/two"</span>
+          <span class="na">android:title=</span><span class="s">"Two"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/menu&gt;</span>
+</code></pre>
+</div>
 
 <p>Creamos la actividad, en la cual no necesitaremos el método <em>onCreate()</em> ya que esta no va a tener interfaz gráfica. Para asociarle un menú a la actividad, lo hacemos como siempre. Para simplificar, no le vamos a añadir código para cuando se selecciona alguna de las opciones del menú, pero en caso de querer hacer algo, solo tendríamos que añadir el código que corresponda en el <strong>switch</strong>.</p>
 
-<p>[code language=”java”]
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.my_menu, menu);
-        return true;
-    }</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-        default:
-            return super.onOptionsItemSelected(item);
-    }
-} [/code]
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
 </code></pre>
 </div>
 
 <p>Ahora para hacer que el menú se muestre al abrir la actividad y que la actividad se finalice cuando el menú se cierre implementamos los siguientes métodos.</p>
 
-<p>[code language=”java”]
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        openOptionsMenu();
-    }</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">();</span>
+        <span class="n">openOptionsMenu</span><span class="o">();</span>
+    <span class="o">}</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>@Override
-public void onOptionsMenuClosed(Menu menu) {
-    finish();
-} [/code]
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOptionsMenuClosed</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">finish</span><span class="o">();</span>
+    <span class="o">}</span>
 </code></pre>
 </div>
 
 <p>Ya solo nos quedan un par de pequeños detalles para terminar nuestra aplicación y poder ver nuestra Live Card en acción. Lo primero es hacer nuestra actividad transparente, para eso vamos a sobrescribir el tema para esta actividad por uno que haga el fondo transparente y elimine cualquier animación de entrada de la actividad. En nuestro fichero de estilos agregamos el siguiente tema. Esperemos que en un futuro GDK este tema venga incluido por defecto en el sistema.</p>
 
-<p>[code language=”xml”]
-    <style name="MenuTheme" parent="@android:style/Theme.DeviceDefault">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@null</item>
-    </style>
-[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"MenuTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowBackground"</span><span class="nt">&gt;</span>@android:color/transparent<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:colorBackgroundCacheHint"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowIsTranslucent"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
+        <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowAnimationStyle"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
+    <span class="nt">&lt;/style&gt;</span>
+</code></pre>
+</div>
 
 <p>Por último nos queda registrar la actividad en el <em>AndroidManifest</em>, donde le asociaremos el tema que hemos creado.</p>
 
-<p>[code language=”xml”]
-        <activity android:name=".MenuActivity" android:theme="@style/MenuTheme"></activity>
-[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MenuActivity"</span>
+                  <span class="na">android:theme=</span><span class="s">"@style/MenuTheme"</span><span class="nt">/&gt;</span>
+</code></pre>
+</div>
 
 <p>Ejecutamos el proyecto y decimos “ok glass, show my card”, nos saltará el Prompt y a continuación, nuestra tarjeta.</p>
 
 <p>Y con esto terminamos esta serie de artículos dedicados a Google Glass. Esto es lo básico y que marca diferencia con una aplicación Android, si bien me reservo aún algún tema como la autenticación con cuentas Google y no Google en Glass, pero hay muchas más cosas con las que experimentar ahí fuera y por ahora y hasta que exista un gran cambio de API en Google Glass, creo que es algo ya superado. Como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>4.Timeline</strong>.</p>
 
 <p>[github repo=”raycoarana/google_glass_first_steps”]</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="conclusiones">Conclusiones</h3>
 

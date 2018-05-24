@@ -116,9 +116,66 @@
       
     
       
-    
+      <item>
+        <title>Calligraphy, fuentes personalizadas en Android</title>
+        
+          <description>&lt;p&gt;Si hay una cosa que es un &lt;strong&gt;dolor de muelas&lt;/strong&gt; en Android es cuando tienes que hacer una app que usa &lt;strong&gt;fuentes personalizadas&lt;/strong&gt;. Aunque es incluso peor, si queremos usar la moderna Roboto, ya tenemos el lío formado, ya que en Android 2.3 no la tendremos tampoco. Y es que utilizar fuentes personalizadas es algo que está muy mal resuelto incluso aún hoy en la última versión del sistema (4.4.3 a día de hoy).&lt;/p&gt;
+
+&lt;p&gt;Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta &lt;strong&gt;assets&lt;/strong&gt;) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Typeface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Typeface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createFromAsset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getAssets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; 
+                                       &lt;span class=&quot;s&quot;&gt;&quot;fonts/mycustomfont.ttf&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        
+&lt;span class=&quot;n&quot;&gt;TextView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;text1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;myView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se &lt;strong&gt;definan de forma declarativa&lt;/strong&gt; por completo en el XML del layout.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 16 Jun 2014 21:15:48 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/</guid>
+      </item>
       
     
+      
+      <item>
+        <title>Parcelables con Android AutoParcel</title>
+        
+          <description>&lt;p&gt;Cuando vamos a crear una app en Android y tenemos que pasar datos entre &lt;em&gt;Activities&lt;/em&gt; y/o &lt;em&gt;Fragments&lt;/em&gt;, el sistema operativo nos brinda la posibilidad de usar un &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundle&lt;/code&gt;, ya sea a través del &lt;code class=&quot;highlighter-rouge&quot;&gt;Intent&lt;/code&gt; (y el Bundle de extras) o a través del método &lt;code class=&quot;highlighter-rouge&quot;&gt;setArguments()&lt;/code&gt; de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que &lt;strong&gt;no crea acoplamientos poco deseables&lt;/strong&gt;, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el &lt;code class=&quot;highlighter-rouge&quot;&gt;Activity&lt;/code&gt; o &lt;code class=&quot;highlighter-rouge&quot;&gt;Fragment&lt;/code&gt; debido al ciclo de vida de la aplicación.&lt;/p&gt;
+
+&lt;p&gt;El problema viene con los tipos de datos que nos permite almacenar un &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundle&lt;/code&gt;, estos son tipos básicos u objetos que implementen la interfaz &lt;code class=&quot;highlighter-rouge&quot;&gt;Serializable&lt;/code&gt; o &lt;code class=&quot;highlighter-rouge&quot;&gt;Parcelable&lt;/code&gt;. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema &lt;strong&gt;por medio de reflexión es capaz de serializar el objeto a una representación binaria&lt;/strong&gt; que se puede persistir. En el caso de &lt;code class=&quot;highlighter-rouge&quot;&gt;Parcelable&lt;/code&gt;, sin embargo, debemos implementar dos métodos para serializar -&lt;code class=&quot;highlighter-rouge&quot;&gt;writeToParcel()&lt;/code&gt;- y deserializar -&lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt;- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy &lt;strong&gt;tedioso y difícil de mantener&lt;/strong&gt;.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Mon, 09 Jun 2014 22:29:34 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/06/parcelables-con-android-autoparcel/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/06/parcelables-con-android-autoparcel/</guid>
+      </item>
+      
+    
+      
+      <item>
+        <title>Timeline y Live Cards. Primeros pasos con Google Glass (V)</title>
+        
+          <description>&lt;p&gt;Hace mucho que no escribía en el blog, entre otras cosas porque ando un poco liado con un proyecto personal. Además, como ya sabrás Google ha actualizado Google Glass a la versión de firmware XE16, subiendo la versión de Android a 4.4.2, actualizando también el GDK y por consiguiente, nos trae muchos cambios en la API. Esto ha implicado que parte de este artículo ya no tenga sentido, ya que Google ha eliminado la clase TimelineManager y por tanto, ya no es posible publicar en el Timeline tarjetas estáticas.&lt;/p&gt;
+
+&lt;h3 id=&quot;cambios-en-el-gdk&quot;&gt;Cambios en el GDK&lt;/h3&gt;
+
+&lt;p&gt;Antes de continuar con la última entrega en esta serie de artículos de introducción a Google Glass, toca actualizar los anteriores. En el repositorio Git donde está el código de todos los artículos anteriores, podrás encontrar los proyectos actualizados con estos cambios, no son muchos y la mayoría no son más que cambios de nombres.&lt;/p&gt;
+
+</description>
+        
+        <pubDate>Tue, 29 Apr 2014 23:00:32 +0200</pubDate>
+        <link>
+        http://raycoarana.com//blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/</link>
+        <guid isPermaLink="true">http://raycoarana.com//blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/</guid>
+      </item>
       
     
       

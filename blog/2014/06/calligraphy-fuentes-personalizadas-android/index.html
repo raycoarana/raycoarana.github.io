@@ -86,12 +86,14 @@
     <nav class="main-nav  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
+            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+        
     </nav>
 </header>
 
 <main class="content" role="main">
 
-    <article class="">
+    <article class="post tag-content">
 
         <header class="post-header">
             <h1 class="post-title">Calligraphy, fuentes personalizadas en Android</h1>
@@ -128,19 +130,17 @@
 
 <p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
 
-<p>[code language=”java”]
-Typeface tf = Typeface.createFromAsset(getAssets(), 
-                                       “fonts/mycustomfont.ttf”);</p>
-
-<p>TextView myView = (TextView) findViewById(android.R.id.text1);
-myView.setTypeface(tf);
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
+                                       <span class="s">"fonts/mycustomfont.ttf"</span><span class="o">);</span>
+        
+<span class="n">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
+<span class="n">myView</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">tf</span><span class="o">);</span>
+</code></pre>
+</div>
 
 <p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
 
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
+<!--more-->
 
 <h3 id="solución-1-controles-personalizados">Solución 1. Controles personalizados</h3>
 
@@ -148,19 +148,27 @@ myView.setTypeface(tf);
 
 <p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui" android:layout_width="match_parent" android:layout_height="match_parent">
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
+    <span class="na">xmlns:pixlui=</span><span class="s">"http://schemas.android.com/apk/com.neopixl.pixlui"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
-    <com.neopixl.pixlui.components.textview.TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" pixlui:typeface="mycustomfont.ttf" />
+    <span class="nt">&lt;com.neopixl.pixlui.components.textview.TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"@string/text_of_my_view"</span>
+        <span class="na">android:gravity=</span><span class="s">"center"</span>
+        <span class="na">android:textSize=</span><span class="s">"36sp"</span>
+        <span class="na">pixlui:typeface=</span><span class="s">"mycustomfont.ttf"</span><span class="nt">/&gt;</span>
 
 ...
 
-</LinearLayout>
-<p>[/code]</p>
-
-<p>[sh_margin margin=”20”]</p>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
 
 <h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
 
@@ -168,60 +176,76 @@ myView.setTypeface(tf);
 
 <p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
 
-<p>[code language=”java”]
-@Override
-protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(new CalligraphyContextWrapper(newBase));
-}
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" android:fontFamily="fonts/mycustomfont.ttf" />
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"@string/text_of_my_view"</span>
+        <span class="na">android:gravity=</span><span class="s">"center"</span>
+        <span class="na">android:textSize=</span><span class="s">"36sp"</span>
+        <span class="na">android:fontFamily=</span><span class="s">"fonts/mycustomfont.ttf"</span><span class="nt">/&gt;</span>
 
 ...
 
-</LinearLayout>
-<p>[/code]</p>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
 
 <p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
-<Resources>
-    <attr name="customFont" />
-</Resources>
-<p>[/code]</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;Resources&gt;</span>
+    <span class="nt">&lt;attr</span> <span class="na">name=</span><span class="s">"customFont"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Resources&gt;</span>
+</code></pre>
+</div>
 
 <p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
 
-<p>[code language=”java”]
-@Override
-protected void attachBaseContext(Context newBase) {
-    super.attachBaseContext(new CalligraphyContextWrapper(newBase, R.attr.customFont));
-}
-[/code]</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">customFont</span><span class="o">));</span>
+<span class="o">}</span>
+</code></pre>
+</div>
 
 <p>Y ya solo nos queda utilizarlo en las vistas.</p>
 
-<p>[code language=”xml”]
-<?xml version="1.0" encoding="utf-8"?></p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+<span class="nt">&lt;LinearLayout</span>
+    <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+    <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+    <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">&gt;</span>
 
-    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/text_of_my_view" android:gravity="center" android:textSize="36sp" customFont="fonts/mycustomfont.ttf" />
+    <span class="nt">&lt;TextView</span>
+        <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
+        <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
+        <span class="na">android:text=</span><span class="s">"@string/text_of_my_view"</span>
+        <span class="na">android:gravity=</span><span class="s">"center"</span>
+        <span class="na">android:textSize=</span><span class="s">"36sp"</span>
+        <span class="na">customFont=</span><span class="s">"fonts/mycustomfont.ttf"</span><span class="nt">/&gt;</span>
 
 ...
 
-</LinearLayout>
-<p>[/code]</p>
-
-<p>[sh_margin margin=”20”]</p>
+<span class="nt">&lt;/LinearLayout&gt;</span>
+</code></pre>
+</div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
@@ -239,7 +263,7 @@ protected void attachBaseContext(Context newBase) {
 
             
             <figure class="author-image">
-                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">raycoarana's Picture</span></a>
+                <a class="img" href="/author/raycoarana" style="background-image: url(/assets/images/avatar.jpg)"><span class="hidden">'s Picture</span></a>
             </figure>
             
 

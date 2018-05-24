@@ -104,7 +104,7 @@
             <span class="author-location icon-location">Madrid, Spain</span>
             <span class="author-link icon-link"><a href="http://raycoarana.com/">raycoarana.com</a></span>
             <!-- <span class="author-stats"><i class="icon-stats"></i> [[plural ../pagination.total empty='No posts' singular='% post' plural='% posts']]</span> -->
-            <span class="author-stats"><i class="icon-stats"></i>13 posts</span>
+            <span class="author-stats"><i class="icon-stats"></i>16 posts</span>
         </div>
     </section>
 <!-- /author -->
@@ -122,7 +122,7 @@
             <a class="newer-posts" href="/author/raycoarana" title="Previous Page">&laquo; Newer Posts</a>
         
     
-    <span class="page-number"> Page 2 of 3 </span>
+    <span class="page-number"> Page 2 of 4 </span>
      
         <a class="older-posts" href="/author/raycoarana/page3/" title="Next Page">Older Posts &raquo;</a>
      
@@ -182,6 +182,162 @@
     
     <article class="post">
         <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">Calligraphy, fuentes personalizadas en Android</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Si hay una cosa que es un <strong>dolor de muelas</strong> en Android es cuando tienes que hacer una app que usa <strong>fuentes personalizadas</strong>. Aunque es incluso peor, si queremos usar la moderna Roboto, ya tenemos el lío formado, ya que en Android 2.3 no la tendremos tampoco. Y es que utilizar fuentes personalizadas es algo que está muy mal resuelto incluso aún hoy en la última versión del sistema (4.4.3 a día de hoy).</p>
+
+<p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
+                                       <span class="s">"fonts/mycustomfont.ttf"</span><span class="o">);</span>
+        
+<span class="n">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
+<span class="n">myView</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">tf</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
+
+ <a class="read-more" href="/blog/2014/06/calligraphy-fuentes-personalizadas-android/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/calligraphy'>Calligraphy</a>,
+                       
+                
+                    
+                       <a href='/tag/fuentes'>Fuentes</a>,
+                       
+                
+                    
+                       <a href='/tag/personalizadas'>Personalizadas</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-06-16">16 Jun 2014</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/06/parcelables-con-android-autoparcel/">Parcelables con Android AutoParcel</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="highlighter-rouge">Bundle</code>, ya sea a través del <code class="highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="highlighter-rouge">Activity</code> o <code class="highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
+
+<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="highlighter-rouge">Serializable</code> o <code class="highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
+
+ <a class="read-more" href="/blog/2014/06/parcelables-con-android-autoparcel/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/activity'>Activity</a>,
+                       
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/autoparcel'>Autoparcel</a>,
+                       
+                
+                    
+                       <a href='/tag/autovalue'>Autovalue</a>,
+                       
+                
+                    
+                       <a href='/tag/fragment'>Fragment</a>,
+                       
+                
+                    
+                       <a href='/tag/parcelable'>Parcelable</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-06-09">09 Jun 2014</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
+            <h2 class="post-title"><a href="/blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/">Timeline y Live Cards. Primeros pasos con Google Glass (V)</a></h2>
+        </header>
+        <section class="post-excerpt">
+            <p>Hace mucho que no escribía en el blog, entre otras cosas porque ando un poco liado con un proyecto personal. Además, como ya sabrás Google ha actualizado Google Glass a la versión de firmware XE16, subiendo la versión de Android a 4.4.2, actualizando también el GDK y por consiguiente, nos trae muchos cambios en la API. Esto ha implicado que parte de este artículo ya no tenga sentido, ya que Google ha eliminado la clase TimelineManager y por tanto, ya no es posible publicar en el Timeline tarjetas estáticas.</p>
+
+<h3 id="cambios-en-el-gdk">Cambios en el GDK</h3>
+
+<p>Antes de continuar con la última entrega en esta serie de artículos de introducción a Google Glass, toca actualizar los anteriores. En el repositorio Git donde está el código de todos los artículos anteriores, podrás encontrar los proyectos actualizados con estos cambios, no son muchos y la mayoría no son más que cambios de nombres.</p>
+
+ <a class="read-more" href="/blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/">&raquo;</a>
+        </section>
+        <footer class="post-meta">
+            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
+            <!-- author -->
+            <a href='/author/raycoarana'>Rayco Araña</a>
+            <!-- [[tags prefix=" on "]] -->
+             
+                on 
+                
+                    
+                       <a href='/tag/android'>Android</a>,
+                       
+                
+                    
+                       <a href='/tag/cards'>Cards</a>,
+                       
+                
+                    
+                       <a href='/tag/gdk'>Gdk</a>,
+                       
+                
+                    
+                       <a href='/tag/glassware'>Glassware</a>,
+                       
+                
+                    
+                       <a href='/tag/google glass'>Google glass</a>,
+                       
+                
+                    
+                       <a href='/tag/live card'>Live card</a>,
+                       
+                
+                    
+                       <a href='/tag/static card'>Static card</a>,
+                       
+                
+                    
+                       <a href='/tag/timeline'>Timeline</a>
+                       
+                
+            
+            <time class="post-date" datetime="2014-04-29">29 Apr 2014</time>
+        </footer>
+    </article>
+    
+    <article class="post">
+        <header class="post-header">
             <h2 class="post-title"><a href="/blog/2014/03/cards-api-primeros-pasos-google-glass-iv/">Cards API. Primeros pasos con Google Glass (IV)</a></h2>
         </header>
         <section class="post-excerpt">
@@ -226,140 +382,6 @@
         </footer>
     </article>
     
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/blog/2014/03/primeros-pasos-con-google-glass-iii/">Voice triggers. Primeros pasos con Google Glass (III)</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>En el anterior artículo sobre los primeros pasos con Google Glass empezamos a ver el concepto de <strong>Voice trigger</strong>, los comandos de voz que permiten lanzar nuestras aplicaciones. Vamos a hablar un poco más cerca de ellas y qué cosas podemos hacer a día de hoy con la API.</p>
-
- <a class="read-more" href="/blog/2014/03/primeros-pasos-con-google-glass-iii/">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
-            <!-- author -->
-            <a href='/author/raycoarana'>Rayco Araña</a>
-            <!-- [[tags prefix=" on "]] -->
-             
-                on 
-                
-                    
-                       <a href='/tag/android'>Android</a>,
-                       
-                
-                    
-                       <a href='/tag/android studio'>Android studio</a>,
-                       
-                
-                    
-                       <a href='/tag/gdk'>Gdk</a>,
-                       
-                
-                    
-                       <a href='/tag/glassware'>Glassware</a>,
-                       
-                
-                    
-                       <a href='/tag/google glass'>Google glass</a>,
-                       
-                
-                    
-                       <a href='/tag/voice trigger'>Voice trigger</a>
-                       
-                
-            
-            <time class="post-date" datetime="2014-03-28">28 Mar 2014</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">Primeros pasos con Google Glass (II)</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>Siguiendo la serie de artículos de primeros pasos Google Glass, toca empezar a ponernos manos a la obra con nuestra primera aplicación. En el último artículo sobre Google Glass, dimos un vistazo general de sus características técnicas y de uso, que nos sirve para tener idea de que se puede y que no se puede hacer con ellas. Si bien hay que tener en cuenta que estamos ante un producto que está aún en una fase temprana de desarrollo y que muchas cosas cambiarán hasta que su salida a la venta al público general.</p>
-
- <a class="read-more" href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
-            <!-- author -->
-            <a href='/author/raycoarana'>Rayco Araña</a>
-            <!-- [[tags prefix=" on "]] -->
-             
-                on 
-                
-                    
-                       <a href='/tag/android'>Android</a>,
-                       
-                
-                    
-                       <a href='/tag/android studio'>Android studio</a>,
-                       
-                
-                    
-                       <a href='/tag/gdk'>Gdk</a>,
-                       
-                
-                    
-                       <a href='/tag/glassware'>Glassware</a>,
-                       
-                
-                    
-                       <a href='/tag/google glass'>Google glass</a>,
-                       
-                
-                    
-                       <a href='/tag/voice trigger'>Voice trigger</a>
-                       
-                
-            
-            <time class="post-date" datetime="2014-03-26">26 Mar 2014</time>
-        </footer>
-    </article>
-    
-    <article class="post">
-        <header class="post-header">
-            <h2 class="post-title"><a href="/blog/2014/03/ssl-pinning-ataques-man-in-the-middle/">SSL Pinning y ataques man-in-the-middle</a></h2>
-        </header>
-        <section class="post-excerpt">
-            <p>Un problema que cada vez más está de actualidad es la seguridad y la privacidad en las aplicaciones móviles. Existe además un problema mayor que en otros entornos dado que es más plausible el conectarse a redes externas como WiFi’s públicas. Como desde nuestras apps no podemos controlar que redes utiliza el usuario, debemos securizar las conexiones con SSL. Pero…, ¿es esto suficiente? <em>Pues va a ser que no</em>.</p>
-
- <a class="read-more" href="/blog/2014/03/ssl-pinning-ataques-man-in-the-middle/">&raquo;</a>
-        </section>
-        <footer class="post-meta">
-            <img class="author-thumb" src="/assets/images/avatar.jpg" alt="Author image" nopin="nopin" />
-            <!-- author -->
-            <a href='/author/raycoarana'>Rayco Araña</a>
-            <!-- [[tags prefix=" on "]] -->
-             
-                on 
-                
-                    
-                       <a href='/tag/android'>Android</a>,
-                       
-                
-                    
-                       <a href='/tag/Man in the middle'>Man in the middle</a>,
-                       
-                
-                    
-                       <a href='/tag/seguridad'>Seguridad</a>,
-                       
-                
-                    
-                       <a href='/tag/SSL'>Ssl</a>,
-                       
-                
-                    
-                       <a href='/tag/SSL Pinning'>Ssl pinning</a>
-                       
-                
-            
-            <time class="post-date" datetime="2014-03-05">05 Mar 2014</time>
-        </footer>
-    </article>
-    
 
     <!-- Previous/next page links - displayed on every page -->
     
@@ -369,7 +391,7 @@
             <a class="newer-posts" href="/author/raycoarana" title="Previous Page">&laquo; Newer Posts</a>
         
     
-    <span class="page-number"> Page 2 of 3 </span>
+    <span class="page-number"> Page 2 of 4 </span>
      
         <a class="older-posts" href="/author/raycoarana/page3/" title="Next Page">Older Posts &raquo;</a>
      
