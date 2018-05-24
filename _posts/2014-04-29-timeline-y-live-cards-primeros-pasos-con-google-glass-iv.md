@@ -12,7 +12,7 @@ tags:
   - live card
   - static card
   - timeline
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories:
   - raycoarana
 navigation: True

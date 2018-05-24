@@ -10,7 +10,7 @@ tags:
   - full text search
   - sqlite
   - development
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories:
   - raycoarana
 navigation: True

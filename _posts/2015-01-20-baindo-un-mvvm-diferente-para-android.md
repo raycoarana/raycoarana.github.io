@@ -9,7 +9,7 @@ tags:
   - development
   - mvvm
   - ui
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories:
     - raycoarana
 ---

@@ -6,7 +6,7 @@ date: 2015-04-25 15:25:02+00:00
 tags:
   - android
   - development
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories:
   - raycoarana
 navigation: True

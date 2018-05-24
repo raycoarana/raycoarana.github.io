@@ -9,7 +9,7 @@ tags:
   - glassware
   - google glass
   - timeline
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories:
   - raycoarana
 navigation: True

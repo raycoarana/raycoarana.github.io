@@ -10,7 +10,7 @@ tags:
   - autovalue
   - fragment
   - parcelable
-subclass: 'post'
+subclass: 'post tag-content'
 categories:
   - raycoarana
 navigation: True

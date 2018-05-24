@@ -9,7 +9,7 @@ tags:
     - seguridad
     - SSL
     - SSL Pinning
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories:
   - raycoarana
 navigation: True

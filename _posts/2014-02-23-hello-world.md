@@ -5,7 +5,7 @@ title: Esto empieza...
 date: 2014-02-23 11:50:21+00:00
 tags:
   - misc
-subclass: 'post tag-test tag-content'
+subclass: 'post tag-content'
 categories: 
   - raycoarana
 navigation: True
