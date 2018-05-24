@@ -20,32 +20,28 @@
 	  <description><![CDATA[
 	     <p>Un problema que cada vez más está de actualidad es la seguridad y la privacidad en las aplicaciones móviles. Existe además un problema mayor que en otros entornos dado que es más plausible el conectarse a redes externas como WiFi’s públicas. Como desde nuestras apps no podemos controlar que redes utiliza el usuario, debemos securizar las conexiones con SSL. Pero…, ¿es esto suficiente? <em>Pues va a ser que no</em>.</p>
 
-<!-- more -->
-
-<p>[sh_margin margin=”20”]</p>
+<!--more-->
 
 <h3 id="qué-es-ssl-pinning">¿Qué es SSL Pinning?</h3>
 
 <p>Cuando se hace la negociación SSL y el servidor nos envía su certificado, por defecto Android (aunque ocurre igual en otras plataformas) comprueba que este pertenece a una autoridad certificadora de confianza y que este no está revocado o caducado. El problema es que cuando estamos en una red pública, es posible que un atacante se ponga “en medio” y se haga pasar por el servidor, haciendo de puente entre este y nosotros. Si esto lo hace con un certificado válido, nuestro sistema comprueba el certificado y lo dará por válido, pudiendo este atacante hacerse con todos los datos que intercambiamos con el servidor en <strong>texto claro</strong>.
 SSL Pinning de denomina al proceso de verificar además que el certificado que ha enviado el servidor sea solo el de nuestro servidor y no cualquiera válido. Así, si detectamos un certificado válido pero que no es el de nuestro servidor, podemos rechazar la conexión, ya que existe alguien en medio <em>con el oído puesto</em>.</p>
 
-<p>[sh_margin margin=”20”]</p>
-
 <h3 id="cómo-implementamos-ssl-pinning-en-android">¿Cómo implementamos SSL Pinning en Android?</h3>
 
 <p>Para poder implementar SSL Pinning en Android necesitamos en primer lugar preparar el certificado del servidor con el que vamos a conectarnos e incorporarlo a un almacén de certificados de Java. Para ello haremos uso de la herramienta <strong>keytool</strong> que viene con el JDK. Para hacer esto, ejecutaremos el siguiente comando:</p>
 
-<p>[code language=”plain”]
-keytool -importcert
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>keytool -importcert
         -trustcacerts
-        -file “MICERTIFICADO.cer”
+        -file <span class="s2">"MICERTIFICADO.cer"</span>
         -alias MIALIAS
-        -keystore “sslpinning.ks”
+        -keystore <span class="s2">"sslpinning.ks"</span>
         -provider org.bouncycastle.jce.provider.BouncyCastleProvider
-        -providerpath “bcprov-jdk16-145.jar”
+        -providerpath <span class="s2">"bcprov-jdk16-145.jar"</span>
         -storetype BKS
         -storepass AQUI_VA_TU_PASSWORD
-[/code]</p>
+</code></pre>
+</div>
 
 <p>Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero <a href="http://www.bouncycastle.org/download/bcprov-jdk16-145.jar"><strong>bcprov-jdk16-145.jar</strong></a> en el lugar donde estamos ejecutándolo.</p>
 
@@ -53,85 +49,80 @@ keytool -importcert
 
 <p>Ahora que tenemos todo listo, abrimos nuestro Eclipse/AndroidStudio y comenzamos a escribir código. Lo que vamos a necesitar será proporcionar al objeto HttpClient de Apache (que viene incluida en el SDK de Android) este almacén de certificados como únicos certificados válidos para realizar conexiones SSL. Para ello, vamos a sobrescribir la clase DefaultHttpClient. Crearemos un constructor que recibirá como parámetro el contexto para poder acceder al recurso donde tenemos el almacén de certificados.</p>
 
-<p>[code language=”java”]
-import android.content.Context;
-import android.content.res.Resources;
-import org.apache.http.impl.client.DefaultHttpClient;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">android.content.res.Resources</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.impl.client.DefaultHttpClient</span><span class="o">;</span>
 
-<p>public class SecureHttpClient extends DefaultHttpClient {</p>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecureHttpClient</span> <span class="kd">extends</span> <span class="n">DefaultHttpClient</span> <span class="o">{</span>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>Resources mResources;
+    <span class="n">Resources</span> <span class="n">mResources</span><span class="o">;</span>
 
-public SecureHttpClient(Context context) {
-    mResources = context.getResources();
-}
+    <span class="kd">public</span> <span class="nf">SecureHttpClient</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">mResources</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
 </code></pre>
 </div>
 
-<p>}
-[/code]</p>
-
 <p>Una vez tenemos la clase, vamos a añadirle un método que se encargará de construir una factoría de sockets SSL, al que le proporcionaremos el almacén de certificados que debe utilizar como certificados de confianza.</p>
 
-<p>[code language=”java”]
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import java.io.InputStream;
-import java.security.KeyStore;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.http.conn.ssl.SSLSocketFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.KeyStore</span><span class="o">;</span>
 
-<p>…</p>
+<span class="o">...</span>
 
-<p>private SSLSocketFactory buildSSLSocketFactory() {
-    try {
-        KeyStore trusted = KeyStore.getInstance(“BKS”);
-        InputStream in = mResources.openRawResource(R.raw.sslpinning);
-        try {
-            trusted.load(in, “AQUI_VA_TU_PASSWORD”.toCharArray());
-        } finally {
-            in.close();
-        }
-        SSLSocketFactory sf = new SSLSocketFactory(trusted);
-        sf.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
-        return sf;
-    } catch (Exception e) {
-        throw new AssertionError(e);
-    }
-}</p>
+<span class="kd">private</span> <span class="n">SSLSocketFactory</span> <span class="nf">buildSSLSocketFactory</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">KeyStore</span> <span class="n">trusted</span> <span class="o">=</span> <span class="n">KeyStore</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"BKS"</span><span class="o">);</span>
+        <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">mResources</span><span class="o">.</span><span class="na">openRawResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">sslpinning</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">trusted</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="s">"AQUI_VA_TU_PASSWORD"</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">SSLSocketFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SSLSocketFactory</span><span class="o">(</span><span class="n">trusted</span><span class="o">);</span>
+        <span class="n">sf</span><span class="o">.</span><span class="na">setHostnameVerifier</span><span class="o">(</span><span class="n">SSLSocketFactory</span><span class="o">.</span><span class="na">STRICT_HOSTNAME_VERIFIER</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">sf</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
 
-<p>…</p>
+<span class="o">...</span>
 
-<p>[/code]</p>
+</code></pre>
+</div>
 
 <p>Una vez tenemos el método anterior, vamos a sobrescribir el método <em>createClientConnectionManager()</em>. En él vamos a registrar nuestra factoría de sockets SSL cuando se solicita una conexión sobre https. De esta forma, cada vez que el cliente Http va a realizar una conexión, creará el Socket SSL basado en nuestra configuración.</p>
 
-<p>[code language=”java”]
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.http.conn.ClientConnectionManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.conn.scheme.Scheme</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.conn.scheme.SchemeRegistry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.conn.scheme.PlainSocketFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager</span><span class="o">;</span>
 
-<p>…</p>
+<span class="o">...</span>
 
-<p>@Override
-protected ClientConnectionManager createClientConnectionManager() {
-    SchemeRegistry registry = new SchemeRegistry();
-    registry.register(new Scheme(“http”, PlainSocketFactory.getSocketFactory(), 80));
-    registry.register(new Scheme(“https”, this.buildSSLSocketFactory(), 443));
-    return new ThreadSafeClientConnManager(getParams(), registry);
-}</p>
+<span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="n">ClientConnectionManager</span> <span class="nf">createClientConnectionManager</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">SchemeRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SchemeRegistry</span><span class="o">();</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">Scheme</span><span class="o">(</span><span class="s">"http"</span><span class="o">,</span> <span class="n">PlainSocketFactory</span><span class="o">.</span><span class="na">getSocketFactory</span><span class="o">(),</span> <span class="mi">80</span><span class="o">));</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">Scheme</span><span class="o">(</span><span class="s">"https"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">buildSSLSocketFactory</span><span class="o">(),</span> <span class="mi">443</span><span class="o">));</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ThreadSafeClientConnManager</span><span class="o">(</span><span class="n">getParams</span><span class="o">(),</span> <span class="n">registry</span><span class="o">);</span>
+<span class="o">}</span>
 
-<p>…</p>
+<span class="o">...</span>
 
-<p>[/code]</p>
+</code></pre>
+</div>
 
 <p>Y listo, con esto ya tenemos un cliente Http seguro que realiza una estricta comprobación de los certificados, confiando únicamente en aquellos que hemos incluido en nuestro almacén de certificados. Ya solo nos queda hacer las peticiones de la misma forma que lo hacemos normalmente.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="y-qué-pasa-con-las-aplicaciones-híbridas">¿Y qué pasa con las aplicaciones híbridas?</h3>
 
 <p>En el caso de las aplicaciones híbridas lo anterior no vale. Las conexiones con el servidor no las hacemos nosotros sino que las hace el WebView que muestra nuestra aplicación. Luego debemos meternos en la negociación SSL que realiza el WebView para rechazar aquellas conexiones que no se hacen con el certificado de nuestro servidor. Pero esto es algo que dejaremos para un próximo artículo.</p>
-
 
 	  ]]></description>
 	</item>

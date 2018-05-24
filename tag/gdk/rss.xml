@@ -989,63 +989,31 @@ protected void onCreate(Bundle savedInstanceState) {
 	  <description><![CDATA[
 	     <p>En esta serie de artículos, del que este es el primero, vamos a aprender a crear aplicaciones para Google Glass y esas legiones de <em>Explorers</em> que hay ahí fuera. Aunque tiene un precio aún prohibitivo y su disponibilidad es muy limitada (solo para residentes en EEUU y bajo invitación), está llamado a ser el gadget del futuro y rivalizar muy de tú a tú con otros gadgets que giran entorno a los Smartphones. Dispositivos que se conectan a nuestro Smartphone y lo complementan, permitiendo realizar ciertas acciones sin tener que sacarlo de nuestro bolsillo, como las pulseras, los relojes, etc.</p>
 
-<!-- more -->
+<!--more-->
 
 <p>Pero antes de empezar a hablar de cómo podemos crear Glassware (que es como se denominan estas apps), vamos a echar un vistazo a las características del hardware y del software:</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="características-técnicas">Características técnicas</h3>
 
 <ul>
-  <li>
-    <p>CPU OMAP 4430 SoC 1.2Ghz Dual</p>
-  </li>
-  <li>
-    <p>1 GB RAM</p>
-  </li>
-  <li>
-    <p>Pantalla de 640x360 pixels (hdpi)</p>
-  </li>
-  <li>
-    <p>Sistema operativo Android 4.0.4 (API 15)</p>
-  </li>
-  <li>
-    <p>Cámara de 5 MP con capacidad de grabación de video a 720p</p>
-  </li>
-  <li>
-    <p>TouchPad</p>
-  </li>
-  <li>
-    <p>GPS y SMS a tráves de conexión con smartphone</p>
-  </li>
-  <li>
-    <p>Bluetooth</p>
-  </li>
-  <li>
-    <p>WiFi 802.11b/g</p>
-  </li>
-  <li>
-    <p>16 GB de almacenamiento (12 GB libres para el usuario)</p>
-  </li>
-  <li>
-    <p>Giroscopio, acelerómetro, magnetómetro, sensor de luz ambiental y sensor de proximidad</p>
-  </li>
-  <li>
-    <p>Micrófono y transductor de conducción ósea que actúa como altavoz</p>
-  </li>
-  <li>
-    <p>Conector MicroUSB, tanto para conexión con el PC como para salida de auriculares</p>
-  </li>
+  <li>CPU OMAP 4430 SoC 1.2Ghz Dual</li>
+  <li>1 GB RAM</li>
+  <li>Pantalla de 640x360 pixels (hdpi)</li>
+  <li>Sistema operativo Android 4.0.4 (API 15)</li>
+  <li>Cámara de 5 MP con capacidad de grabación de video a 720p</li>
+  <li>TouchPad</li>
+  <li>GPS y SMS a tráves de conexión con smartphone</li>
+  <li>Bluetooth</li>
+  <li>WiFi 802.11b/g</li>
+  <li>16 GB de almacenamiento (12 GB libres para el usuario)</li>
+  <li>Giroscopio, acelerómetro, magnetómetro, sensor de luz ambiental y sensor de proximidad</li>
+  <li>Micrófono y transductor de conducción ósea que actúa como altavoz</li>
+  <li>Conector MicroUSB, tanto para conexión con el PC como para salida de auriculares</li>
 </ul>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="cómo-se-maneja">¿Cómo se maneja?</h3>
 
 <p>El manejo de Google Glass se realiza con una combinación entre voz, gestos con la cabeza e interacción con el TouchPad. Desde encenderlas moviendo la cabeza hacia arriba (o tocando el TouchPad) se puede interactuar con el ya famoso <strong>Ok glass…</strong> o interactuando con el TouchPad con Swipe hacia adelante/atrás, toques y Swipe abajo que hace las veces de botón atrás. Adicionalmente y a discreción de la aplicación que tengamos abierta, esta puede hacer uso de otro tipo de gestos en el TouchPad, como veremos en próximos artículos.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="google-glass-es-un-dispositivo-android-más">Google Glass es un dispositivo Android más</h3>
 
@@ -1053,21 +1021,17 @@ protected void onCreate(Bundle savedInstanceState) {
 
 <p>El entorno de desarrollo a utilizar para desarrollar Glassware será Eclipse con el plug-in ADT o Android Studio, igual que para una aplicación Android para Smartphones o Tablets. Lo que deberemos tener en cuenta a la hora de crear un proyecto para Google Glass es que la API a la que nos dirigimos es la 15.</p>
 
-<p>[sh_margin margin=”20”]</p>
-
 <h3 id="el-timeline-un-launcher-propio">El Timeline, un launcher propio</h3>
 
-<p>[caption id=”attachment_173” align=”aligncenter” width=”520”]<img src="http://raycoarana.com/wp-content/uploads/2014/03/timeline.png" alt="Representación del Timeline" /> Representación del Timeline[/caption]</p>
+<p><img src="/assets/images/timeline.png" alt="Representación del Timeline" /> Representación del Timeline</p>
 
 <p>Cuando un usuario inicia o activa su Google Glass, verá en primer lugar lo que se llama el Timeline. Este Timeline no es más que un launcher propio, desde el que se lanzan las aplicaciones y en el que se pueden visualizar notificaciones y widgets, que en el caso de Google Glass reciben el nombre de tarjetas o Cards. Estas son siempre a pantalla completa. Luego el Timeline es un conjunto de estas tarjetas, colocadas de forma longitudinal y sobre las que el usuario se puede mover usando el TouchPad. Es por ello que las tarjetas tienen acceso restringido al TouchPad, para evitar entrar en conflicto con los gestos de Swipe adelante/atrás.</p>
 
-<p>[caption id=”attachment_179” align=”aligncenter” width=”520”]<img src="http://raycoarana.com/wp-content/uploads/2014/03/ok-glass-e1393787954995.png" alt="Pantalla inicial de Google Glass" /> Pantalla inicial de Google Glass[/caption]</p>
+<p><img src="/assets/images/ok-glass-e1393787954995.png" alt="Pantalla inicial de Google Glass" /> Pantalla inicial de Google Glass</p>
 
 <p>La tarjeta principal, aquella que muestra la hora y el texto “ok glass” es la que nos permite lanzar aplicaciones. Y aquí es donde nos encontramos una de las principales diferencias entre una aplicación Android <em>normal</em> y una aplicación para Google Glass. El inicio de una aplicación no se marca con <strong>android.intent.action.MAIN</strong>, sino que nuestra aplicación debe responder a la intención <strong>com.google.android.glass.action.VOICE_TRIGGER</strong>. Además de esta intención, debemos indicar en forma de meta-datos, una frase. Esta será la frase que el usuario diga tras decir “ok glass” y que hará que se abra nuestra aplicación. En principio esta frase es la que nosotros queramos, tenemos una guía a seguir con una serie de <a href="https://developers.google.com/glass/distribute/voice-checklist">reglas en la estructura y forma</a> de la misma. Pero si pretendemos que Google nos publique la aplicación en MyGlass, debemos ceñirnos al uso de <a href="https://developers.google.com/glass/develop/gdk/input/voice#existing_voice_commands">una lista de frases</a>. Si queremos utilizar otra frase, debemos antes enviarla para su aprobación. Si más de una aplicación está <em>suscrita</em> a una misma frase, el Timeline le dará la opción al usuario de elegir cual de ellas quiere lanzar, de forma similar a como ocurre  actualmente en las aplicaciones para Smartphones y Tablets cuando dos aplicaciones responden a una misma intención.</p>
 
 <p>Para el manejo del Timeline y poder crear y agregar nuestras propias tarjetas, será necesario utilizar una API que está fuera del SDK normal de Android, el llamado GDK (Glass Development Kit). Esto es una librería <strong>jar</strong> con un stub de clases necesarias para poder compilar nuestro proyecto. En ella se incluye esta API para el manejo del Timeline, así como algunas otras clases de ayuda y controles para manejar y crear interfaces apropiadas para el dispositivo. Ya exploraremos estas clases con más detenimiento en próximos artículos.</p>
-
-<p>[sh_margin margin=”20”]</p>
 
 <h3 id="continuará">Continuará…</h3>
 
