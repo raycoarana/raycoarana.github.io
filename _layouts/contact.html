@@ -4,16 +4,17 @@ layout: page
 
 {{content}}
 
-<div id="success" style="display:none">Thanks for contacting me! I will ping you back soon.</div>
+<div id="success" style="display:none">Gracias por contactarme! Te contestaré lo más pronto posible.</div>
 <form id="contact-form" action="javascript:submit()">
-    <input type="text" name="name" value size="40" placeholder="Name*"/>
+    <input type="text" name="name" value size="40" placeholder="Nombre*"/>
     <input type="email" name="email" value size="40" placeholder="E-Mail *"/>
-    <input type="text" name="subject" value size="40" placeholder="Subject *"/>
-    <textarea name="message" cols="40" rows="10" placeholder="Write your message*"></textarea>
+    <input type="text" name="subject" value size="40" placeholder="Asunto *"/>
+    <textarea name="message" cols="40" rows="10" placeholder="Escribe tu mensaje*"></textarea>
+    <label><input style="width: fit-content; margin: 0 8px" type="checkbox" name="consent"/>Doy mi consentimiento para el tratamiento de mis datos personales tal cual se indica en la <a href="{{site.baseurl}}/privacy" target="_blank">política de privacidad</a>.</label>
     <div class="g-recaptcha" data-sitekey="6LfwFCYTAAAAAH6u2cZrFknPj1uGd7WNMc_opA2x"></div>
-    <div id="recaptcha-error" class="form-error" style="display:none">reCAPTCHA is not valid</div>
-    <div id="error" class="form-error" style="display:none">Your message can't be sent in this moment, try again later.</div>
-    <input id="submit" type="submit" value="Send"/>
+    <div id="recaptcha-error" class="form-error" style="display:none">reCAPTCHA no es válido</div>
+    <div id="error" class="form-error" style="display:none">No es posible enviar el mensaje en este momento, vuelva a intentarlo más tarde.</div>
+    <input id="submit" type="submit" value="Envíar"/>
 </form>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -36,8 +37,10 @@ layout: page
         var email = $("[name='email']");
         var subject = $("[name='subject']");
         var message = $("[name='message']");
+        var consent = $("[name='consent']").is(':checked');
+        console.log(consent);
 
-        if (!isValid(name) || !isValid(email) || !isValid(subject) || !isValid(message) || !isValidRecaptcha()) {
+        if (!isValid(name) || !isValid(email) || !isValid(subject) || !isValid(message) || !consent || !isValidRecaptcha()) {
             return;
         }
 
