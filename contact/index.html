@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- [[! Page Meta ]] -->
-    <title>Contact</title>
+    <title>Contacto</title>
     <meta name="description" content="raycoarana - My coding adventures and other random stuff" />
 
     <meta name="HandheldFriendly" content="True" />
@@ -38,6 +38,30 @@
     <meta name="twitter:description" content="My coding adventures and other random stuff" />
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <script>
+    window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#edeff5",
+          "text": "#838391"
+        },
+        "button": {
+          "background": "#4b81e8"
+        }
+      },
+      "theme": "classic",
+      "content": {
+        "message": "Este sitio web usa cookies para proporcionar la mejor experiencia.",
+        "dismiss": "Aceptar",
+        "link": "Política de privacidad",
+        "href": "/privacy"
+      }
+    })});
+    </script>
 
     <script type="application/ld+json">
 {
@@ -96,23 +120,24 @@
         <!-- Everything inside the #post tags pulls data from the post -->
 
         <header class="post-header">
-            <h1 class="post-title">Contact</h1>
+            <h1 class="post-title">Contacto</h1>
         </header>
 
         <section class="post-content">
-            <p>You can contact me using any of the social networks you can see in the about section but you can also use this form to send me an e-mail. I will contact you back as soon as posible.</p>
+            <p>Puedes contactar conmigo a través de cualquiera de las redes sociales que puedes ver en el pie de página o si lo prefieres, puedes enviarme un mensaje directamente a través de este formulario.</p>
 
 
-<div id="success" style="display:none">Thanks for contacting me! I will ping you back soon.</div>
+<div id="success" style="display:none">Gracias por contactarme! Te contestaré lo más pronto posible.</div>
 <form id="contact-form" action="javascript:submit()">
-    <input type="text" name="name" value size="40" placeholder="Name*"/>
+    <input type="text" name="name" value size="40" placeholder="Nombre*"/>
     <input type="email" name="email" value size="40" placeholder="E-Mail *"/>
-    <input type="text" name="subject" value size="40" placeholder="Subject *"/>
-    <textarea name="message" cols="40" rows="10" placeholder="Write your message*"></textarea>
+    <input type="text" name="subject" value size="40" placeholder="Asunto *"/>
+    <textarea name="message" cols="40" rows="10" placeholder="Escribe tu mensaje*"></textarea>
+    <label><input style="width: fit-content; margin: 0 8px" type="checkbox" name="consent"/>Doy mi consentimiento para el tratamiento de mis datos personales tal cual se indica en la <a href="/privacy" target="_blank">política de privacidad</a>.</label>
     <div class="g-recaptcha" data-sitekey="6LfwFCYTAAAAAH6u2cZrFknPj1uGd7WNMc_opA2x"></div>
-    <div id="recaptcha-error" class="form-error" style="display:none">reCAPTCHA is not valid</div>
-    <div id="error" class="form-error" style="display:none">Your message can't be sent in this moment, try again later.</div>
-    <input id="submit" type="submit" value="Send"/>
+    <div id="recaptcha-error" class="form-error" style="display:none">reCAPTCHA no es válido</div>
+    <div id="error" class="form-error" style="display:none">No es posible enviar el mensaje en este momento, vuelva a intentarlo más tarde.</div>
+    <input id="submit" type="submit" value="Envíar"/>
 </form>
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -135,8 +160,10 @@
         var email = $("[name='email']");
         var subject = $("[name='subject']");
         var message = $("[name='message']");
+        var consent = $("[name='consent']").is(':checked');
+        console.log(consent);
 
-        if (!isValid(name) || !isValid(email) || !isValid(subject) || !isValid(message) || !isValidRecaptcha()) {
+        if (!isValid(name) || !isValid(email) || !isValid(subject) || !isValid(message) || !consent || !isValidRecaptcha()) {
             return;
         }
 
