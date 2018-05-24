@@ -25,33 +25,33 @@ Desde hace un tiempo he estado buscando la mejor herramienta para esta labor. Al
 ### Proyectos y pantallas
 En WireframeSketcher, como podemos imaginar al estar basado en Eclipse, tenemos un workspace en el que trabajamos y creamos nuestros proyectos. Un proyecto no será más que una serie de _screens_ y _assets_.
 
-[![new_project](http://raycoarana.com/wp-content/uploads/2014/06/new_project-300x280.png)](http://raycoarana.com/wp-content/uploads/2014/06/new_project.png)
+![new_project](/assets/images/new_project.png)
 
 En esta carpeta de _assets_, se agregarán inicialmente todos los iconos y componentes nativos del sistema. Por ejemplo, si usamos Android como base para nuestro proyecto, nos agregará todos los componentes e iconos de Android. También, como podemos ver en la siguiente imagen, nos agrega una primera pantalla con la que podemos trabajar.
 
-[![project-structure](http://raycoarana.com/wp-content/uploads/2014/06/project-structure.png)](http://raycoarana.com/wp-content/uploads/2014/06/project-structure.png)
+![project-structure](/assets/images/project-structure.png)
 
 ### Elementos de pantalla
 Si vemos la parte derecha del espacio de trabajo, veremos que tenemos la paleta de componentes que podemos utilizar para crear nuestros wireframes. Estos están basados en una librería básica -que tienen todos los proyectos- y una librería de componentes incluidos en nuestro proyecto. Y digo incluidos en nuestro proyecto porque podemos crear nuestros propios componentes incluso crear proyectos que sirvan como librerías de componentes que podemos referenciar desde otros. Como veis una herramienta muy potente en este sentido.
 
-[![assets_library](http://raycoarana.com/wp-content/uploads/2014/06/assets_library-188x300.png)](http://raycoarana.com/wp-content/uploads/2014/06/assets_library.png)
+![assets_library](/assets/images/assets_library.png)
 
 Los componentes con los que podemos trabajar son prácticamente todos los controles con los que contamos de forma nativa en Android. _ActionBar, CAB, Navigation Drawer, TextView, EditText, Button_, etc. Con unos pocos clicks de ratón, montamos una interfaz Android 4.X pura, de componentes nativos y proporciones correctas. Para editar estos componentes, basta con hacer doble-click sobre ellos para entrar en su jerarquía y poder así editar los elementos internos para cambiar imágenes, textos, color, tamaños de texto, etc.
 
-[![example_screen](http://raycoarana.com/wp-content/uploads/2014/06/example_screen-156x300.png)](http://raycoarana.com/wp-content/uploads/2014/06/example_screen.png)
+![example_screen](/assets/images/example_screen.png)
 
 ### Iconos
 Una cosa bastante reseñable y que le da un toque de calidad a nuestros wireframes es la posibilidad de utilizar el paquete de iconos nativos para poner elementos de menú, icono de la app o cualquier otra imagen.
 Además de los iconos nativos, tenemos también otros paquetes de iconos -además de los que podemos añadir nosotros a nuestro proyecto por supuesto-, como la famosa fuente **awesome** entre otros paquetes que podemos descargarnos desde su web.
 
-[![icons_android](http://raycoarana.com/wp-content/uploads/2014/06/icons_android-245x300.png)](http://raycoarana.com/wp-content/uploads/2014/06/icons_android.png)
+![icons_android](/assets/images/icons_android.png)
 
 Si queremos añadir imágenes o iconos a nuestro proyecto, podemos agregarlos a la carpeta **assets/icons**, en formato SVG.
 
 ### Navegación
 La navegación es otra cosa que podemos dejar indicada en nuestros proyectos, lo cual nos servirá para movernos a través de las pantallas mientras las desarrollamos, así como servir de enlaces cuando hagamos una exportación como veremos más adelante. Para añadir un enlace a alguno de los elementos, basta con seleccionar el elemento en el que queremos crear el enlace. Acto seguido, en el panel de la izquierda, donde tenemos las propiedades del elemento, cambiamos a la pestaña Links y desde ahí, seleccionamos la pantalla destino del enlace.
 
-[![links](http://raycoarana.com/wp-content/uploads/2014/06/links-300x150.png)](http://raycoarana.com/wp-content/uploads/2014/06/links.png)
+![links](/assets/images/links.png)
 
 Podemos ver cómo queda el mapa de navegación por nuestra app creando un _Storyboard_. Este tipo de fichero nos permite agregar pantallas de nuestro proyecto las cuales podemos luego exportar como un HTML con enlaces entre ellas.
 
