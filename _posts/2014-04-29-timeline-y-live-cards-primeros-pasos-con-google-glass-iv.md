@@ -3,6 +3,7 @@ layout: post
 slug: timeline-y-live-cards-primeros-pasos-con-google-glass-iv
 title: Timeline y Live Cards. Primeros pasos con Google Glass (V)
 date: 2014-04-29 21:00:32+00:00
+cover: 'assets/images/Glass.jpg'
 tags:
   - android
   - cards

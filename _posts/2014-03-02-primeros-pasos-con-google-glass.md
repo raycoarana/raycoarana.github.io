@@ -3,6 +3,7 @@ layout: post
 slug: primeros-pasos-con-google-glass
 title: Primeros pasos con Google Glass (I)
 date: 2014-03-02 19:24:59+00:00
+cover: 'assets/images/google-glass1.jpg'
 tags:
   - android
   - gdk

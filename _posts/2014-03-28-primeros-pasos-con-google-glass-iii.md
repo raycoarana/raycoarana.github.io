@@ -3,6 +3,7 @@ layout: post
 slug: primeros-pasos-con-google-glass-iii
 title: Voice triggers. Primeros pasos con Google Glass (III)
 date: 2014-03-28 17:47:02+00:00
+cover: 'assets/images/microphone.jpg'
 tags:
   - android
   - android studio

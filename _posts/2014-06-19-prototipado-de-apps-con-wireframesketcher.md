@@ -3,6 +3,7 @@ layout: post
 slug: prototipado-de-apps-con-wireframesketcher
 title: Prototipado de apps con WireframeSketcher
 date: 2014-06-19 08:59:16+00:00
+cover: 'assets/images/wireframesketcher.png'
 tags:
   - android
   - assets

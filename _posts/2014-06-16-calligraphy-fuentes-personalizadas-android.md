@@ -3,6 +3,7 @@ layout: post
 slug: calligraphy-fuentes-personalizadas-android
 title: Calligraphy, fuentes personalizadas en Android
 date: 2014-06-16 19:15:48+00:00
+cover: 'assets/images/Photoxpress_2141649.jpg'
 tags:
   - android
   - calligraphy

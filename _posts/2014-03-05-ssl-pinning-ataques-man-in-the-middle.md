@@ -3,6 +3,7 @@ layout: post
 slug: ssl-pinning-ataques-man-in-the-middle
 title: SSL Pinning y ataques man-in-the-middle
 date: 2014-03-05 18:09:43+00:00
+cover: 'assets/images/stockvault-unlocked137213.jpg'
 tags:
     - android
     - Man in the middle

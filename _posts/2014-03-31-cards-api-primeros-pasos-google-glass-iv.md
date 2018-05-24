@@ -3,6 +3,7 @@ layout: post
 slug: cards-api-primeros-pasos-google-glass-iv
 title: Cards API. Primeros pasos con Google Glass (IV)
 date: 2014-03-31 07:00:45+00:00
+cover: 'assets/images/glass-5.jpg'
 tags:
   - android
   - android studio
