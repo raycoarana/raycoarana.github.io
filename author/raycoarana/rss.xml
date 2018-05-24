@@ -569,6 +569,333 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 	</item>
 
 	<item>
+	  <title>Cards API. Primeros pasos con Google Glass (IV)</title>
+	  <link>//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</link>
+	  <author>Rayco Araña</author>
+	  <pubDate>2014-03-31T09:00:45+02:00</pubDate>
+	  <guid>//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</guid>
+	  <description><![CDATA[
+	     <p>Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la inferfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!</p>
+
+<!--more-->
+
+<h3 id="crear-y-configurar-el-proyecto">Crear y configurar el proyecto</h3>
+
+<p>Lo primero que debemos hacer será crear un nuevo proyecto. Para ello te recomiendo que sigas el artículo de <a href="/blog/2014/03/primeros-pasos-con-google-glass/">Primeros pasos con Google Glass</a>, donde vimos cómo crear y configurar un proyecto en Android Studio para Google Glass.</p>
+
+<p>Una vez hemos creado el proyecto vacío, vamos a crear una actividad donde mostraremos nuestra interfaz de tarjetas. Creamos una clase con nombre <strong><em>CardsActivity</em></strong> y la añadimos al <strong><em>AndroidManifest.xml</em></strong>. Si quieres puedes añadirle un comando de voz para lanzar la aplicación o por simplicidad, puedes configurar el entorno para lanzar la aplicación directamente como ya comentamos en el <a href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">segundo artículo de esta serie</a>. Recuerda que para poder lanzar la actividad desde el entorno esta tendrá que tener un <em>intent-filter</em> con la acción y categoría por defecto (<strong><em>…action.MAIN</em></strong> y <strong><em>…category.LAUNCHER</em></strong>). En esta ocasión no vamos a generar un layout para esta actividad, sino que usaremos directamente la vista CardScrollView como contenido de la actividad como veremos a continuación.</p>
+
+<h3 id="cardscrollview-y-cardscrolladapter">CardScrollView y CardScrollAdapter</h3>
+
+<p>La vista <strong><em>CardScrollView</em></strong> es la encargada de mostrar las tarjetas de forma lineal, permite moverse entre ellas con los gestos de <strong>Swipe hacia izquierda o derecha</strong> y todas las animaciones de aceleración al hacer el gesto de forma rápida para pasar rápido entre las distintas tarjetas. Para ello, el CardScrollView utiliza el mismo patrón que muchas otras vistas en Android, el <strong>patrón Adapter</strong>, para adaptar nuestro modelo al control visual que se muestra en pantalla. De esto se encarga el <strong><em>CardScrollAdapter</em></strong>, al cual el <strong><em>CardScrollView</em></strong> irá llamando para construir las tarjetas a mostrar en cada momento, encargándose por nosotros del ciclo de vida de las mismas.</p>
+
+<p>Vamos a crear nuestra vista y asignarla como contenido de nuestra actividad, para ello en el método <strong><em>onCreate()</em></strong> de nuestra actividad hacemos lo siguiente:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">CardScrollView</span> <span class="n">mCardScrollView</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="n">mCardScrollView</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardScrollView</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        
+        <span class="n">setContentView</span><span class="o">(</span><span class="n">mCardScrollView</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Ya tenemos nuestra vista, pero ahora mismo poco va a mostrar ya que no tiene contenido. Vamos a añadirle algunas tarjetas, para ello vamos a crear y configurar un <strong><em>CardScrollAdapter</em></strong>. Para crear un <strong><em>CardScrollAdapter</em></strong>, tendremos que heredar la clase e implementar algunos métodos. Lo normal sería tener un modelo de datos asociado a cada tarjeta, pero para nuestro ejemplo, vamos a prescindir de ello para simplificar, por lo que solo tendremos que implementar el método <em><strong>getCount()</strong></em> y <em><strong>getView()</strong></em> para indicar el número de tarjetas y la vista de cada una de ellas respectivamente. Vamos a crear cuatro tarjetas, así que el código de nuestro Adapter quedaría algo así, donde delegamos la creación de las vistas en métodos que veremos a continuación.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">CardScrollAdapter</span> <span class="n">mCardScrollAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardScrollAdapter</span><span class="o">()</span> <span class="o">{</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">4</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">viewGroup</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">View</span> <span class="n">cardView</span><span class="o">;</span>
+            <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                    <span class="n">cardView</span> <span class="o">=</span> <span class="n">getFirstCardView</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+                    <span class="n">cardView</span> <span class="o">=</span> <span class="n">getSecondCardView</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+                    <span class="n">cardView</span> <span class="o">=</span> <span class="n">getThirdCardView</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+                <span class="k">default</span><span class="o">:</span> <span class="c1">//case 3:</span>
+                    <span class="n">cardView</span> <span class="o">=</span> <span class="n">getFourthCardView</span><span class="o">();</span>
+                    <span class="k">break</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">cardView</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findIdPosition</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="nd">@Override</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findItemPosition</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">};</span>
+</code></pre>
+</div>
+
+<p>Como habéis visto, el <strong><em>CardScrollAdapter</em></strong>, como cualquier otro Adapter, lo que nos pide son vistas, por lo que podríamos crear cualquier tipo de vista para nuestras tarjetas. Sin embargo, Google ha incluido en el SDK la clase <strong><em>Card</em></strong> que nos <strong>permite crear vistas de forma sencilla</strong>, con el estilo de Glass sin tener que preocuparnos por nada. El que hayamos configurado nuestro Adapter con 4 elementos no es casualidad, vamos a ver las principales configuraciones de tarjetas que podemos crear con esta clase.</p>
+
+<h3 id="tarjeta-simple-con-texto">Tarjeta simple con texto</h3>
+
+<p>La primera tarjeta que crearemos será una sencilla que solo contendrá un texto. La clase <strong><em>Card</em></strong> requiere como parámetro el contexto y luego le asignaremos los datos a mostrar por la misma. Cuando hemos acabado, llamamos al método <strong><em>toView()</em></strong> para obtener la vista resultante.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getFirstCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta simple de texto"</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>El resultado de este código es la siguiente tarjeta:</p>
+
+<p><img src="/assets/images/tarjeta_texto.png" alt="Tarjeta simple con texto" /> Tarjeta simple con texto</p>
+
+<h3 id="tarjeta-con-texto-e-imagen-a-la-izquierda">Tarjeta con texto e imagen a la izquierda</h3>
+
+<p>Para añadir una imagen a la izquierda de la tarjeta, solo tendremos que llamar al método <strong><em>addImage()</em></strong> y establecer con <strong><em>setImageLayout()</em></strong> que esta esté alineada a la izquierda.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getSecondCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con imagen a la izquierda"</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>El resultado lo podéis ver a continuación:</p>
+
+<p><img src="/assets/images/tarjeta_texto_imagen_izq.png" alt="Tarjeta con texto e imagen a la izquierda" /> Tarjeta con texto e imagen a la izquierda</p>
+
+<h3 id="tarjeta-con-texto-e-imagen-al-fondo">Tarjeta con texto e imagen al fondo</h3>
+
+<p>Si queremos que la imagen no esté a la izquierda sino que esté de fondo de la tarjeta, simplemente cambiamos el ImageLayout de la misma. Esto creará un ligero degradado a negro tras el texto para ganar contraste sobre la imagen.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getThirdCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con imagen al fondo"</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>La tarjeta resultante es la siguiente:</p>
+
+<p><img src="/assets/images/tarjeta_texto_imagen_fondo.png" alt="Tarjeta con imagen de fondo" /> Tarjeta con imagen de fondo</p>
+
+<h3 id="tarjeta-con-texto-nota-al-pie-y-varias-imágenes-a-la-izquierda">Tarjeta con texto, nota al pie y varias imágenes a la izquierda</h3>
+
+<p>Podemos agregar varias imágenes, creándonos un mosaico con ellas. También podremos acompañar el texto principal con un texto al pie de la tarjeta.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getFourthCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con texto al pie y varias imagenes"</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setFootnote</span><span class="o">(</span><span class="s">"Texto pie de página"</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>El resultado es la siguiente tarjeta:</p>
+
+<p><img src="/assets/images/tarjeta_multiples_img.png" alt="Tarjeta con múltiples imágenes y pie" /> Tarjeta con múltiples imágenes y pie</p>
+
+<p>Ahora que ya tenemos nuestro Adapter con sus vistas, nos falta asignarlo al <strong><em>CardScrollView</em></strong> y activar este. Para ello añadimos estas líneas en el método <strong><em>onCreate()</em></strong> de la actividad.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<span class="n">mCardScrollView</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">mCardScrollAdapter</span><span class="o">);</span>
+<span class="n">mCardScrollView</span><span class="o">.</span><span class="na">activate</span><span class="o">();</span>
+<span class="o">...</span>
+</code></pre>
+</div>
+
+<p>Con esto si lanzamos la aplicación veremos la interfaz de tarjetas con cada una de ellas. Pero, ¿cómo podemos interactuar con ellas? No podemos poner un botón, implementar el OnClickListener no servirá de nada. ¿Entonces? ¿Cómo podemos darle opciones al usuario para realizar acciones sobre cada tarjeta?</p>
+
+<h3 id="interactuando-con-una-tarjeta">Interactuando con una tarjeta</h3>
+
+<p>Para interactuar con una tarjeta, debemos asignar un <strong><em>OnItemClickListener</em></strong> al <strong><em>CardScrollView</em></strong>. Cada vez que el usuario haga <em>TAP</em>, la vista nos notificará con la información relativa a la tarjeta sobre la que se ha realizado la pulsación en el TouchPad. En el método <strong><em>onCreate()</em></strong> de nuestra actividad, añadimos la siguiente línea:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<span class="n">mCardScrollView</span><span class="o">.</span><span class="na">setOnItemClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<span class="o">...</span>
+</code></pre>
+</div>
+
+<p>Ahora nos queda hacer que nuestra actividad implemente esa interfaz <strong><em>OnItemClickListener</em></strong> y añadir el método <strong><em>OnItemClick()</em></strong>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">AdapterView</span><span class="o">.</span><span class="na">OnItemClickListener</span> <span class="o">{</span>
+
+    <span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Bien ahora que ya somos notificados sobre la pulsación sobre una tarjeta, ¿cómo podemos mostrar al usuario operaciones que hacer sobre estos elementos que está viendo? Pues haciendo uso de los menús de Android. En Google Glass, los menús se comportan de manera distinta, mostrándose cada entrada de menú a pantalla completa como tarjetas sobre las que el usuario puede moverse (adivinad qué vista utilizará el sistema operativo para implementar esto). La manera de implementarlo por tanto es muy conocida por cualquier desarrollador Android, pero vamos a repasarla.</p>
+
+<p>Lo primero será crearnos la definición de nuestro menú, creamos un fichero xml en <strong><em>menu/activity_cards.xml</em></strong>. Los iconos los tenéis disponibles en el repositorio junto con el resto del código.</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/menu_read_aloud"</span>
+          <span class="na">android:icon=</span><span class="s">"@drawable/ic_read_aloud"</span>
+          <span class="na">android:title=</span><span class="s">"@string/menu_read_aloud"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/menu_share"</span>
+        <span class="na">android:icon=</span><span class="s">"@drawable/ic_share"</span>
+        <span class="na">android:title=</span><span class="s">"@string/menu_share"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/menu_close"</span>
+        <span class="na">android:icon=</span><span class="s">"@drawable/ic_close"</span>
+        <span class="na">android:title=</span><span class="s">"@string/menu_close"</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;/menu&gt;</span>
+</code></pre>
+</div>
+
+<p>Una vez tenemos nuestro menú, vamos a incorporarlo a la actividad. Para ello implementamos los métodos <strong><em>onCreateOptionsMenu()</em></strong> y <strong><em>onOptionsItemSelected()</em></strong> para crear el menú cuando sea necesario y realizar acciones cuando se seleccione un elemento del menú. Si quisieramos personalizar el menú en función del elemento sobre el que se hace la selección, podemos implementar el método <strong><em>onPrepareOptionsMenu()</em></strong> y ocultar/mostrar aquellos elementos que nos interese.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">activity_cards</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_read_aloud</span><span class="o">:</span>
+                <span class="n">onMenuReadAloud</span><span class="o">();</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_share</span><span class="o">:</span>
+                <span class="n">onMenuShare</span><span class="o">();</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_close</span><span class="o">:</span>
+                <span class="n">onMenuClose</span><span class="o">();</span>
+                <span class="k">break</span><span class="o">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">...</span>
+</code></pre>
+</div>
+
+<p>Ya tenemos muestro menú montado, solo nos falta relacionar el <strong><em>onItemClick</em></strong> del <strong><em>CardScrollView</em></strong> con la apertura del menú y escribir código para cada una de las acciones. Lo primero es tan sencillo como esto:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">openOptionsMenu</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Pero vamos a complicar un poco el caso, por ejemplo no queremos que para el primer elemento del <strong><em>CardScrollView</em></strong> se muestre un menú. ¿Qué deberíamos hacer? Pues por un lado evitar llamar al método <strong><em>openOptionsMenu()</em></strong> cuando el usuario haga TAP sobre el primer elemento y muy importante, darle <strong>feedback al usuario de que en ese elemento no hay acciones</strong> posibles a realizar. Para esto segundo haremos uso del <strong><em>AudioManager</em></strong> y los sonidos del sistema, que específicamente en Glass están representados por constantes de la clase <strong><em>Sounds</em></strong>, en concreto la constante <em>DISALLOWED</em>. De la misma forma, para darle feedback al usuario de la apertura del menú, haremos lo mismo pero con la constante <em>TAP</em>.</p>
+
+<p>Lo primero, obtener una instancia al <strong><em>AudioManager</em></strong> en el método <strong><em>onCreate()</em></strong>.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">AudioManager</span> <span class="n">mAudioManager</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
+
+        <span class="n">mAudioManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">AudioManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">AUDIO_SERVICE</span><span class="o">);</span>
+        <span class="o">...</span>
+</code></pre>
+</div>
+
+<p>Ahora en el método <strong><em>onItemClick()</em></strong> hacemos lo siguiente:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">position</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="n">Sounds</span><span class="o">.</span><span class="na">DISALLOWED</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="n">Sounds</span><span class="o">.</span><span class="na">TAP</span><span class="o">);</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">openOptionsMenu</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Ya tenemos la funcionalidad que queríamos, ahora el primer elemento no muestra el menú y da feedback al usuario de ello. Vamos ahora a darle funcionalidad a las acciones que teníamos. No vamos a implementarlas de verdad para no extendernos demasiado, solo vamos mostrar en el log del sistema que se han ejecutado.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuReadAloud</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuReadAloud()"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuShare</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuShare()"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuClose</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuClose()"</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Y con esto lo tenemos todo, al ejecutar la aplicación y hacer TAP sobre una de las tarjetas con menú, se nos mostrará dándonos la opción a seleccionar la acción que queremos realizar.</p>
+
+<p><img src="/assets/images/menu_read_aloud.png" alt="ReadAloud" />
+<img src="/assets/images/menu_share.png" alt="Share" />
+<img src="/assets/images/menu_close.png" alt="Close" /></p>
+
+<h3 id="buenas-prácticas">Buenas prácticas</h3>
+
+<p>Por último vamos a comentar algunas buenas prácticas que envuelven a las interfaces en general de Googlas Glass y que tienen que ver con estos elementos que hemos visto hoy. Lo primero es la recomendación de siempre utilizar un <strong><em>CardScrollView</em></strong> en nuestras interfaces, aunque solo vayamos a mostrar una sola tarjeta. <strong><em>CardScrollView</em></strong> tiene esos <strong>efectos de rebote animados</strong> cuando el usuario llega al final, dándole un feedback muy importante de la no existencia de más elementos. Así pues, a menos que vayamos a utilizar el Swipe izquierda o derecha para otra cosa, hagamos uso del <strong><em>CardScrollView</em></strong>.</p>
+
+<p>Otra buena práctica muy relacionada con ese feedback es informar al usuario de si su <strong>acción sobre el TouchPad ha sido reconocida o no</strong> mediante sonidos, como hemos podido ver en el código ejemplo. Debemos informar al usuario de qué ocurre cuando hace TAP, reproduciendo el sonido adecuado si no hay acción disponible.</p>
+
+<p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
+
+<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
+
+<h3 id="continuará">Continuará…</h3>
+
+<p>Ahora que ya sabemos como manejar las tarjetas y mostrar acciones sobre ellas, vamos a ver cómo podemos trabajar con el Timeline, veremos cómo podemos crear tarjetas estáticas, tarjetas dináminas e incorporarlas en el Timeline, pudiendo el usuario interactuar con ellas sin la necesidad de abrir nuestra aplicación.</p>
+
+	  ]]></description>
+	</item>
+
+	<item>
 	  <title>Voice triggers. Primeros pasos con Google Glass (III)</title>
 	  <link>//blog/2014/03/primeros-pasos-con-google-glass-iii/</link>
 	  <author>Rayco Araña</author>
@@ -1013,66 +1340,6 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
 <h3 id="y-qué-pasa-con-las-aplicaciones-híbridas">¿Y qué pasa con las aplicaciones híbridas?</h3>
 
 <p>En el caso de las aplicaciones híbridas lo anterior no vale. Las conexiones con el servidor no las hacemos nosotros sino que las hace el WebView que muestra nuestra aplicación. Luego debemos meternos en la negociación SSL que realiza el WebView para rechazar aquellas conexiones que no se hacen con el certificado de nuestro servidor. Pero esto es algo que dejaremos para un próximo artículo.</p>
-
-	  ]]></description>
-	</item>
-
-	<item>
-	  <title>Primeros pasos con Google Glass (I)</title>
-	  <link>//blog/2014/03/primeros-pasos-con-google-glass/</link>
-	  <author>Rayco Araña</author>
-	  <pubDate>2014-03-02T20:24:59+01:00</pubDate>
-	  <guid>//blog/2014/03/primeros-pasos-con-google-glass/</guid>
-	  <description><![CDATA[
-	     <p>En esta serie de artículos, del que este es el primero, vamos a aprender a crear aplicaciones para Google Glass y esas legiones de <em>Explorers</em> que hay ahí fuera. Aunque tiene un precio aún prohibitivo y su disponibilidad es muy limitada (solo para residentes en EEUU y bajo invitación), está llamado a ser el gadget del futuro y rivalizar muy de tú a tú con otros gadgets que giran entorno a los Smartphones. Dispositivos que se conectan a nuestro Smartphone y lo complementan, permitiendo realizar ciertas acciones sin tener que sacarlo de nuestro bolsillo, como las pulseras, los relojes, etc.</p>
-
-<!--more-->
-
-<p>Pero antes de empezar a hablar de cómo podemos crear Glassware (que es como se denominan estas apps), vamos a echar un vistazo a las características del hardware y del software:</p>
-
-<h3 id="características-técnicas">Características técnicas</h3>
-
-<ul>
-  <li>CPU OMAP 4430 SoC 1.2Ghz Dual</li>
-  <li>1 GB RAM</li>
-  <li>Pantalla de 640x360 pixels (hdpi)</li>
-  <li>Sistema operativo Android 4.0.4 (API 15)</li>
-  <li>Cámara de 5 MP con capacidad de grabación de video a 720p</li>
-  <li>TouchPad</li>
-  <li>GPS y SMS a tráves de conexión con smartphone</li>
-  <li>Bluetooth</li>
-  <li>WiFi 802.11b/g</li>
-  <li>16 GB de almacenamiento (12 GB libres para el usuario)</li>
-  <li>Giroscopio, acelerómetro, magnetómetro, sensor de luz ambiental y sensor de proximidad</li>
-  <li>Micrófono y transductor de conducción ósea que actúa como altavoz</li>
-  <li>Conector MicroUSB, tanto para conexión con el PC como para salida de auriculares</li>
-</ul>
-
-<h3 id="cómo-se-maneja">¿Cómo se maneja?</h3>
-
-<p>El manejo de Google Glass se realiza con una combinación entre voz, gestos con la cabeza e interacción con el TouchPad. Desde encenderlas moviendo la cabeza hacia arriba (o tocando el TouchPad) se puede interactuar con el ya famoso <strong>Ok glass…</strong> o interactuando con el TouchPad con Swipe hacia adelante/atrás, toques y Swipe abajo que hace las veces de botón atrás. Adicionalmente y a discreción de la aplicación que tengamos abierta, esta puede hacer uso de otro tipo de gestos en el TouchPad, como veremos en próximos artículos.</p>
-
-<h3 id="google-glass-es-un-dispositivo-android-más">Google Glass es un dispositivo Android más</h3>
-
-<p>Como hemos comentado anteriormente, las Google Glass tienen como sistema operativo un Android 4.0.4, una revisión de Android 4.0.3 en el que se mantiene su nivel de API (API 15). Por lo tanto, el modelo de programación es exactamente el mismo y la API es exactamente la misma a la de cualquier aplicación Android, salvo unas pequeñas excepciones a tener en cuenta y que iremos comentando poco a poco.</p>
-
-<p>El entorno de desarrollo a utilizar para desarrollar Glassware será Eclipse con el plug-in ADT o Android Studio, igual que para una aplicación Android para Smartphones o Tablets. Lo que deberemos tener en cuenta a la hora de crear un proyecto para Google Glass es que la API a la que nos dirigimos es la 15.</p>
-
-<h3 id="el-timeline-un-launcher-propio">El Timeline, un launcher propio</h3>
-
-<p><img src="/assets/images/timeline.png" alt="Representación del Timeline" /> Representación del Timeline</p>
-
-<p>Cuando un usuario inicia o activa su Google Glass, verá en primer lugar lo que se llama el Timeline. Este Timeline no es más que un launcher propio, desde el que se lanzan las aplicaciones y en el que se pueden visualizar notificaciones y widgets, que en el caso de Google Glass reciben el nombre de tarjetas o Cards. Estas son siempre a pantalla completa. Luego el Timeline es un conjunto de estas tarjetas, colocadas de forma longitudinal y sobre las que el usuario se puede mover usando el TouchPad. Es por ello que las tarjetas tienen acceso restringido al TouchPad, para evitar entrar en conflicto con los gestos de Swipe adelante/atrás.</p>
-
-<p><img src="/assets/images/ok-glass-e1393787954995.png" alt="Pantalla inicial de Google Glass" /> Pantalla inicial de Google Glass</p>
-
-<p>La tarjeta principal, aquella que muestra la hora y el texto “ok glass” es la que nos permite lanzar aplicaciones. Y aquí es donde nos encontramos una de las principales diferencias entre una aplicación Android <em>normal</em> y una aplicación para Google Glass. El inicio de una aplicación no se marca con <strong>android.intent.action.MAIN</strong>, sino que nuestra aplicación debe responder a la intención <strong>com.google.android.glass.action.VOICE_TRIGGER</strong>. Además de esta intención, debemos indicar en forma de meta-datos, una frase. Esta será la frase que el usuario diga tras decir “ok glass” y que hará que se abra nuestra aplicación. En principio esta frase es la que nosotros queramos, tenemos una guía a seguir con una serie de <a href="https://developers.google.com/glass/distribute/voice-checklist">reglas en la estructura y forma</a> de la misma. Pero si pretendemos que Google nos publique la aplicación en MyGlass, debemos ceñirnos al uso de <a href="https://developers.google.com/glass/develop/gdk/input/voice#existing_voice_commands">una lista de frases</a>. Si queremos utilizar otra frase, debemos antes enviarla para su aprobación. Si más de una aplicación está <em>suscrita</em> a una misma frase, el Timeline le dará la opción al usuario de elegir cual de ellas quiere lanzar, de forma similar a como ocurre  actualmente en las aplicaciones para Smartphones y Tablets cuando dos aplicaciones responden a una misma intención.</p>
-
-<p>Para el manejo del Timeline y poder crear y agregar nuestras propias tarjetas, será necesario utilizar una API que está fuera del SDK normal de Android, el llamado GDK (Glass Development Kit). Esto es una librería <strong>jar</strong> con un stub de clases necesarias para poder compilar nuestro proyecto. En ella se incluye esta API para el manejo del Timeline, así como algunas otras clases de ayuda y controles para manejar y crear interfaces apropiadas para el dispositivo. Ya exploraremos estas clases con más detenimiento en próximos artículos.</p>
-
-<h3 id="continuará">Continuará…</h3>
-
-<p>En el próximo artículo crearemos nuestra primera aplicación para Google Glass. Exploraremos los pequeños ajustes que debemos hacer en un proyecto Android por defecto para hacerlo compatible y cómo incorporar el GDK.</p>
 
 	  ]]></description>
 	</item>
