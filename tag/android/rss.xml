@@ -158,7 +158,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Pasaos por <a href="https://github.com/raycoarana/roborouter">GitHub</a> y mirad como funciona, descargad el proyecto de ejemplo y jugad con él. Cualquier sugerencia será bienvenida.</p>
 
-<p>[github repo=”raycoarana/roborouter”]</p>
+<div class="github-box repo" data-repo="raycoarana/roborouter">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/roborouter">roborouter</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/roborouter/watchers">?</a><a class="forks" href="http://github.com/raycoarana/roborouter/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/roborouter#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/roborouter/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -244,7 +244,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Así que si vas a desarrollar una app, tienes datos persistidos en una base de datos SQLite, no reinventes la rueda y usa el soporte para Full text search. Si tus datos no se persisten y vienen de la nube, te puedes plantear crear una base de datos SQLite en memoria si no quieres repetir la búsqueda.</p>
 
-<p>[github repo=”raycoarana/thesearchbattle”]</p>
+<div class="github-box repo" data-repo="raycoarana/thesearchbattle">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/thesearchbattle">thesearchbattle</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/thesearchbattle/watchers">?</a><a class="forks" href="http://github.com/raycoarana/thesearchbattle/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/thesearchbattle#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/thesearchbattle/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -502,7 +502,7 @@ I/JDEFERRED_DEMO﹕ done() on thread 1
 
 <p>También os dejo en este repo el código de ejemplo.</p>
 
-<p>[github repo=”raycoarana/jdeferred-demo”]</p>
+<div class="github-box repo" data-repo="raycoarana/jdeferred-demo">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/jdeferred-demo">jdeferred-demo</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/jdeferred-demo/watchers">?</a><a class="forks" href="http://github.com/raycoarana/jdeferred-demo/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/jdeferred-demo#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/jdeferred-demo/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -700,7 +700,7 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 
 <p>Sin duda Calligraphy <strong>es lo que Google debería haber soportado en Android desde hace mucho tiempo</strong>. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que <strong>podemos centralizar el uso de las fuentes en nuestros ficheros de estilos</strong>. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.</p>
 
-<p>[github repo=”chrisjenx/Calligraphy”]</p>
+<div class="github-box repo" data-repo="chrisjenx/Calligraphy">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/chrisjenx">chrisjenx</a>/<a class="repo" href="http://github.com/chrisjenx/Calligraphy">Calligraphy</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/chrisjenx/Calligraphy/watchers">?</a><a class="forks" href="http://github.com/chrisjenx/Calligraphy/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/chrisjenx/Calligraphy#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/chrisjenx/Calligraphy/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -804,7 +804,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Puedes obtener más info y acceder al código en su página en GitHub.</p>
 
-<p>[github repo=”frankiesardo/auto-parcel”]</p>
+<div class="github-box repo" data-repo="frankiesardo/auto-parcel">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/frankiesardo">frankiesardo</a>/<a class="repo" href="http://github.com/frankiesardo/auto-parcel">auto-parcel</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/frankiesardo/auto-parcel/watchers">?</a><a class="forks" href="http://github.com/frankiesardo/auto-parcel/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/frankiesardo/auto-parcel#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/frankiesardo/auto-parcel/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -1073,7 +1073,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Y con esto terminamos esta serie de artículos dedicados a Google Glass. Esto es lo básico y que marca diferencia con una aplicación Android, si bien me reservo aún algún tema como la autenticación con cuentas Google y no Google en Glass, pero hay muchas más cosas con las que experimentar ahí fuera y por ahora y hasta que exista un gran cambio de API en Google Glass, creo que es algo ya superado. Como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>4.Timeline</strong>.</p>
 
-<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
@@ -1402,7 +1402,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
 
-<p>[github repo=”raycoarana/google_glass_first_steps”]</p>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 

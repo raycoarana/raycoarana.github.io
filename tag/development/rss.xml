@@ -158,7 +158,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Pasaos por <a href="https://github.com/raycoarana/roborouter">GitHub</a> y mirad como funciona, descargad el proyecto de ejemplo y jugad con él. Cualquier sugerencia será bienvenida.</p>
 
-<p>[github repo=”raycoarana/roborouter”]</p>
+<div class="github-box repo" data-repo="raycoarana/roborouter">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/roborouter">roborouter</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/roborouter/watchers">?</a><a class="forks" href="http://github.com/raycoarana/roborouter/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/roborouter#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/roborouter/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -244,7 +244,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Así que si vas a desarrollar una app, tienes datos persistidos en una base de datos SQLite, no reinventes la rueda y usa el soporte para Full text search. Si tus datos no se persisten y vienen de la nube, te puedes plantear crear una base de datos SQLite en memoria si no quieres repetir la búsqueda.</p>
 
-<p>[github repo=”raycoarana/thesearchbattle”]</p>
+<div class="github-box repo" data-repo="raycoarana/thesearchbattle">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/thesearchbattle">thesearchbattle</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/thesearchbattle/watchers">?</a><a class="forks" href="http://github.com/raycoarana/thesearchbattle/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/thesearchbattle#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/thesearchbattle/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -502,7 +502,7 @@ I/JDEFERRED_DEMO﹕ done() on thread 1
 
 <p>También os dejo en este repo el código de ejemplo.</p>
 
-<p>[github repo=”raycoarana/jdeferred-demo”]</p>
+<div class="github-box repo" data-repo="raycoarana/jdeferred-demo">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/jdeferred-demo">jdeferred-demo</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/jdeferred-demo/watchers">?</a><a class="forks" href="http://github.com/raycoarana/jdeferred-demo/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/jdeferred-demo#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/jdeferred-demo/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
