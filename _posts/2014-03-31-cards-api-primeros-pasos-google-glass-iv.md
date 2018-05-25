@@ -328,7 +328,7 @@ Otra buena práctica muy relacionada con ese feedback es informar al usuario de 
 
 Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta **3.CardAPI**.
 
-[github repo="raycoarana/google_glass_first_steps"]
+{% github raycoarana/google_glass_first_steps %}
 
 ### Continuará...
 

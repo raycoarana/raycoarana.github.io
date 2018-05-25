@@ -4,6 +4,7 @@ gem "jekyll", "3.5.2"
 
 group :jekyll_plugins do
     gem 'hawkins'
+    gem 'jekyll-github-plugin', '~> 1.0.0'
 end
 
 # Build dependencies

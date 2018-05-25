@@ -90,4 +90,4 @@ FTS no es gratis, evidentemente al crear una tabla de este tipo va a penalizar l
 
 Así que si vas a desarrollar una app, tienes datos persistidos en una base de datos SQLite, no reinventes la rueda y usa el soporte para Full text search. Si tus datos no se persisten y vienen de la nube, te puedes plantear crear una base de datos SQLite en memoria si no quieres repetir la búsqueda.
 
-[github repo="raycoarana/thesearchbattle"]
+{% github raycoarana/thesearchbattle %}

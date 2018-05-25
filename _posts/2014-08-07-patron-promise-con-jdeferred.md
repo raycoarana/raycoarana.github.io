@@ -258,4 +258,4 @@ compile 'org.jdeferred:jdeferred-android:1.2.3'
 
 También os dejo en este repo el código de ejemplo.
 
-[github repo="raycoarana/jdeferred-demo"]
+{% github raycoarana/jdeferred-demo %}

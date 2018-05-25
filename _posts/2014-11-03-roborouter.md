@@ -24,4 +24,4 @@ RoboRouter es un pequeña librería _-de apenas dos clases-_ que permite mediant
 
 Pasaos por [GitHub](https://github.com/raycoarana/roborouter) y mirad como funciona, descargad el proyecto de ejemplo y jugad con él. Cualquier sugerencia será bienvenida.
 
-[github repo="raycoarana/roborouter"]
+{% github raycoarana/roborouter %}

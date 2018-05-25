@@ -140,4 +140,4 @@ Y ya solo nos queda utilizarlo en las vistas.
 
 Sin duda Calligraphy **es lo que Google debería haber soportado en Android desde hace mucho tiempo**. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que **podemos centralizar el uso de las fuentes en nuestros ficheros de estilos**. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.
 
-[github repo="chrisjenx/Calligraphy"]
+{% github chrisjenx/Calligraphy %}

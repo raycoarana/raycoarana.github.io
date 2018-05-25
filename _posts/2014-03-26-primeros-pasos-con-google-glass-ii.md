@@ -170,7 +170,7 @@ Una vez instalada, solo nos queda decir "Ok glass, say hello". En el desarrollo 
 
 El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta **1.Helloworld**. _Happy coding!_
 
-[github repo="raycoarana/google_glass_first_steps"]
+{% github raycoarana/google_glass_first_steps %}
 
 ### Continuará...
 

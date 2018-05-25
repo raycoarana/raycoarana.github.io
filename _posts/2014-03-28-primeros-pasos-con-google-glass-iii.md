@@ -162,7 +162,7 @@ Por ejemplo, si nuestra aplicación requiere de conexión a internet, podemos li
 
 Y esto es todo, el código de este artículo lo tenéis en el repositorio de esta serie de artículos, bajo la carpeta **2.VoiceTriggers**.
 
-[github repo="raycoarana/google_glass_first_steps"]
+{% github raycoarana/google_glass_first_steps %}
 
 ### Continuará...
 

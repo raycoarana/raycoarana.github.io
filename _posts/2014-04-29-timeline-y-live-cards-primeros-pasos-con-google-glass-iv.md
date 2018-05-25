@@ -274,7 +274,7 @@ Ejecutamos el proyecto y decimos "ok glass, show my card", nos saltará el Promp
 
 Y con esto terminamos esta serie de artículos dedicados a Google Glass. Esto es lo básico y que marca diferencia con una aplicación Android, si bien me reservo aún algún tema como la autenticación con cuentas Google y no Google en Glass, pero hay muchas más cosas con las que experimentar ahí fuera y por ahora y hasta que exista un gran cambio de API en Google Glass, creo que es algo ya superado. Como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta **4.Timeline**.
 
-[github repo="raycoarana/google_glass_first_steps"]
+{% github raycoarana/google_glass_first_steps %}
 
 ### Conclusiones
 

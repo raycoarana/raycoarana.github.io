@@ -108,4 +108,4 @@ Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos
 
 Puedes obtener más info y acceder al código en su página en GitHub.
 
-[github repo="frankiesardo/auto-parcel"]
+{% github frankiesardo/auto-parcel %}
