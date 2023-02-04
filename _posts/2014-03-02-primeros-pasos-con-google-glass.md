@@ -30,7 +30,7 @@ Pero antes de empezar a hablar de cómo podemos crear Glassware (que es como se 
   * Sistema operativo Android 4.0.4 (API 15)
   * Cámara de 5 MP con capacidad de grabación de video a 720p
   * TouchPad
-  * GPS y SMS a tráves de conexión con smartphone
+  * GPS y SMS a través de conexión con smartphone
   * Bluetooth
   * WiFi 802.11b/g
   * 16 GB de almacenamiento (12 GB libres para el usuario)

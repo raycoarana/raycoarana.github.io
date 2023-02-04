@@ -95,7 +95,7 @@ Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando e
 </LinearLayout>
 ```
 
-Por defecto como puedes ver se reutiliza la propiedad **fontFamily** para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece **la posibilidad de usar un atributo personalizado**, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.
+Por defecto como puedes ver se reutiliza la propiedad **fontFamily** para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece **la posibilidad de usar un atributo personalizado**, para ello primero debemos crearnos el atributo, en el fichero `attrbs.xml` por ejemplo.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

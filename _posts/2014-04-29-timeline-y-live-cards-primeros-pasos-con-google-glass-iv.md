@@ -58,7 +58,7 @@ RemoteViews views = new RemoteViews(context.getPackageName(),
 liveCard.setViews(views);
 ```
 
-Para las segundas, como comentamos necesitamos activar el _flag_ de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el _callback_ que nos proporciona el **_SurfaceHolder_**. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.
+Para las segundas, como comentamos necesitamos activar el _flag_ de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el _callback_ que nos proporciona el **_SurfaceHolder_**. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un `SurfaceHolder`.
 
 ```java
 liveCard.setDirectRenderingEnabled(true);

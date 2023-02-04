@@ -41,7 +41,7 @@ Por último, vamos a poner en **_Compile with_** no la API 15, sino el **Glass 
 
 ### Retocando el build.gradle
 
-Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el _app/build.gradle_. La opción de configuración que hemos puesto en el asistente como **_Compile with_** no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que _**compileSdkVersion**_ apunte al GDK quedando así:
+Una vez Android Studio termina de generar el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el _app/build.gradle_. La opción de configuración que hemos puesto en el asistente como **_Compile with_** no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que _**compileSdkVersion**_ apunte al GDK quedando así:
 
 ```groovy
 apply plugin: 'android'
@@ -81,9 +81,9 @@ Para terminar de configurar el proyecto antes de comenzar a escribir código de 
 </resources>
 ```
 
-Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas _drawable-mdpi_, _drawable-xhdpi_, _drawable-xxhdpi_, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.
+Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas `drawable-mdpi`, `drawable-xhdpi`, `drawable-xxhdpi`, ya que Google Glass utiliza una resolución `hdpi` y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.
 
-### Helloworld from Glass!
+### Hello-world from Glass!
 
 Ya tenemos nuestro proyecto listo para comenzar a desarrollar, los pasos anteriores hasta que mejore el soporte de Android Studio para el desarrollo de Glassware, serán el pan de cada día. A partir de ahora, vamos a generar una simple actividad, que muestre un mensaje en pantalla y configuraremos nuestra aplicación para que el usuario pueda lanzarla con un comando de voz.
 
@@ -103,7 +103,7 @@ public class HelloWorldActivity extends Activity {
 }
 ```
 
-A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta **_res/layout/activity_helloworld.xml_**, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:
+A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta `_res/layout/activity_helloworld.xml_`, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -168,7 +168,7 @@ Una vez instalada, solo nos queda decir "Ok glass, say hello". En el desarrollo 
 
 ![App HelloWorld](/assets/images/4.HelloWorld.png) App HelloWorld
 
-El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta **1.Helloworld**. _Happy coding!_
+El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta `1.Helloworld`. _Happy coding!_
 
 {% github raycoarana/google_glass_first_steps %}
 

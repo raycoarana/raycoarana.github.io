@@ -22,14 +22,14 @@ El problema viene con los tipos de datos que nos permite almacenar un `Bundle`, 
 
 <!--more-->
 
-### ¿Porqué usar Parcelable sobre Serializable?
+### ¿Porqué usar `Parcelable` sobre Serializable?
 
-La principal razón para implementar Parcelable sobre Serializable es su velocidad de ejecución, se habla de hasta **10x más rápido** trabajar con objetos Parcelable. Si estamos en un entorno móvil, esto se traduce no solo en **mayor rapidez**, sino también en **menor consumo de batería**, algo que nunca debemos obviar a la hora de desarrollar apps.
+La principal razón para implementar `Parcelable` sobre Serializable es su velocidad de ejecución, se habla de hasta **10x más rápido** trabajar con objetos `Parcelable`. Si estamos en un entorno móvil, esto se traduce no solo en **mayor rapidez**, sino también en **menor consumo de batería**, algo que nunca debemos obviar a la hora de desarrollar apps.
 Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es que la implementación y sobre todo el mantenimiento de este tipo de objetos es muy tediosa, siendo una tarea muy repetitiva y donde es muy fácil cometer errores.
 
 ### Android AutoParcel al rescate
 
-Para solucionar esto, existe una librería muy interesante, o más que librería deberíamos hablar de **plug-in para Gradle**, que en tiempo de compilación, es capaz de generar el código de serialización y deserialización de nuestros objetos. Al ser en tiempo de compilación, no penaliza en absoluto la ejecución y nos beneficiamos de no tener que lidiar con los tediosos métodos de la interfaz Parcelable. Esta se llama [Android AutoParcel](https://github.com/frankiesardo/auto-parcel) y es un port de la librería [Google AutoValue](https://github.com/google/auto/tree/master/value).
+Para solucionar esto, existe una librería muy interesante, o más que librería deberíamos hablar de **plug-in para Gradle**, que en tiempo de compilación, es capaz de generar el código de serialización y deserialización de nuestros objetos. Al ser en tiempo de compilación, no penaliza en absoluto la ejecución y nos beneficiamos de no tener que lidiar con los tediosos métodos de la interfaz `Parcelable`. Esta se llama [Android AutoParcel](https://github.com/frankiesardo/auto-parcel) y es un port de la librería [Google AutoValue](https://github.com/google/auto/tree/master/value).
 
 Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz **build.gradle**, donde agregaremos en las dependencias la siguiente línea:
 

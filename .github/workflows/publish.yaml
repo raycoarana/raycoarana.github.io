@@ -15,6 +15,15 @@ jobs:
         with:
           ref: master
           path: _site
+      - uses: actions/setup-node@v1
+        name: Run spell check
+        with:
+          node-version: "12"
+      - name: Install cSpell
+        run: |
+          npm install -g cspell
+          npm install -g @cspell/dict-es-es
+          cspell link add @cspell/dict-es-es
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.1.3'

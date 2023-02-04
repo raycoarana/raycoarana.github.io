@@ -72,9 +72,9 @@ La única excepción a esta regla es si queremos evitar que el usuario cierre la
 
 ![Navegación dentro de menú de navegación](/assets/images/DeepNavigationDrawers.png) Navegación dentro de menú de navegación
 
-Rizando el rizo, si tu aplicación es muy compleja podrías llegar a tener subsecciones. Existen diferentes formas de hacer llegar al usuario a estas subsecciones y una de ellas es incluirlas en el menú de navegación. El problema es incluir navegación dentro del menú de navegación, una vez más agregamos cierto grado de entropía a la interfaz, ya que caben diferentes estados y posibilidades al interactuar con ella. Si se cierra y se vuelve a abrir el menú de navegación, ¿se mantiene en la subsección? ¿vuelve al principal?
+Rizando el rizo, si tu aplicación es muy compleja podrías llegar a tener sub-secciones. Existen diferentes formas de hacer llegar al usuario a estas sub-secciones y una de ellas es incluirlas en el menú de navegación. El problema es incluir navegación dentro del menú de navegación, una vez más agregamos cierto grado de entropía a la interfaz, ya que caben diferentes estados y posibilidades al interactuar con ella. Si se cierra y se vuelve a abrir el menú de navegación, ¿se mantiene en la sub-sección? ¿vuelve al principal?
 
-Lo recomendado en este caso es hacer uso de un _Accordion_ que permitan colapsar las subsecciones, siempre que sea esta la forma de navegación que quieras, existen alternativas que dependen de la semántica de tu app.
+Lo recomendado en este caso es hacer uso de un _Accordion_ que permitan colapsar las sub-secciones, siempre que sea esta la forma de navegación que quieras, existen alternativas que dependen de la semántica de tu app.
 
 #### 8. Elementos del menú de navegación que no son raíz
 

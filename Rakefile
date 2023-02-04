@@ -23,6 +23,7 @@ namespace :site do
   desc "Check html"
   task :check => :build do
     sh "bundle exec htmlproofer #{CONFIG["destination"]}  --disable-external"
+    sh 'cspell --config ./cSpell.json "**/*.md"'
   end
 
   desc "Generate the site and serve locally"

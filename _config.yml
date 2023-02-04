@@ -51,6 +51,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - cSpell.json
 
 # Settings for builing master branch with CI
 

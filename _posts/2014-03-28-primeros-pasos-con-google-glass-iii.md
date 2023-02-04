@@ -47,7 +47,7 @@ ArrayList<String> voiceResults = getIntent().getExtras()
 
 Vamos a poner en práctica lo anterior, creamos una nueva actividad en nuestro proyecto (o creamos un proyecto nuevo como [ya vimos]({% post_url 2014-03-26-primeros-pasos-con-google-glass-ii %})) con su layout, donde vamos a mostrar el texto que hemos capturado del usuario.
 
-Creamos un layout con nombre **activity_askmesomething.xml**, cuyo contenido será el siguiente.
+Creamos un layout con nombre `activity_askmesomething.xml`, cuyo contenido será el siguiente.
 
 ```xml
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -103,7 +103,7 @@ Ahora vamos a obtener una referencia al **TextView** donde vamos a mostrar el te
 ...
 ```
 
-Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al **AndroidManifest.xml**. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos **_askmesomething_trigger.xml_** con el siguiente contenido, nada que ya no hayamos visto antes.
+Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al **AndroidManifest.xml**. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos `_askmesomething_trigger.xml_` con el siguiente contenido, nada que ya no hayamos visto antes.
 
 ```xml
 <trigger keyword="@string/trigger_ask_me_something">
