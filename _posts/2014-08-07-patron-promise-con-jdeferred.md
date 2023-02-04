@@ -250,7 +250,7 @@ Como podéis imaginar podemos hacer muchos juegos con esta librería, pero lo de
 La principal consecuencia de utilizar este patrón en nuestro código asíncrono es que nuestras APIs cumplen una máxima en el desarrollo de código limpio: **los métodos no tienen parámetros de salida, solo un valor de retorno**. En el caso asíncrono, es muy típico ver cómo hay que pasar un _callback_ a un método para que cuando este acabe, nos devuelva por ahí el resultado. Con esta forma de trabajo, el método devuelve la promesa, con la que podremos obtener el valor más adelante, dejando un código más fácil de leer ya que es casi lineal y no obliga al desarrollador a estar dando saltos entre el código para seguir el flujo.
 
 ### ¿Cómo la obtengo?
-Pues desde su sitio web en _[http://jdeferred.org/](http://jdeferred.org/)_ o también a través de Gradle agregando:
+Pues desde su sitio web en _[https://jdeferred.org/](https://jdeferred.org/)_ o también a través de Gradle agregando:
 
 ``` groovy
 compile 'org.jdeferred:jdeferred-android:1.2.3'

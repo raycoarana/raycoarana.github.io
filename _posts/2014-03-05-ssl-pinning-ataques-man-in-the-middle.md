@@ -41,7 +41,7 @@ keytool -importcert
         -storepass AQUI_VA_TU_PASSWORD
 ```
 
-Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero [**bcprov-jdk16-145.jar**](http://www.bouncycastle.org/download/bcprov-jdk16-145.jar) en el lugar donde estamos ejecutándolo.
+Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero [**bcprov-jdk16-145.jar**](https://www.bouncycastle.org/download/bcprov-jdk16-145.jar) en el lugar donde estamos ejecutándolo.
 
 Una vez creado nuestro almacén de certificados con nombre **sslpinning.ks**, nos lo llevamos a nuestro proyecto. Lo copiaremos en la carpeta **res/raw**.
 

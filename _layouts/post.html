@@ -15,7 +15,7 @@ class: 'post-template'
     <nav class="main-nav {% if page.cover %} overlay {% endif %} clearfix">
         {% if site.logo %}<a class="blog-logo" href="{{ site.baseurl }}/"><img src="{{ site.baseurl }}/{{ site.logo }}" alt="Blog Logo" /></a>{% endif %}
         {% if page.navigation %}
-            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         {% endif %}
     </nav>
 </header>
@@ -78,7 +78,7 @@ class: 'post-template'
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text={{ page.title }}&amp;url={{ site.url }}{{ page.url}}"
+                <a class="icon-twitter" href="https://twitter.com/share?text={{ page.title }}&amp;url={{ site.url }}{{ page.url}}"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>

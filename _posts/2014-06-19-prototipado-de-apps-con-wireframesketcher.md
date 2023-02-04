@@ -66,4 +66,4 @@ Otras formas más estáticas de exportar nuestro trabajo es usando ficheros PDF 
 ### Conclusiones
 Después de experimentar distintas herramientas disponibles en el mercado, WireframeSketcher es para mí una de las mejores, por $99 tenemos una herramienta extensible y muy fiel al diseño final. Su uso es bastante sencillo y nos da la opción a exportar a HTML, algo ideal para enviar a clientes o compañeros. Como está integrado con Eclipse y como se puede instalar como plug-in también, nos permite integrar la herramienta en nuestro entorno habitual de trabajo -bueno si no estamos usando Android Studio- lo que nos permite la integración con otros plug-ins como control de versiones, pudiendo así colaborar y tener un historial de todo el trabajo realizado.
 
-Más info y descarga: [http://wireframesketcher.com/](http://wireframesketcher.com/)
+Más info y descarga: [https://wireframesketcher.com/](https://wireframesketcher.com/)
