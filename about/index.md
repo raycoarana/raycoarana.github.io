@@ -20,7 +20,7 @@ La línea principal del logotipo y la <strong>r</strong> del <em>favicon</em>, 
 <img alt="logotipo grande" src="/assets/images/main-logo-big.png" width="500" height="98" />
 
 #### BIO
-Rayco Araña es un apasionado de la tecnología y el desarrollo. Desde sus comienzos ha sido desarrollador web en tecnologías PHP, JavaScript, ASP.NET y J2EE. En los últimos años se ha especializado en tecnología móvil, con especial atención a la plataforma Android, sin dejar de atender tecnologías relacionadas como Google App Engine, J2EE o Xamarin entre otras.
+Rayco Araña es un apasionado de la tecnología y el desarrollo de software. Desde sus comienzos ha sido desarrollador web en tecnologías PHP, JavaScript, ASP.NET, J2EE. Con épocas dónde se ha especializado en desarrollo Android y por último centrado en desarrollo backend con Kotlin y Spring Boot.
 
 ![Búhos](/assets/images/buhos.jpg)
 ![Maspalomas](/assets/images/maspalomas.jpg)
