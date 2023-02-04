@@ -17,7 +17,7 @@
     <!-- [[! Styles'n'Scripts ]] -->
     <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
     <link rel="stylesheet" type="text/css"
-          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+          href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
 
@@ -39,8 +39,8 @@
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
 
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
     <script>
     window.addEventListener("load", function(){
     window.cookieconsent.initialise({
@@ -86,7 +86,7 @@
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
@@ -115,7 +115,7 @@
     <nav class="main-nav  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
-            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
     </nav>
 </header>
@@ -170,20 +170,20 @@
 <p>Al implementar el filtrado en memoria y optando por una solución sencilla y viable para su desarrollo, descartando el crear grandes estructuras de datos, es tan sencillo como implementar un pequeño bucle que recorra cada elemento y por cada uno realice la búsqueda del texto. Por cada elemento haremos uno o varios contains para buscar la cadena que quiere el usuario sobre el elemento. Esto nos lleva a un problema de O(n*m), dónde n es el número de elementos sobre los que buscar y m es el tamaño de la cadena de texto sobre la que buscar en cada elemento. Esto a priori ya nos da una señal de cómo escala esta solución. Sin embargo, siempre nos puede quedar la duda de, ¿es lo suficientemente buena como para evitar el acceso a la base de datos?</p>
 
 <h3 id="full-text-search-en-sqlite">Full text search en SQLite</h3>
-<p>Full text search es un termino que acuñan casi todos los motores de base de datos para designar a su implementación de la búsqueda de texto. Estos tipos de <em>índices</em> son muy potentes y son capaces de manejar gran cantidad de datos y realizar búsquedas muy diversas en muy poco tiempo. En el caso de SQLite, simplificando mucho, esto se lleva a cabo a través de varias tablas, algunas físicas y otras virtuales que se crean automáticamente para representar las estructuras de datos usadas, entre ellas un árbol B, podéis consultar más detalles técnicos en <a href="http://www.sqlite.org/fts3.html"><em>http://www.sqlite.org/fts3.html</em></a>.</p>
+<p>Full text search es un termino que acuñan casi todos los motores de base de datos para designar a su implementación de la búsqueda de texto. Estos tipos de <em>índices</em> son muy potentes y son capaces de manejar gran cantidad de datos y realizar búsquedas muy diversas en muy poco tiempo. En el caso de SQLite, simplificando mucho, esto se lleva a cabo a través de varias tablas, algunas físicas y otras virtuales que se crean automáticamente para representar las estructuras de datos usadas, entre ellas un árbol B, podéis consultar más detalles técnicos en <a href="https://www.sqlite.org/fts3.html"><em>https://www.sqlite.org/fts3.html</em></a>.</p>
 
 <h3 id="the-search-battle">The search battle</h3>
 <p>Para comprobar qué método es mejor para realizar las búsquedas, vamos a enfrentarlos y ver qué es mejor, si buscar sobre datos ya cargados en memoria o volver a lanzar la búsqueda a la base de datos. Para ello he creado un proyecto, que tenéis disponible al final del artículo, donde realizar búsquedas sobre distintos conjuntos de datos con distintas palabras clave. Los conjuntos de datos provienen todos del mismo sitio, la lista de coches de Gran Turismo 6. En la comparativa tendremos por un lado la clase MemorySearch, que realiza las búsquedas basándose en el método <em>contains()</em> de esta forma:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="n">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;();</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">Car</span> <span class="n">car</span> <span class="o">:</span> <span class="n">mCars</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="nc">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;();</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">Car</span> <span class="n">car</span> <span class="o">:</span> <span class="n">mCars</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">contained</span><span class="o">(</span><span class="n">term</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">(),</span>
                            <span class="n">car</span><span class="o">.</span><span class="na">getCountry</span><span class="o">(),</span>
                            <span class="n">car</span><span class="o">.</span><span class="na">getBrand</span><span class="o">(),</span>
                            <span class="n">car</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
-                           <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">car</span><span class="o">.</span><span class="na">getYear</span><span class="o">())))</span> <span class="o">{</span>
+                           <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">car</span><span class="o">.</span><span class="na">getYear</span><span class="o">())))</span> <span class="o">{</span>
                 <span class="n">results</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">car</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -191,8 +191,8 @@
         <span class="k">return</span> <span class="n">results</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">contained</span><span class="o">(</span><span class="n">String</span> <span class="n">term</span><span class="o">,</span> <span class="n">String</span><span class="o">...</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span> <span class="o">:</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">contained</span><span class="o">(</span><span class="nc">String</span> <span class="n">term</span><span class="o">,</span> <span class="nc">String</span><span class="o">...</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="n">text</span> <span class="o">:</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span><span class="o">(</span><span class="n">text</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">text</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">term</span><span class="o">))</span> <span class="o">{</span>
                 <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
             <span class="o">}</span>
@@ -200,25 +200,23 @@
 
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Por otro lado tenemos la clase FTSSearch, que realiza la misma búsqueda contra la base de datos SQLite usando Full text search.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FTS_QUERY_TEMPLATE</span> <span class="o">=</span> <span class="s">"SELECT * FROM %s WHERE _id IN (SELECT docid FROM %s_fts WHERE content MATCH ?)"</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">FTS_QUERY_TEMPLATE</span> <span class="o">=</span> <span class="s">"SELECT * FROM %s WHERE _id IN (SELECT docid FROM %s_fts WHERE content MATCH ?)"</span><span class="o">;</span>
 
 <span class="o">...</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="n">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">mDatabase</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span>
+    <span class="kd">protected</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="nc">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">mDatabase</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span>
             <span class="n">mQuery</span><span class="o">,</span> 
-            <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span> <span class="n">term</span> <span class="o">+</span> <span class="s">"*"</span> <span class="o">}</span>
+            <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span> <span class="n">term</span> <span class="o">+</span> <span class="s">"*"</span> <span class="o">}</span>
         <span class="o">);</span>
-        <span class="k">return</span> <span class="n">Car</span><span class="o">.</span><span class="na">fromCursor</span><span class="o">(</span><span class="n">cursor</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">Car</span><span class="o">.</span><span class="na">fromCursor</span><span class="o">(</span><span class="n">cursor</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>En ambos casos, el método <em>onSearch()</em> es sobre el que hacemos mediciones. Este método lo ejecutaremos 10 veces para cada conjunto de datos de forma que tengamos una medición algo más estable.</p>
 
@@ -237,7 +235,7 @@
 
 <p>Así que si vas a desarrollar una app, tienes datos persistidos en una base de datos SQLite, no reinventes la rueda y usa el soporte para Full text search. Si tus datos no se persisten y vienen de la nube, te puedes plantear crear una base de datos SQLite en memoria si no quieres repetir la búsqueda.</p>
 
-<div class="github-box repo" data-repo="raycoarana/thesearchbattle">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/thesearchbattle">thesearchbattle</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/thesearchbattle/watchers">?</a><a class="forks" href="http://github.com/raycoarana/thesearchbattle/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/thesearchbattle#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/thesearchbattle/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/thesearchbattle">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/thesearchbattle">thesearchbattle</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/thesearchbattle/watchers">?</a><a class="forks" href="https://github.com/raycoarana/thesearchbattle/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/thesearchbattle#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/thesearchbattle/zipball/master">Download as zip</a></div></div>
 
 
         </section>
@@ -261,7 +259,7 @@
                 
                 <div class="author-meta">
                     <span class="author-location icon-location"> Madrid, Spain</span> 
-                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                    <span class="author-link icon-link"><a href="https://raycoarana.com/"> raycoarana.com</a></span> 
                 </div>
             </section>
 
@@ -269,15 +267,15 @@
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=Full text search contra otras formas de búsqueda&amp;url=http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/"
+                <a class="icon-twitter" href="https://twitter.com/share?text=Full text search contra otras formas de búsqueda&amp;url=https://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -320,7 +318,7 @@
 
 
         <footer class="site-footer clearfix">
-          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2023</section>
           <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
         </footer>
     </div>

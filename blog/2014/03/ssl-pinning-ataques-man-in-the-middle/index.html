@@ -17,7 +17,7 @@
     <!-- [[! Styles'n'Scripts ]] -->
     <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
     <link rel="stylesheet" type="text/css"
-          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+          href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
 
@@ -39,8 +39,8 @@
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
 
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
     <script>
     window.addEventListener("load", function(){
     window.cookieconsent.initialise({
@@ -86,7 +86,7 @@
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
@@ -115,7 +115,7 @@
     <nav class="main-nav  overlay  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
-            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
     </nav>
 </header>
@@ -172,73 +172,70 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
 
 <p>Para poder implementar SSL Pinning en Android necesitamos en primer lugar preparar el certificado del servidor con el que vamos a conectarnos e incorporarlo a un almacén de certificados de Java. Para ello haremos uso de la herramienta <strong>keytool</strong> que viene con el JDK. Para hacer esto, ejecutaremos el siguiente comando:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>keytool -importcert
-        -trustcacerts
-        -file <span class="s2">"MICERTIFICADO.cer"</span>
-        -alias MIALIAS
-        -keystore <span class="s2">"sslpinning.ks"</span>
-        -provider org.bouncycastle.jce.provider.BouncyCastleProvider
-        -providerpath <span class="s2">"bcprov-jdk16-145.jar"</span>
-        -storetype BKS
-        -storepass AQUI_VA_TU_PASSWORD
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keytool <span class="nt">-importcert</span>
+        <span class="nt">-trustcacerts</span>
+        <span class="nt">-file</span> <span class="s2">"MICERTIFICADO.cer"</span>
+        <span class="nt">-alias</span> MIALIAS
+        <span class="nt">-keystore</span> <span class="s2">"sslpinning.ks"</span>
+        <span class="nt">-provider</span> org.bouncycastle.jce.provider.BouncyCastleProvider
+        <span class="nt">-providerpath</span> <span class="s2">"bcprov-jdk16-145.jar"</span>
+        <span class="nt">-storetype</span> BKS
+        <span class="nt">-storepass</span> AQUI_VA_TU_PASSWORD
+</code></pre></div></div>
 
-<p>Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero <a href="http://www.bouncycastle.org/download/bcprov-jdk16-145.jar"><strong>bcprov-jdk16-145.jar</strong></a> en el lugar donde estamos ejecutándolo.</p>
+<p>Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero <a href="https://www.bouncycastle.org/download/bcprov-jdk16-145.jar"><strong>bcprov-jdk16-145.jar</strong></a> en el lugar donde estamos ejecutándolo.</p>
 
 <p>Una vez creado nuestro almacén de certificados con nombre <strong>sslpinning.ks</strong>, nos lo llevamos a nuestro proyecto. Lo copiaremos en la carpeta <strong>res/raw</strong>.</p>
 
 <p>Ahora que tenemos todo listo, abrimos nuestro Eclipse/AndroidStudio y comenzamos a escribir código. Lo que vamos a necesitar será proporcionar al objeto HttpClient de Apache (que viene incluida en el SDK de Android) este almacén de certificados como únicos certificados válidos para realizar conexiones SSL. Para ello, vamos a sobrescribir la clase DefaultHttpClient. Crearemos un constructor que recibirá como parámetro el contexto para poder acceder al recurso donde tenemos el almacén de certificados.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.content.Context</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.content.res.Resources</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.http.impl.client.DefaultHttpClient</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecureHttpClient</span> <span class="kd">extends</span> <span class="n">DefaultHttpClient</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SecureHttpClient</span> <span class="kd">extends</span> <span class="nc">DefaultHttpClient</span> <span class="o">{</span>
 
-    <span class="n">Resources</span> <span class="n">mResources</span><span class="o">;</span>
+    <span class="nc">Resources</span> <span class="n">mResources</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">SecureHttpClient</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">SecureHttpClient</span><span class="o">(</span><span class="nc">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">mResources</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">();</span>
     <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos la clase, vamos a añadirle un método que se encargará de construir una factoría de sockets SSL, al que le proporcionaremos el almacén de certificados que debe utilizar como certificados de confianza.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.http.conn.ssl.SSLSocketFactory</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.http.conn.ssl.SSLSocketFactory</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.security.KeyStore</span><span class="o">;</span>
 
 <span class="o">...</span>
 
-<span class="kd">private</span> <span class="n">SSLSocketFactory</span> <span class="nf">buildSSLSocketFactory</span><span class="o">()</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="nc">SSLSocketFactory</span> <span class="nf">buildSSLSocketFactory</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">try</span> <span class="o">{</span>
-        <span class="n">KeyStore</span> <span class="n">trusted</span> <span class="o">=</span> <span class="n">KeyStore</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"BKS"</span><span class="o">);</span>
-        <span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">mResources</span><span class="o">.</span><span class="na">openRawResource</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">sslpinning</span><span class="o">);</span>
+        <span class="nc">KeyStore</span> <span class="n">trusted</span> <span class="o">=</span> <span class="nc">KeyStore</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"BKS"</span><span class="o">);</span>
+        <span class="nc">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">mResources</span><span class="o">.</span><span class="na">openRawResource</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">raw</span><span class="o">.</span><span class="na">sslpinning</span><span class="o">);</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">trusted</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="s">"AQUI_VA_TU_PASSWORD"</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">());</span>
         <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
             <span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
         <span class="o">}</span>
-        <span class="n">SSLSocketFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SSLSocketFactory</span><span class="o">(</span><span class="n">trusted</span><span class="o">);</span>
-        <span class="n">sf</span><span class="o">.</span><span class="na">setHostnameVerifier</span><span class="o">(</span><span class="n">SSLSocketFactory</span><span class="o">.</span><span class="na">STRICT_HOSTNAME_VERIFIER</span><span class="o">);</span>
+        <span class="nc">SSLSocketFactory</span> <span class="n">sf</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SSLSocketFactory</span><span class="o">(</span><span class="n">trusted</span><span class="o">);</span>
+        <span class="n">sf</span><span class="o">.</span><span class="na">setHostnameVerifier</span><span class="o">(</span><span class="nc">SSLSocketFactory</span><span class="o">.</span><span class="na">STRICT_HOSTNAME_VERIFIER</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">sf</span><span class="o">;</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="o">...</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos el método anterior, vamos a sobrescribir el método <em>createClientConnectionManager()</em>. En él vamos a registrar nuestra factoría de sockets SSL cuando se solicita una conexión sobre https. De esta forma, cada vez que el cliente Http va a realizar una conexión, creará el Socket SSL basado en nuestra configuración.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.http.conn.ClientConnectionManager</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.http.conn.ClientConnectionManager</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.http.conn.scheme.Scheme</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.http.conn.scheme.SchemeRegistry</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.http.conn.scheme.PlainSocketFactory</span><span class="o">;</span>
@@ -247,17 +244,16 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
 <span class="o">...</span>
 
 <span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="n">ClientConnectionManager</span> <span class="nf">createClientConnectionManager</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">SchemeRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SchemeRegistry</span><span class="o">();</span>
-    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">Scheme</span><span class="o">(</span><span class="s">"http"</span><span class="o">,</span> <span class="n">PlainSocketFactory</span><span class="o">.</span><span class="na">getSocketFactory</span><span class="o">(),</span> <span class="mi">80</span><span class="o">));</span>
-    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="n">Scheme</span><span class="o">(</span><span class="s">"https"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">buildSSLSocketFactory</span><span class="o">(),</span> <span class="mi">443</span><span class="o">));</span>
+<span class="kd">protected</span> <span class="nc">ClientConnectionManager</span> <span class="nf">createClientConnectionManager</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">SchemeRegistry</span> <span class="n">registry</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SchemeRegistry</span><span class="o">();</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nc">Scheme</span><span class="o">(</span><span class="s">"http"</span><span class="o">,</span> <span class="nc">PlainSocketFactory</span><span class="o">.</span><span class="na">getSocketFactory</span><span class="o">(),</span> <span class="mi">80</span><span class="o">));</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="k">new</span> <span class="nc">Scheme</span><span class="o">(</span><span class="s">"https"</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">buildSSLSocketFactory</span><span class="o">(),</span> <span class="mi">443</span><span class="o">));</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">ThreadSafeClientConnManager</span><span class="o">(</span><span class="n">getParams</span><span class="o">(),</span> <span class="n">registry</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="o">...</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y listo, con esto ya tenemos un cliente Http seguro que realiza una estricta comprobación de los certificados, confiando únicamente en aquellos que hemos incluido en nuestro almacén de certificados. Ya solo nos queda hacer las peticiones de la misma forma que lo hacemos normalmente.</p>
 
@@ -287,7 +283,7 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
                 
                 <div class="author-meta">
                     <span class="author-location icon-location"> Madrid, Spain</span> 
-                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                    <span class="author-link icon-link"><a href="https://raycoarana.com/"> raycoarana.com</a></span> 
                 </div>
             </section>
 
@@ -295,15 +291,15 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=SSL Pinning y ataques man-in-the-middle&amp;url=http://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/"
+                <a class="icon-twitter" href="https://twitter.com/share?text=SSL Pinning y ataques man-in-the-middle&amp;url=https://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -346,7 +342,7 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
 
 
         <footer class="site-footer clearfix">
-          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2023</section>
           <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
         </footer>
     </div>

@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -29,51 +29,49 @@
 
 <p>Por ejemplo, imaginemos que queremos en nuestra aplicación realizar tareas de procesamiento a razón de peticiones del usuario. Según el trabajo se vaya completando queremos notificar el progreso al usuario. Ahora mismo estamos en un mundo donde no hay PC/Smartphone/Tablet que no tenga varias CPUs, así que podemos lanzar varias cosas a ejecutarse al mismo tiempo, pero no podemos crear infinitos hilos -bueno en teoría sí, ya que el Sistema operativo compartirá el tiempo de CPU entre todos los hilos y si la memoria aguanta, podríamos tener muchos, pero no es lo más óptimo-. Así pues para empezar, nos creamos un <strong>pool de hilos</strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NUMBER_OF_CPUS</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">NUMBER_OF_CPUS</span> <span class="o">=</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">();</span>
 
-<span class="kd">private</span> <span class="n">ExecutorService</span> <span class="n">mExecutorService</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">ExecutorService</span> <span class="n">mExecutorService</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
 
-        <span class="n">mExecutorService</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">NUMBER_OF_CPUS</span><span class="o">);</span>
+        <span class="n">mExecutorService</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="no">NUMBER_OF_CPUS</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>En este código estamos utilizando el número de CPUs disponibles, <strong>no quiere decir que esto sea lo más óptimo</strong>. De hecho, dependiendo del tipo de trabajo que vayamos a hacer, por ejemplo, una petición de lectura de disco, <strong>la CPU quedará un tanto ociosa mientras el disco responde y otro hilo podría adelantar trabajo</strong>. Luego muy probablemente un número un tanto mayor podría llegar a obtener mejores resultados, todo depende del tipo de trabajo a realizar. Para ello lo mejor es <strong>no tratar de optimizar desde el minuto 0</strong>, sino una vez tenemos resuelto el problema, probar otros valores para ver con cuál se obtienen mejores resultados.</p>
 
 <p>Bien una vez tenemos nuestro pool de hilos, podemos agregar trabajo a realizar.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
                 <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Error doing background work"</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"Error doing background work"</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
     <span class="o">};</span>
     <span class="n">mExecutorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">work</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Como veis, no es más que crear un <code class="highlighter-rouge">Runnable</code> con el trabajo a realizar y llamar al método <code class="highlighter-rouge">submit()</code> de nuestro <code class="highlighter-rouge">ExecutorService</code> para que programe y ejecute el trabajo en un hilo en segundo plano.</p>
+<p>Como veis, no es más que crear un <code class="language-plaintext highlighter-rouge">Runnable</code> con el trabajo a realizar y llamar al método <code class="language-plaintext highlighter-rouge">submit()</code> de nuestro <code class="language-plaintext highlighter-rouge">ExecutorService</code> para que programe y ejecute el trabajo en un hilo en segundo plano.</p>
 
 <p>El esquema anterior es muy simple, pero normalmente una aplicación es algo más compleja y lo primero que podemos agregar de complejidad es hacer un tratamiento al resultado de la ejecución de lo anterior. Por ejemplo, hacemos una librería que lee una imagen de disco de forma asíncrona con el anterior esquema, ¿dónde ponemos el código para hacer algo con esa imagen una vez se ha cargado? Lo primero que podemos pensar es llamar a esa tarea de procesar la imagen como última línea de código dentro del Runnable. Eso funciona, pero <strong>estamos acoplando dos funcionalidades distintas y afectando a la reusabilidad de nuestro código</strong>.</p>
 
 <h3 id="patrón-promise-al-rescate">Patrón Promise al rescate</h3>
 <p>La esencia del patrón Promise es precisamente esa, cuando lanzamos un trabajo asíncrono, se nos devuelve una promesa de que recibiremos en un momento futuro el resultado del mismo. Con esta promesa luego <strong>podemos encolar trabajo para que este se ejecute cuando el anterior ha finalizado</strong>.</p>
 
-<p>Veamos cómo podemos aplicarlo a nuestro ejemplo. Lo primero será crear un <code class="highlighter-rouge">DeferredObject</code>, el cual controlará el estado de la promesa y sobre el que podemos actuar para <strong>notificar progreso, errores o resultado del trabajo</strong>. Los tres métodos esenciales son:</p>
+<p>Veamos cómo podemos aplicarlo a nuestro ejemplo. Lo primero será crear un <code class="language-plaintext highlighter-rouge">DeferredObject</code>, el cual controlará el estado de la promesa y sobre el que podemos actuar para <strong>notificar progreso, errores o resultado del trabajo</strong>. Los tres métodos esenciales son:</p>
 
 <ul>
   <li><strong>notify()</strong> para notificar progreso en la ejecución de la tarea.</li>
@@ -83,21 +81,21 @@
 
 <p>Por último, una vez hemos lanzado a ejecutar el trabajo, devolvemos la promesa.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Promise</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">DeferredObject</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">deferredObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeferredObject</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Promise</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="nc">DeferredObject</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">deferredObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DeferredObject</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;();</span>
 
-    <span class="n">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
                 <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                     <span class="n">deferredObject</span><span class="o">.</span><span class="na">notify</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
                 <span class="o">}</span>
 
                 <span class="n">deferredObject</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="s">"Finish!"</span><span class="o">);</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">deferredObject</span><span class="o">.</span><span class="na">reject</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -106,8 +104,7 @@
 
     <span class="k">return</span> <span class="n">deferredObject</span><span class="o">.</span><span class="na">promise</span><span class="o">();</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y ya está, ahora si queremos usar este método y realizar acciones con cada posible caso solo nos queda ir agregando los <em>callbacks</em> necesarios. Estos son:</p>
 
@@ -121,44 +118,43 @@
 
 <p>Todas estas llamadas se pueden ir encolando como comentábamos anteriormente. En principio todas ellas se ejecutan en el mismo hilo desde el que se produce la notificación, en este caso que estamos mostrando, todo ello se ejecuta desde el hilo que ejecuta el Runnable. Para comprobarlo, vamos a añadir este código a nuestro ejemplo.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
     <span class="o">...</span>
 
     <span class="k">this</span><span class="o">.</span><span class="na">doWorkInBackground</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="k">new</span> <span class="n">DoneCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="k">new</span> <span class="nc">DoneCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="n">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"then() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="nc">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"then() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">progress</span><span class="o">(</span><span class="k">new</span> <span class="n">ProgressCallback</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">progress</span><span class="o">(</span><span class="k">new</span> <span class="nc">ProgressCallback</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onProgress</span><span class="o">(</span><span class="n">Integer</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"progress() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onProgress</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"progress() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">done</span><span class="o">(</span><span class="k">new</span> <span class="n">DoneCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">done</span><span class="o">(</span><span class="k">new</span> <span class="nc">DoneCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="n">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"done() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="nc">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"done() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">fail</span><span class="o">(</span><span class="k">new</span> <span class="n">FailCallback</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">fail</span><span class="o">(</span><span class="k">new</span> <span class="nc">FailCallback</span><span class="o">&lt;</span><span class="nc">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFail</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"fail() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFail</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"fail() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="n">AlwaysCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="nc">AlwaysCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="n">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="n">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="nc">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="nc">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
             <span class="o">});</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Del resultado de la ejecución de este código, tendremos la siguiente salida por consola:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>I/JDEFERRED_DEMO﹕ Done 0% of work on thread 351
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I/JDEFERRED_DEMO﹕ Done 0% of work on thread 351
 I/JDEFERRED_DEMO﹕ progress() on thread 351
 I/JDEFERRED_DEMO﹕ Done 20% of work on thread 351
 I/JDEFERRED_DEMO﹕ progress() on thread 351
@@ -173,62 +169,58 @@ I/JDEFERRED_DEMO﹕ progress() on thread 351
 I/JDEFERRED_DEMO﹕ then() on thread 351
 I/JDEFERRED_DEMO﹕ done() on thread 351
 I/JDEFERRED_DEMO﹕ always() on thread 351
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="de-la-promesa-a-la-interfaz-de-usuario">De la promesa a la interfaz de usuario</h3>
 <p>Ya tenemos lo que queríamos, una forma de generar <strong>APIs en nuestras aplicaciones que ejecutan trabajo de forma asíncrona</strong> y que de manera muy fácil podemos encolar a otras tareas a realizar. Pero, ¿cómo podemos ahora interactuar con la UI? Como hemos visto, ahora mismo todo se está ejecutando en un hilo en segundo plano. ¿Cómo podemos cambiar el código anterior para hacer que alguna de esas llamadas sean en el hilo de la UI y así poder realizar cambios en la misma?</p>
 
-<p>Lo primero que necesitamos es utilizar la clase <code class="highlighter-rouge">AndroidDeferredManager</code> para gestionar los hilos, en vez de utilizar directamente el <code class="highlighter-rouge">ExecutorService</code>. Vamos a crear uno en el método onCreate.</p>
+<p>Lo primero que necesitamos es utilizar la clase <code class="language-plaintext highlighter-rouge">AndroidDeferredManager</code> para gestionar los hilos, en vez de utilizar directamente el <code class="language-plaintext highlighter-rouge">ExecutorService</code>. Vamos a crear uno en el método onCreate.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-    <span class="kd">private</span> <span class="n">AndroidDeferredManager</span> <span class="n">mDeferredManager</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+    <span class="kd">private</span> <span class="nc">AndroidDeferredManager</span> <span class="n">mDeferredManager</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
 
-        <span class="n">mDeferredManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AndroidDeferredManager</span><span class="o">(</span><span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">NUMBER_OF_CPUS</span><span class="o">));</span>
+        <span class="n">mDeferredManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AndroidDeferredManager</span><span class="o">(</span><span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="no">NUMBER_OF_CPUS</span><span class="o">));</span>
 
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Luego necesitamos cambiar en el método <code class="highlighter-rouge">doWorkInBackground()</code>, para en vez de utilizar el <code class="highlighter-rouge">ExecutorService</code>, utilizar el <code class="highlighter-rouge">DeferredManager</code> que hemos creado anteriormente. Por último, el <code class="highlighter-rouge">Promise</code> que generamos, debemos también hacerlo pasar por el <code class="highlighter-rouge">DeferredManager</code>, para que sea gestionado por él.</p>
+<p>Luego necesitamos cambiar en el método <code class="language-plaintext highlighter-rouge">doWorkInBackground()</code>, para en vez de utilizar el <code class="language-plaintext highlighter-rouge">ExecutorService</code>, utilizar el <code class="language-plaintext highlighter-rouge">DeferredManager</code> que hemos creado anteriormente. Por último, el <code class="language-plaintext highlighter-rouge">Promise</code> que generamos, debemos también hacerlo pasar por el <code class="language-plaintext highlighter-rouge">DeferredManager</code>, para que sea gestionado por él.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">Promise</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">Promise</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
         <span class="o">...</span>
 
         <span class="n">mDeferredManager</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="n">work</span><span class="o">);</span>
 
         <span class="k">return</span> <span class="n">mDeferredManager</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="n">deferredObject</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Con estos dos cambios, a priori si volvemos a ejecutar la aplicación veremos que ahora todos los callbacks se ejecutan en el hilo de la UI. Este es el comportamiento por defecto del <code class="highlighter-rouge">AndroidDeferredManager</code>, entiende que todo lo que se ejecuta a partir de la promesa será actualizar la interfaz gráfica. 
-¿Y si queremos seguir en background? Pues lo que tendremos que cambiar es la interfaz que usamos para crear las clases anónimas y utilizar las que comienzan por <strong>Android</strong>. Veremos que ahora la interfaz nos obliga a implementar un segundo método <code class="highlighter-rouge">getExecutionScope()</code> con el qué podemos indicar en que hilo se debe ejecutar nuestro <em>callback</em>, pudiendo indicar si es UI o BACKGROUND. Vamos a probarlo, cambiamos el <em>callback</em> de <code class="highlighter-rouge">always()</code> y hacemos que la clase anónima ahora se cree a partir de la interfaz <code class="highlighter-rouge">AndroidAlwaysCallback</code> e implementamos el método <code class="highlighter-rouge">getExecutionScope()</code> devolviendo <strong>BACKGROUND</strong>.</p>
+<p>Con estos dos cambios, a priori si volvemos a ejecutar la aplicación veremos que ahora todos los callbacks se ejecutan en el hilo de la UI. Este es el comportamiento por defecto del <code class="language-plaintext highlighter-rouge">AndroidDeferredManager</code>, entiende que todo lo que se ejecuta a partir de la promesa será actualizar la interfaz gráfica. 
+¿Y si queremos seguir en background? Pues lo que tendremos que cambiar es la interfaz que usamos para crear las clases anónimas y utilizar las que comienzan por <strong>Android</strong>. Veremos que ahora la interfaz nos obliga a implementar un segundo método <code class="language-plaintext highlighter-rouge">getExecutionScope()</code> con el qué podemos indicar en que hilo se debe ejecutar nuestro <em>callback</em>, pudiendo indicar si es UI o BACKGROUND. Vamos a probarlo, cambiamos el <em>callback</em> de <code class="language-plaintext highlighter-rouge">always()</code> y hacemos que la clase anónima ahora se cree a partir de la interfaz <code class="language-plaintext highlighter-rouge">AndroidAlwaysCallback</code> e implementamos el método <code class="language-plaintext highlighter-rouge">getExecutionScope()</code> devolviendo <strong>BACKGROUND</strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-<span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="n">AndroidAlwaysCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="nc">AndroidAlwaysCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="n">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="n">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="nc">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="nc">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
 	<span class="o">}</span>
 
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="n">AndroidExecutionScope</span> <span class="nf">getExecutionScope</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="n">AndroidExecutionScope</span><span class="o">.</span><span class="na">BACKGROUND</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nc">AndroidExecutionScope</span> <span class="nf">getExecutionScope</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">AndroidExecutionScope</span><span class="o">.</span><span class="na">BACKGROUND</span><span class="o">;</span>
 	<span class="o">}</span>
 <span class="o">});</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y volvemos a ejecutar nuestro código.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
 I/JDEFERRED_DEMO﹕ Done 0% of work on thread 414
 I/JDEFERRED_DEMO﹕ progress() on thread 1
 I/JDEFERRED_DEMO﹕ Done 20% of work on thread 414
@@ -245,8 +237,7 @@ I/JDEFERRED_DEMO﹕ progress() on thread 1
 I/JDEFERRED_DEMO﹕ then() on thread 1
 I/JDEFERRED_DEMO﹕ done() on thread 1
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado es que ahora el <em>always</em> se ha ejecutado en el hilo de background. El resto sigue en el hilo de la interfaz gráfica. Y con esto vemos que <strong>se ha adelantado la ejecución en este caso y a pesar del orden con el que hemos ido encadenando los callback, su ejecución es en un orden distinto debido al hilo en el que debe ejecutarse</strong>.</p>
 
@@ -256,15 +247,14 @@ I/JDEFERRED_DEMO﹕ done() on thread 1
 <p>La principal consecuencia de utilizar este patrón en nuestro código asíncrono es que nuestras APIs cumplen una máxima en el desarrollo de código limpio: <strong>los métodos no tienen parámetros de salida, solo un valor de retorno</strong>. En el caso asíncrono, es muy típico ver cómo hay que pasar un <em>callback</em> a un método para que cuando este acabe, nos devuelva por ahí el resultado. Con esta forma de trabajo, el método devuelve la promesa, con la que podremos obtener el valor más adelante, dejando un código más fácil de leer ya que es casi lineal y no obliga al desarrollador a estar dando saltos entre el código para seguir el flujo.</p>
 
 <h3 id="cómo-la-obtengo">¿Cómo la obtengo?</h3>
-<p>Pues desde su sitio web en <em><a href="http://jdeferred.org/">http://jdeferred.org/</a></em> o también a través de Gradle agregando:</p>
+<p>Pues desde su sitio web en <em><a href="https://jdeferred.org/">https://jdeferred.org/</a></em> o también a través de Gradle agregando:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'org.jdeferred:jdeferred-android:1.2.3'</span>
-</code></pre>
-</div>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'org.jdeferred:jdeferred-android:1.2.3'</span>
+</code></pre></div></div>
 
 <p>También os dejo en este repo el código de ejemplo.</p>
 
-<div class="github-box repo" data-repo="raycoarana/jdeferred-demo">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/jdeferred-demo">jdeferred-demo</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/jdeferred-demo/watchers">?</a><a class="forks" href="http://github.com/raycoarana/jdeferred-demo/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/jdeferred-demo#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/jdeferred-demo/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/jdeferred-demo">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/jdeferred-demo">jdeferred-demo</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/jdeferred-demo/watchers">?</a><a class="forks" href="https://github.com/raycoarana/jdeferred-demo/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/jdeferred-demo#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/jdeferred-demo/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>

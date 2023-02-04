@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -30,19 +30,17 @@
 
 <p>Para asociar un prompt a nuestro voice trigger es tan sencillo como añadir una etiqueta <strong><em>input</em></strong> con un atributo <strong><em>prompt</em></strong> dentro de la etiqueta <strong><em>trigger</em></strong> de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/glass_voice_trigger"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/glass_voice_prompt"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Así de sencillo, con esto cuando el usuario lance nuestra aplicación, el sistema mostrará esa interfaz y capturará lo dicho por el usuario. Pero, ¿cómo recibimos esa información en nuestra aplicación? Pues como no podía ser de otra forma, a través del <strong>Intent</strong>. Para obtenerlo, debemos usar la constante <strong>RecognizerIntent.EXTRA_RESULTS</strong>, con la que obtendremos una lista de String con cada una de las palabras capturadas.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="nc">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
+</code></pre></div></div>
 
 <h3 id="creando-un-voice-trigger-con-prompt">Creando un Voice trigger con prompt</h3>
 
@@ -50,7 +48,7 @@
 
 <p>Creamos un layout con nombre <strong>activity_askmesomething.xml</strong>, cuyo contenido será el siguiente.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:orientation=</span><span class="s">"vertical"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
@@ -70,58 +68,53 @@
         <span class="na">android:gravity=</span><span class="s">"center"</span><span class="nt">/&gt;</span>
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora creamos la actividad, enlazando con este layout.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AskMeSomethingActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AskMeSomethingActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_askmesomething</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_askmesomething</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora vamos a obtener una referencia al <strong>TextView</strong> donde vamos a mostrar el texto capturado, recomponemos el texto capturado con un <strong>StringBuilder</strong> y lo asignamos al <strong>TextView</strong>. Quedaría algo así:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="nc">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
 
-        <span class="n">StringBuilder</span> <span class="n">inputBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">StringBuilder</span> <span class="n">inputBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">inputBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">voiceToken</span><span class="o">);</span>
             <span class="n">inputBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="n">TextView</span> <span class="n">capturedInputText</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">captured_input</span><span class="o">);</span>
+        <span class="nc">TextView</span> <span class="n">capturedInputText</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">captured_input</span><span class="o">);</span>
         <span class="n">capturedInputText</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">inputBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <strong><em>askmesomething_trigger.xml</em></strong> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_ask_me_something"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Modificamos el fichero <strong><em>strings.xml</em></strong> para agregar las nuevas cadenas.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"trigger_ask_me_something"</span><span class="nt">&gt;</span>ask me something<span class="nt">&lt;/string&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"trigger_ask_me_something"</span><span class="nt">&gt;</span>ask me something<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"prompt_ask_me_something"</span><span class="nt">&gt;</span>What\'s your favourite color?<span class="nt">&lt;/string&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y por último agregamos la actividad al <strong><em>AndroidManifest.xml</em></strong>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
         <span class="nt">&lt;activity</span>
             <span class="na">android:name=</span><span class="s">".AskMeSomethingActivity"</span>
             <span class="na">android:label=</span><span class="s">"@string/app_name"</span> <span class="nt">&gt;</span>
@@ -134,8 +127,7 @@
                 <span class="na">android:resource=</span><span class="s">"@xml/askmesomething_trigger"</span> <span class="nt">/&gt;</span>
         <span class="nt">&lt;/activity&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y ya tenemos todo listo, ahora solo nos falta lanzar la aplicación, decir <strong><em>Ok glass, ask me something</em></strong> y veremos la siguiente pantalla:</p>
 
@@ -157,15 +149,14 @@
 
 <p>Por ejemplo, si nuestra aplicación requiere de conexión a internet, podemos limitar su uso con el siguiente código, donde podemos ver que se ha añadido la etiqueta <strong>constraints</strong> con el atributo <strong>network</strong> a <strong>true</strong>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;constraints</span> <span class="na">network=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y esto es todo, el código de este artículo lo tenéis en el repositorio de esta serie de artículos, bajo la carpeta <strong>2.VoiceTriggers</strong>.</p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 
@@ -208,7 +199,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
 
 <span class="n">android</span> <span class="o">{</span>
     <span class="n">compileSdkVersion</span> <span class="s2">"Google Inc.:Glass Development Kit Sneak Peek:15"</span>
@@ -218,8 +209,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
         <span class="n">minSdkVersion</span> <span class="mi">15</span>
         <span class="n">targetSdkVersion</span> <span class="mi">15</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="androidmanifest-y-estilos">AndroidManifest y estilos</h3>
 
@@ -227,15 +217,14 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Necesitamos agregar el siguiente trozo de código dentro de la etiqueta <em><strong>application</strong></em>:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;uses-library</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;uses-library</span>
     <span class="na">android:name=</span><span class="s">"com.google.android.glass"</span>
     <span class="na">android:required=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para terminar de configurar el proyecto antes de comenzar a escribir código de verdad, tendremos que modificar el fichero <strong><em>res/values/styles.xml</em></strong>, para cambiar el tema base que usará nuestra aplicación. Si dejamos el que pone Android Studio, <strong>nos aparecerá en nuestra aplicación Google Glass el Action Bar</strong>, cosa nada deseable. Debemos configurar el tema para que herede del tema que trae el sistema por defecto, quedando nuestro fichero <strong><em>styles.xml</em></strong> de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
 
     <span class="c">&lt;!-- Base application theme. --&gt;</span>
     <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"AppTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
@@ -243,8 +232,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
     <span class="nt">&lt;/style&gt;</span>
 
 <span class="nt">&lt;/resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <em>drawable-mdpi</em>, <em>drawable-xhdpi</em>, <em>drawable-xxhdpi</em>, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
 
@@ -254,43 +242,40 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Creamos una nueva clase llamada <strong><em>HelloWorldActivity</em></strong>, haciendo que extienda de <strong><em>Activity</em></strong>. Y como siempre en cualquier aplicación Android, sobrescribimos el método <em><strong>onCreate()</strong></em> y establecemos el layout para nuestra actividad.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_helloworld</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_helloworld</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <strong><em>res/layout/activity_helloworld.xml</em></strong>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
     <span class="na">android:gravity=</span><span class="s">"center"</span>
     <span class="na">android:text=</span><span class="s">"HelloWorld!"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora que ya tenemos nuestra actividad, vamos a crear el lanzador por comando de voz. Para ello tenemos que <strong>crear un Voice Trigger</strong>. Un Voice Trigger es un pequeño fichero XML en el que indicamos a Android el <strong>comando de voz</strong> que queremos que lance nuestra aplicación. Para ello, crear un fichero en <strong><em>res/xml/trigger.xml</em></strong>. En él, pondremos el siguiente código:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/glass_voice_trigger"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Muy simple, solo estamos indicando cuál es la frase que lanza nuestra aplicación. Vamos ahora a nuestro fichero <em><strong>res/values/string.xml</strong></em> y creamos la cadena <strong><em>glass_voice_trigger</em></strong> con el valor <em>say hello</em>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
 
 ...
 
@@ -299,12 +284,11 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 ...
 
 <span class="nt">&lt;/resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Pero, ¿cómo relaciona Glass el comando de voz con la actividad que queremos que lance? Pues como siempre en Android, todo ello se configura como un <strong><em>intent-filter</em></strong>, con el cual indicaremos al sistema qué comando de voz queremos que dispare nuestra actividad. Nos vamos al <strong><em>AndroidManifest.xml</em></strong> y agregamos la actividad que hemos creado, añadiendo un <strong><em>intent-filter</em></strong> que capture la acción <strong><em>com.google.android.glass.action.VOICE_TRIGGER</em></strong> y añadimos como metadatos el fichero xml que creamos anteriormente, quedando así:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
     <span class="nt">&lt;application</span> <span class="err">...</span><span class="nt">&gt;</span>
 
         ...
@@ -322,8 +306,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
     <span class="nt">&lt;/application&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto ya tenemos nuestra aplicación lista para ser lanzada. Conectamos la Google Glass y lanzamos la aplicación. Una cosa que notaréis es que el entorno os dirá que no tenéis definido ninguna actividad principal. Ignoradlo y haced que se lance sin configurar ninguna actividad por defecto.</p>
 
@@ -335,7 +318,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <strong>1.Helloworld</strong>. <em>Happy coding!</em></p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 

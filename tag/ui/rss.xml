@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -39,7 +39,7 @@
 
 <p>Lo primero es hacer el layout de la vista.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:orientation=</span><span class="s">"vertical"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
@@ -56,65 +56,61 @@
         <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
         <span class="na">android:text=</span><span class="s">"Tap me!"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora creamos el ViewModel para nuestro ejemplo, tenemos una acción a ejecutar, luego pondremos un comando y una propiedad de tipo CharSequence a la que asignar el valor <strong>“HelloWorld!”</strong>.
-Creamos la propiedad como un atributo público de tipo <code class="highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
-A continuación el comando como un atributo público de tipo <code class="highlighter-rouge">Command</code>, que llamamos <code class="highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="highlighter-rouge">setValue()</code> de la propiedad <code class="highlighter-rouge">Message</code>.</p>
+Creamos la propiedad como un atributo público de tipo <code class="language-plaintext highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="language-plaintext highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
+A continuación el comando como un atributo público de tipo <code class="language-plaintext highlighter-rouge">Command</code>, que llamamos <code class="language-plaintext highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="language-plaintext highlighter-rouge">setValue()</code> de la propiedad <code class="language-plaintext highlighter-rouge">Message</code>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Property</span><span class="o">&lt;</span><span class="n">CharSequence</span><span class="o">&gt;</span> <span class="n">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Property</span><span class="o">&lt;&gt;();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">Property</span><span class="o">&lt;</span><span class="nc">CharSequence</span><span class="o">&gt;</span> <span class="nc">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Property</span><span class="o">&lt;&gt;();</span>
 
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Command</span> <span class="n">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">Command</span> <span class="nc">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Command</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-            <span class="n">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
+            <span class="nc">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">};</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Sencillo, limpio y fácil de probar.</p>
 
-<p>A continuación creamos un <code class="highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
+<p>A continuación creamos un <code class="language-plaintext highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="language-plaintext highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
 
-<p>En este <code class="highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="highlighter-rouge">bindViews()</code> justo después del <code class="highlighter-rouge">setContentView()</code>.</p>
+<p>En este <code class="language-plaintext highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="language-plaintext highlighter-rouge">bindViews()</code> justo después del <code class="language-plaintext highlighter-rouge">setContentView()</code>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="n">BaindoActivity</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewModel</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="nc">BaindoActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ViewModel</span><span class="o">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
 
         <span class="n">bindViews</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="o">...</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="highlighter-rouge">Button</code> del layout y el comando <code class="highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="highlighter-rouge">TextView</code> y la propiedad <code class="highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="highlighter-rouge">readOnly</code>) o bidireccional (<code class="highlighter-rouge">readWrite</code>).</p>
+<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="language-plaintext highlighter-rouge">Button</code> del layout y el comando <code class="language-plaintext highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="language-plaintext highlighter-rouge">TextView</code> y la propiedad <code class="language-plaintext highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="language-plaintext highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="language-plaintext highlighter-rouge">readOnly</code>) o bidireccional (<code class="language-plaintext highlighter-rouge">readWrite</code>).</p>
 
-<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
+<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="language-plaintext highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="language-plaintext highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
 
 <p>En este caso vamos a ponerlo en modo readOnly, ya que solo queremos que la vista muestre lo que tiene el ViewModel sin modificarlo en ningún caso.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">bind</span><span class="o">().</span><span class="na">text</span><span class="o">()</span>
-              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
               <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">Message</span><span class="o">).</span><span class="na">readOnly</span><span class="o">();</span>
         <span class="n">bind</span><span class="o">().</span><span class="na">click</span><span class="o">()</span>
-              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
               <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">SayHelloCommand</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
+<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="language-plaintext highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
 
 <p>El código que hemos escrito en el comando se ejecuta en un hilo separado, un hilo que llamaremos <strong>hilo del ViewModel</strong>, así pues tendremos en nuestra app <strong>un hilo de UI y tantos hilos como Activities/Fragments tengamos en pantalla</strong>. Estos hilos son avisados cuando se producen cambios en la UI y notifican cambios en el ViewModel al hilo de UI.</p>
 

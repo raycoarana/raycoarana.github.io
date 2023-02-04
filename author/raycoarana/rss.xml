@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -22,7 +22,7 @@
 
 <p><a href="https://speakerd.s3.amazonaws.com/presentations/ef9ad55c34fe4a68b961eb0a214f34ce/Concurrency-with-Promise-Style.pdf"><strong>Descargar</strong></a></p>
 
-<script async="" class="speakerdeck-embed" data-id="ef9ad55c34fe4a68b961eb0a214f34ce" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
+<script async="" class="speakerdeck-embed" data-id="ef9ad55c34fe4a68b961eb0a214f34ce" data-ratio="1.77777777777778" src="https://speakerdeck.com/assets/embed.js"></script>
 
 
 	  ]]></description>
@@ -56,7 +56,7 @@
 
 <p>Lo primero es hacer el layout de la vista.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:orientation=</span><span class="s">"vertical"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
@@ -73,65 +73,61 @@
         <span class="na">android:layout_height=</span><span class="s">"wrap_content"</span>
         <span class="na">android:text=</span><span class="s">"Tap me!"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora creamos el ViewModel para nuestro ejemplo, tenemos una acción a ejecutar, luego pondremos un comando y una propiedad de tipo CharSequence a la que asignar el valor <strong>“HelloWorld!”</strong>.
-Creamos la propiedad como un atributo público de tipo <code class="highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
-A continuación el comando como un atributo público de tipo <code class="highlighter-rouge">Command</code>, que llamamos <code class="highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="highlighter-rouge">setValue()</code> de la propiedad <code class="highlighter-rouge">Message</code>.</p>
+Creamos la propiedad como un atributo público de tipo <code class="language-plaintext highlighter-rouge">Property&lt;CharSequence&gt;</code>, que llamaremos <code class="language-plaintext highlighter-rouge">Message</code>, al cual le asignamos una instancia del mismo tipo.
+A continuación el comando como un atributo público de tipo <code class="language-plaintext highlighter-rouge">Command</code>, que llamamos <code class="language-plaintext highlighter-rouge">SayHelloCommand</code>, creamos una clase anónima que le asignamos a dicho atributo y en él llamamos al método <code class="language-plaintext highlighter-rouge">setValue()</code> de la propiedad <code class="language-plaintext highlighter-rouge">Message</code>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Property</span><span class="o">&lt;</span><span class="n">CharSequence</span><span class="o">&gt;</span> <span class="n">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Property</span><span class="o">&lt;&gt;();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ViewModel</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">Property</span><span class="o">&lt;</span><span class="nc">CharSequence</span><span class="o">&gt;</span> <span class="nc">Message</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Property</span><span class="o">&lt;&gt;();</span>
 
-    <span class="kd">public</span> <span class="kd">final</span> <span class="n">Command</span> <span class="n">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Command</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="nc">Command</span> <span class="nc">SayHelloCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Command</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
-            <span class="n">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
+            <span class="nc">Message</span><span class="o">.</span><span class="na">setValue</span><span class="o">(</span><span class="s">"HelloWorld!"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">};</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Sencillo, limpio y fácil de probar.</p>
 
-<p>A continuación creamos un <code class="highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
+<p>A continuación creamos un <code class="language-plaintext highlighter-rouge">Activity</code> que vamos hacer que herede de <code class="language-plaintext highlighter-rouge">BaindoActivity</code>. <strong>Baindo ofrece una serie de Activities, Fragments y Renderers</strong> (utiliza la librería de <a href="https://github.com/pedrovgs/Renderers">Renderers</a> para introducir el binding en Adapters) a partir de las cuales crear nuestras vistas. También ofrece un sencillo mecanismo para crear o dar soporte a Baindo en nuestros propios Activities y Fragments base, con muy pocas líneas. Ya os contaré más acerca de como hacer esto.</p>
 
-<p>En este <code class="highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="highlighter-rouge">bindViews()</code> justo después del <code class="highlighter-rouge">setContentView()</code>.</p>
+<p>En este <code class="language-plaintext highlighter-rouge">Activity</code>, una vez le hemos asignado el layout, llamaremos a un método <code class="language-plaintext highlighter-rouge">bindViews()</code> justo después del <code class="language-plaintext highlighter-rouge">setContentView()</code>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="n">BaindoActivity</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewModel</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClickActivity</span> <span class="kd">extends</span> <span class="nc">BaindoActivity</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ViewModel</span> <span class="n">mViewModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ViewModel</span><span class="o">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_click</span><span class="o">);</span>
 
         <span class="n">bindViews</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="o">...</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="highlighter-rouge">Button</code> del layout y el comando <code class="highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="highlighter-rouge">TextView</code> y la propiedad <code class="highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="highlighter-rouge">readOnly</code>) o bidireccional (<code class="highlighter-rouge">readWrite</code>).</p>
+<p>Por último, vamos a implementar el método <em>bindViews()</em>, en el vamos a hacer el bind entre el <code class="language-plaintext highlighter-rouge">Button</code> del layout y el comando <code class="language-plaintext highlighter-rouge">SayHelloCommand</code>. Y luego entre el <code class="language-plaintext highlighter-rouge">TextView</code> y la propiedad <code class="language-plaintext highlighter-rouge">Message</code>. Cuando hacemos un bind a una propiedad debemos establecer la <em>dirección</em> del bind. Este puede ser unidireccional hacia el ViewModel (<code class="language-plaintext highlighter-rouge">writeOnly</code>), hacia la vista, (<code class="language-plaintext highlighter-rouge">readOnly</code>) o bidireccional (<code class="language-plaintext highlighter-rouge">readWrite</code>).</p>
 
-<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
+<p>Como ya iremos viendo según avancemos sobre los diferentes bindings que permite Baindo, no todos permiten ambas direcciones, por ejemplo un control <code class="language-plaintext highlighter-rouge">ProgressBar</code> solo permite el modo readOnly. Un <code class="language-plaintext highlighter-rouge">SeekBar</code>, sin embargo, permite cualquiera de ellos.</p>
 
 <p>En este caso vamos a ponerlo en modo readOnly, ya que solo queremos que la vista muestre lo que tiene el ViewModel sin modificarlo en ningún caso.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">bindViews</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">bind</span><span class="o">().</span><span class="na">text</span><span class="o">()</span>
-              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">message</span><span class="o">)</span>
               <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">Message</span><span class="o">).</span><span class="na">readOnly</span><span class="o">();</span>
         <span class="n">bind</span><span class="o">().</span><span class="na">click</span><span class="o">()</span>
-              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
+              <span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">button</span><span class="o">)</span>
               <span class="o">.</span><span class="na">to</span><span class="o">(</span><span class="n">mViewModel</span><span class="o">.</span><span class="na">SayHelloCommand</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
+<p>Y ya lo tenemos, si ejecutamos la aplicación (acordaos de registrar la actividad en el manifest), tenemos lo que esperamos, el mensaje se muestra en el <code class="language-plaintext highlighter-rouge">TextView</code> una vez pulsamos el botón.</p>
 
 <p>El código que hemos escrito en el comando se ejecuta en un hilo separado, un hilo que llamaremos <strong>hilo del ViewModel</strong>, así pues tendremos en nuestra app <strong>un hilo de UI y tantos hilos como Activities/Fragments tengamos en pantalla</strong>. Estos hilos son avisados cuando se producen cambios en la UI y notifican cambios en el ViewModel al hilo de UI.</p>
 
@@ -158,7 +154,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Pasaos por <a href="https://github.com/raycoarana/roborouter">GitHub</a> y mirad como funciona, descargad el proyecto de ejemplo y jugad con él. Cualquier sugerencia será bienvenida.</p>
 
-<div class="github-box repo" data-repo="raycoarana/roborouter">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/roborouter">roborouter</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/roborouter/watchers">?</a><a class="forks" href="http://github.com/raycoarana/roborouter/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/roborouter#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/roborouter/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/roborouter">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/roborouter">roborouter</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/roborouter/watchers">?</a><a class="forks" href="https://github.com/raycoarana/roborouter/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/roborouter#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/roborouter/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -177,20 +173,20 @@ A continuación el comando como un atributo público de tipo <code class="highli
 <p>Al implementar el filtrado en memoria y optando por una solución sencilla y viable para su desarrollo, descartando el crear grandes estructuras de datos, es tan sencillo como implementar un pequeño bucle que recorra cada elemento y por cada uno realice la búsqueda del texto. Por cada elemento haremos uno o varios contains para buscar la cadena que quiere el usuario sobre el elemento. Esto nos lleva a un problema de O(n*m), dónde n es el número de elementos sobre los que buscar y m es el tamaño de la cadena de texto sobre la que buscar en cada elemento. Esto a priori ya nos da una señal de cómo escala esta solución. Sin embargo, siempre nos puede quedar la duda de, ¿es lo suficientemente buena como para evitar el acceso a la base de datos?</p>
 
 <h3 id="full-text-search-en-sqlite">Full text search en SQLite</h3>
-<p>Full text search es un termino que acuñan casi todos los motores de base de datos para designar a su implementación de la búsqueda de texto. Estos tipos de <em>índices</em> son muy potentes y son capaces de manejar gran cantidad de datos y realizar búsquedas muy diversas en muy poco tiempo. En el caso de SQLite, simplificando mucho, esto se lleva a cabo a través de varias tablas, algunas físicas y otras virtuales que se crean automáticamente para representar las estructuras de datos usadas, entre ellas un árbol B, podéis consultar más detalles técnicos en <a href="http://www.sqlite.org/fts3.html"><em>http://www.sqlite.org/fts3.html</em></a>.</p>
+<p>Full text search es un termino que acuñan casi todos los motores de base de datos para designar a su implementación de la búsqueda de texto. Estos tipos de <em>índices</em> son muy potentes y son capaces de manejar gran cantidad de datos y realizar búsquedas muy diversas en muy poco tiempo. En el caso de SQLite, simplificando mucho, esto se lleva a cabo a través de varias tablas, algunas físicas y otras virtuales que se crean automáticamente para representar las estructuras de datos usadas, entre ellas un árbol B, podéis consultar más detalles técnicos en <a href="https://www.sqlite.org/fts3.html"><em>https://www.sqlite.org/fts3.html</em></a>.</p>
 
 <h3 id="the-search-battle">The search battle</h3>
 <p>Para comprobar qué método es mejor para realizar las búsquedas, vamos a enfrentarlos y ver qué es mejor, si buscar sobre datos ya cargados en memoria o volver a lanzar la búsqueda a la base de datos. Para ello he creado un proyecto, que tenéis disponible al final del artículo, donde realizar búsquedas sobre distintos conjuntos de datos con distintas palabras clave. Los conjuntos de datos provienen todos del mismo sitio, la lista de coches de Gran Turismo 6. En la comparativa tendremos por un lado la clase MemorySearch, que realiza las búsquedas basándose en el método <em>contains()</em> de esta forma:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="n">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;();</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">Car</span> <span class="n">car</span> <span class="o">:</span> <span class="n">mCars</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">protected</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="nc">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;();</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">Car</span> <span class="n">car</span> <span class="o">:</span> <span class="n">mCars</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">contained</span><span class="o">(</span><span class="n">term</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">(),</span>
                            <span class="n">car</span><span class="o">.</span><span class="na">getCountry</span><span class="o">(),</span>
                            <span class="n">car</span><span class="o">.</span><span class="na">getBrand</span><span class="o">(),</span>
                            <span class="n">car</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span>
-                           <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">car</span><span class="o">.</span><span class="na">getYear</span><span class="o">())))</span> <span class="o">{</span>
+                           <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">car</span><span class="o">.</span><span class="na">getYear</span><span class="o">())))</span> <span class="o">{</span>
                 <span class="n">results</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">car</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -198,8 +194,8 @@ A continuación el comando como un atributo público de tipo <code class="highli
         <span class="k">return</span> <span class="n">results</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">contained</span><span class="o">(</span><span class="n">String</span> <span class="n">term</span><span class="o">,</span> <span class="n">String</span><span class="o">...</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span> <span class="o">:</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">contained</span><span class="o">(</span><span class="nc">String</span> <span class="n">term</span><span class="o">,</span> <span class="nc">String</span><span class="o">...</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="n">text</span> <span class="o">:</span> <span class="n">texts</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">if</span><span class="o">(</span><span class="n">text</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">text</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">term</span><span class="o">))</span> <span class="o">{</span>
                 <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
             <span class="o">}</span>
@@ -207,25 +203,23 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Por otro lado tenemos la clase FTSSearch, que realiza la misma búsqueda contra la base de datos SQLite usando Full text search.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FTS_QUERY_TEMPLATE</span> <span class="o">=</span> <span class="s">"SELECT * FROM %s WHERE _id IN (SELECT docid FROM %s_fts WHERE content MATCH ?)"</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">FTS_QUERY_TEMPLATE</span> <span class="o">=</span> <span class="s">"SELECT * FROM %s WHERE _id IN (SELECT docid FROM %s_fts WHERE content MATCH ?)"</span><span class="o">;</span>
 
 <span class="o">...</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="n">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">mDatabase</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span>
+    <span class="kd">protected</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Car</span><span class="o">&gt;</span> <span class="nf">onSearch</span><span class="o">(</span><span class="nc">String</span> <span class="n">term</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Cursor</span> <span class="n">cursor</span> <span class="o">=</span> <span class="n">mDatabase</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span>
             <span class="n">mQuery</span><span class="o">,</span> 
-            <span class="k">new</span> <span class="n">String</span><span class="o">[]{</span> <span class="n">term</span> <span class="o">+</span> <span class="s">"*"</span> <span class="o">}</span>
+            <span class="k">new</span> <span class="nc">String</span><span class="o">[]{</span> <span class="n">term</span> <span class="o">+</span> <span class="s">"*"</span> <span class="o">}</span>
         <span class="o">);</span>
-        <span class="k">return</span> <span class="n">Car</span><span class="o">.</span><span class="na">fromCursor</span><span class="o">(</span><span class="n">cursor</span><span class="o">);</span>
+        <span class="k">return</span> <span class="nc">Car</span><span class="o">.</span><span class="na">fromCursor</span><span class="o">(</span><span class="n">cursor</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>En ambos casos, el método <em>onSearch()</em> es sobre el que hacemos mediciones. Este método lo ejecutaremos 10 veces para cada conjunto de datos de forma que tengamos una medición algo más estable.</p>
 
@@ -244,7 +238,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Así que si vas a desarrollar una app, tienes datos persistidos en una base de datos SQLite, no reinventes la rueda y usa el soporte para Full text search. Si tus datos no se persisten y vienen de la nube, te puedes plantear crear una base de datos SQLite en memoria si no quieres repetir la búsqueda.</p>
 
-<div class="github-box repo" data-repo="raycoarana/thesearchbattle">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/thesearchbattle">thesearchbattle</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/thesearchbattle/watchers">?</a><a class="forks" href="http://github.com/raycoarana/thesearchbattle/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/thesearchbattle#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/thesearchbattle/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/thesearchbattle">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/thesearchbattle">thesearchbattle</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/thesearchbattle/watchers">?</a><a class="forks" href="https://github.com/raycoarana/thesearchbattle/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/thesearchbattle#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/thesearchbattle/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -267,51 +261,49 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Por ejemplo, imaginemos que queremos en nuestra aplicación realizar tareas de procesamiento a razón de peticiones del usuario. Según el trabajo se vaya completando queremos notificar el progreso al usuario. Ahora mismo estamos en un mundo donde no hay PC/Smartphone/Tablet que no tenga varias CPUs, así que podemos lanzar varias cosas a ejecutarse al mismo tiempo, pero no podemos crear infinitos hilos -bueno en teoría sí, ya que el Sistema operativo compartirá el tiempo de CPU entre todos los hilos y si la memoria aguanta, podríamos tener muchos, pero no es lo más óptimo-. Así pues para empezar, nos creamos un <strong>pool de hilos</strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NUMBER_OF_CPUS</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="no">NUMBER_OF_CPUS</span> <span class="o">=</span> <span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">availableProcessors</span><span class="o">();</span>
 
-<span class="kd">private</span> <span class="n">ExecutorService</span> <span class="n">mExecutorService</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">ExecutorService</span> <span class="n">mExecutorService</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
 
-        <span class="n">mExecutorService</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">NUMBER_OF_CPUS</span><span class="o">);</span>
+        <span class="n">mExecutorService</span> <span class="o">=</span> <span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="no">NUMBER_OF_CPUS</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>En este código estamos utilizando el número de CPUs disponibles, <strong>no quiere decir que esto sea lo más óptimo</strong>. De hecho, dependiendo del tipo de trabajo que vayamos a hacer, por ejemplo, una petición de lectura de disco, <strong>la CPU quedará un tanto ociosa mientras el disco responde y otro hilo podría adelantar trabajo</strong>. Luego muy probablemente un número un tanto mayor podría llegar a obtener mejores resultados, todo depende del tipo de trabajo a realizar. Para ello lo mejor es <strong>no tratar de optimizar desde el minuto 0</strong>, sino una vez tenemos resuelto el problema, probar otros valores para ver con cuál se obtienen mejores resultados.</p>
 
 <p>Bien una vez tenemos nuestro pool de hilos, podemos agregar trabajo a realizar.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
-    <span class="n">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
                 <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Error doing background work"</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                <span class="nc">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"Error doing background work"</span><span class="o">,</span> <span class="n">ex</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
     <span class="o">};</span>
     <span class="n">mExecutorService</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="n">work</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Como veis, no es más que crear un <code class="highlighter-rouge">Runnable</code> con el trabajo a realizar y llamar al método <code class="highlighter-rouge">submit()</code> de nuestro <code class="highlighter-rouge">ExecutorService</code> para que programe y ejecute el trabajo en un hilo en segundo plano.</p>
+<p>Como veis, no es más que crear un <code class="language-plaintext highlighter-rouge">Runnable</code> con el trabajo a realizar y llamar al método <code class="language-plaintext highlighter-rouge">submit()</code> de nuestro <code class="language-plaintext highlighter-rouge">ExecutorService</code> para que programe y ejecute el trabajo en un hilo en segundo plano.</p>
 
 <p>El esquema anterior es muy simple, pero normalmente una aplicación es algo más compleja y lo primero que podemos agregar de complejidad es hacer un tratamiento al resultado de la ejecución de lo anterior. Por ejemplo, hacemos una librería que lee una imagen de disco de forma asíncrona con el anterior esquema, ¿dónde ponemos el código para hacer algo con esa imagen una vez se ha cargado? Lo primero que podemos pensar es llamar a esa tarea de procesar la imagen como última línea de código dentro del Runnable. Eso funciona, pero <strong>estamos acoplando dos funcionalidades distintas y afectando a la reusabilidad de nuestro código</strong>.</p>
 
 <h3 id="patrón-promise-al-rescate">Patrón Promise al rescate</h3>
 <p>La esencia del patrón Promise es precisamente esa, cuando lanzamos un trabajo asíncrono, se nos devuelve una promesa de que recibiremos en un momento futuro el resultado del mismo. Con esta promesa luego <strong>podemos encolar trabajo para que este se ejecute cuando el anterior ha finalizado</strong>.</p>
 
-<p>Veamos cómo podemos aplicarlo a nuestro ejemplo. Lo primero será crear un <code class="highlighter-rouge">DeferredObject</code>, el cual controlará el estado de la promesa y sobre el que podemos actuar para <strong>notificar progreso, errores o resultado del trabajo</strong>. Los tres métodos esenciales son:</p>
+<p>Veamos cómo podemos aplicarlo a nuestro ejemplo. Lo primero será crear un <code class="language-plaintext highlighter-rouge">DeferredObject</code>, el cual controlará el estado de la promesa y sobre el que podemos actuar para <strong>notificar progreso, errores o resultado del trabajo</strong>. Los tres métodos esenciales son:</p>
 
 <ul>
   <li><strong>notify()</strong> para notificar progreso en la ejecución de la tarea.</li>
@@ -321,21 +313,21 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Por último, una vez hemos lanzado a ejecutar el trabajo, devolvemos la promesa.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Promise</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
-    <span class="kd">final</span> <span class="n">DeferredObject</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">deferredObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DeferredObject</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Promise</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="nc">DeferredObject</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="n">deferredObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DeferredObject</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;();</span>
 
-    <span class="n">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nc">Runnable</span> <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Runnable</span><span class="o">()</span> <span class="o">{</span>
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
             <span class="k">try</span> <span class="o">{</span>
                 <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">20</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"Done "</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s">"% of work on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                     <span class="n">deferredObject</span><span class="o">.</span><span class="na">notify</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
                 <span class="o">}</span>
 
                 <span class="n">deferredObject</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="s">"Finish!"</span><span class="o">);</span>
-            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Throwable</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">deferredObject</span><span class="o">.</span><span class="na">reject</span><span class="o">(</span><span class="n">ex</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -344,8 +336,7 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
     <span class="k">return</span> <span class="n">deferredObject</span><span class="o">.</span><span class="na">promise</span><span class="o">();</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y ya está, ahora si queremos usar este método y realizar acciones con cada posible caso solo nos queda ir agregando los <em>callbacks</em> necesarios. Estos son:</p>
 
@@ -359,44 +350,43 @@ A continuación el comando como un atributo público de tipo <code class="highli
 
 <p>Todas estas llamadas se pueden ir encolando como comentábamos anteriormente. En principio todas ellas se ejecutan en el mismo hilo desde el que se produce la notificación, en este caso que estamos mostrando, todo ello se ejecuta desde el hilo que ejecuta el Runnable. Para comprobarlo, vamos a añadir este código a nuestro ejemplo.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
     <span class="o">...</span>
 
     <span class="k">this</span><span class="o">.</span><span class="na">doWorkInBackground</span><span class="o">()</span>
-            <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="k">new</span> <span class="n">DoneCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">.</span><span class="na">then</span><span class="o">(</span><span class="k">new</span> <span class="nc">DoneCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="n">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"then() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="nc">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"then() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">progress</span><span class="o">(</span><span class="k">new</span> <span class="n">ProgressCallback</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">progress</span><span class="o">(</span><span class="k">new</span> <span class="nc">ProgressCallback</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onProgress</span><span class="o">(</span><span class="n">Integer</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"progress() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onProgress</span><span class="o">(</span><span class="nc">Integer</span> <span class="n">progress</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"progress() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">done</span><span class="o">(</span><span class="k">new</span> <span class="n">DoneCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">done</span><span class="o">(</span><span class="k">new</span> <span class="nc">DoneCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="n">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"done() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDone</span><span class="o">(</span><span class="nc">String</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"done() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">fail</span><span class="o">(</span><span class="k">new</span> <span class="n">FailCallback</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">fail</span><span class="o">(</span><span class="k">new</span> <span class="nc">FailCallback</span><span class="o">&lt;</span><span class="nc">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFail</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"fail() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFail</span><span class="o">(</span><span class="nc">Throwable</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"fail() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
-            <span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="n">AlwaysCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
+            <span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="nc">AlwaysCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
                 <span class="nd">@Override</span>
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="n">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="n">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="nc">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="nc">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
                 <span class="o">}</span>
             <span class="o">});</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Del resultado de la ejecución de este código, tendremos la siguiente salida por consola:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>I/JDEFERRED_DEMO﹕ Done 0% of work on thread 351
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I/JDEFERRED_DEMO﹕ Done 0% of work on thread 351
 I/JDEFERRED_DEMO﹕ progress() on thread 351
 I/JDEFERRED_DEMO﹕ Done 20% of work on thread 351
 I/JDEFERRED_DEMO﹕ progress() on thread 351
@@ -411,62 +401,58 @@ I/JDEFERRED_DEMO﹕ progress() on thread 351
 I/JDEFERRED_DEMO﹕ then() on thread 351
 I/JDEFERRED_DEMO﹕ done() on thread 351
 I/JDEFERRED_DEMO﹕ always() on thread 351
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="de-la-promesa-a-la-interfaz-de-usuario">De la promesa a la interfaz de usuario</h3>
 <p>Ya tenemos lo que queríamos, una forma de generar <strong>APIs en nuestras aplicaciones que ejecutan trabajo de forma asíncrona</strong> y que de manera muy fácil podemos encolar a otras tareas a realizar. Pero, ¿cómo podemos ahora interactuar con la UI? Como hemos visto, ahora mismo todo se está ejecutando en un hilo en segundo plano. ¿Cómo podemos cambiar el código anterior para hacer que alguna de esas llamadas sean en el hilo de la UI y así poder realizar cambios en la misma?</p>
 
-<p>Lo primero que necesitamos es utilizar la clase <code class="highlighter-rouge">AndroidDeferredManager</code> para gestionar los hilos, en vez de utilizar directamente el <code class="highlighter-rouge">ExecutorService</code>. Vamos a crear uno en el método onCreate.</p>
+<p>Lo primero que necesitamos es utilizar la clase <code class="language-plaintext highlighter-rouge">AndroidDeferredManager</code> para gestionar los hilos, en vez de utilizar directamente el <code class="language-plaintext highlighter-rouge">ExecutorService</code>. Vamos a crear uno en el método onCreate.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-    <span class="kd">private</span> <span class="n">AndroidDeferredManager</span> <span class="n">mDeferredManager</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+    <span class="kd">private</span> <span class="nc">AndroidDeferredManager</span> <span class="n">mDeferredManager</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_sample</span><span class="o">);</span>
 
-        <span class="n">mDeferredManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AndroidDeferredManager</span><span class="o">(</span><span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">NUMBER_OF_CPUS</span><span class="o">));</span>
+        <span class="n">mDeferredManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AndroidDeferredManager</span><span class="o">(</span><span class="nc">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="no">NUMBER_OF_CPUS</span><span class="o">));</span>
 
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Luego necesitamos cambiar en el método <code class="highlighter-rouge">doWorkInBackground()</code>, para en vez de utilizar el <code class="highlighter-rouge">ExecutorService</code>, utilizar el <code class="highlighter-rouge">DeferredManager</code> que hemos creado anteriormente. Por último, el <code class="highlighter-rouge">Promise</code> que generamos, debemos también hacerlo pasar por el <code class="highlighter-rouge">DeferredManager</code>, para que sea gestionado por él.</p>
+<p>Luego necesitamos cambiar en el método <code class="language-plaintext highlighter-rouge">doWorkInBackground()</code>, para en vez de utilizar el <code class="language-plaintext highlighter-rouge">ExecutorService</code>, utilizar el <code class="language-plaintext highlighter-rouge">DeferredManager</code> que hemos creado anteriormente. Por último, el <code class="language-plaintext highlighter-rouge">Promise</code> que generamos, debemos también hacerlo pasar por el <code class="language-plaintext highlighter-rouge">DeferredManager</code>, para que sea gestionado por él.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">Promise</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">Promise</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">,</span> <span class="nc">Integer</span><span class="o">&gt;</span> <span class="nf">doWorkInBackground</span><span class="o">()</span> <span class="o">{</span>
         <span class="o">...</span>
 
         <span class="n">mDeferredManager</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="n">work</span><span class="o">);</span>
 
         <span class="k">return</span> <span class="n">mDeferredManager</span><span class="o">.</span><span class="na">when</span><span class="o">(</span><span class="n">deferredObject</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Con estos dos cambios, a priori si volvemos a ejecutar la aplicación veremos que ahora todos los callbacks se ejecutan en el hilo de la UI. Este es el comportamiento por defecto del <code class="highlighter-rouge">AndroidDeferredManager</code>, entiende que todo lo que se ejecuta a partir de la promesa será actualizar la interfaz gráfica. 
-¿Y si queremos seguir en background? Pues lo que tendremos que cambiar es la interfaz que usamos para crear las clases anónimas y utilizar las que comienzan por <strong>Android</strong>. Veremos que ahora la interfaz nos obliga a implementar un segundo método <code class="highlighter-rouge">getExecutionScope()</code> con el qué podemos indicar en que hilo se debe ejecutar nuestro <em>callback</em>, pudiendo indicar si es UI o BACKGROUND. Vamos a probarlo, cambiamos el <em>callback</em> de <code class="highlighter-rouge">always()</code> y hacemos que la clase anónima ahora se cree a partir de la interfaz <code class="highlighter-rouge">AndroidAlwaysCallback</code> e implementamos el método <code class="highlighter-rouge">getExecutionScope()</code> devolviendo <strong>BACKGROUND</strong>.</p>
+<p>Con estos dos cambios, a priori si volvemos a ejecutar la aplicación veremos que ahora todos los callbacks se ejecutan en el hilo de la UI. Este es el comportamiento por defecto del <code class="language-plaintext highlighter-rouge">AndroidDeferredManager</code>, entiende que todo lo que se ejecuta a partir de la promesa será actualizar la interfaz gráfica. 
+¿Y si queremos seguir en background? Pues lo que tendremos que cambiar es la interfaz que usamos para crear las clases anónimas y utilizar las que comienzan por <strong>Android</strong>. Veremos que ahora la interfaz nos obliga a implementar un segundo método <code class="language-plaintext highlighter-rouge">getExecutionScope()</code> con el qué podemos indicar en que hilo se debe ejecutar nuestro <em>callback</em>, pudiendo indicar si es UI o BACKGROUND. Vamos a probarlo, cambiamos el <em>callback</em> de <code class="language-plaintext highlighter-rouge">always()</code> y hacemos que la clase anónima ahora se cree a partir de la interfaz <code class="language-plaintext highlighter-rouge">AndroidAlwaysCallback</code> e implementamos el método <code class="language-plaintext highlighter-rouge">getExecutionScope()</code> devolviendo <strong>BACKGROUND</strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-<span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="n">AndroidAlwaysCallback</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<span class="o">}).</span><span class="na">always</span><span class="o">(</span><span class="k">new</span> <span class="nc">AndroidAlwaysCallback</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Throwable</span><span class="o">&gt;()</span> <span class="o">{</span>
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="n">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="n">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="n">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAlways</span><span class="o">(</span><span class="nc">Promise</span><span class="o">.</span><span class="na">State</span> <span class="n">state</span><span class="o">,</span> <span class="nc">String</span> <span class="n">resolved</span><span class="o">,</span> <span class="nc">Throwable</span> <span class="n">rejected</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="no">TAG</span><span class="o">,</span> <span class="s">"always() on thread "</span> <span class="o">+</span> <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
 	<span class="o">}</span>
 
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="n">AndroidExecutionScope</span> <span class="nf">getExecutionScope</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">return</span> <span class="n">AndroidExecutionScope</span><span class="o">.</span><span class="na">BACKGROUND</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nc">AndroidExecutionScope</span> <span class="nf">getExecutionScope</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nc">AndroidExecutionScope</span><span class="o">.</span><span class="na">BACKGROUND</span><span class="o">;</span>
 	<span class="o">}</span>
 <span class="o">});</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y volvemos a ejecutar nuestro código.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
 I/JDEFERRED_DEMO﹕ Done 0% of work on thread 414
 I/JDEFERRED_DEMO﹕ progress() on thread 1
 I/JDEFERRED_DEMO﹕ Done 20% of work on thread 414
@@ -483,8 +469,7 @@ I/JDEFERRED_DEMO﹕ progress() on thread 1
 I/JDEFERRED_DEMO﹕ then() on thread 1
 I/JDEFERRED_DEMO﹕ done() on thread 1
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado es que ahora el <em>always</em> se ha ejecutado en el hilo de background. El resto sigue en el hilo de la interfaz gráfica. Y con esto vemos que <strong>se ha adelantado la ejecución en este caso y a pesar del orden con el que hemos ido encadenando los callback, su ejecución es en un orden distinto debido al hilo en el que debe ejecutarse</strong>.</p>
 
@@ -494,15 +479,14 @@ I/JDEFERRED_DEMO﹕ done() on thread 1
 <p>La principal consecuencia de utilizar este patrón en nuestro código asíncrono es que nuestras APIs cumplen una máxima en el desarrollo de código limpio: <strong>los métodos no tienen parámetros de salida, solo un valor de retorno</strong>. En el caso asíncrono, es muy típico ver cómo hay que pasar un <em>callback</em> a un método para que cuando este acabe, nos devuelva por ahí el resultado. Con esta forma de trabajo, el método devuelve la promesa, con la que podremos obtener el valor más adelante, dejando un código más fácil de leer ya que es casi lineal y no obliga al desarrollador a estar dando saltos entre el código para seguir el flujo.</p>
 
 <h3 id="cómo-la-obtengo">¿Cómo la obtengo?</h3>
-<p>Pues desde su sitio web en <em><a href="http://jdeferred.org/">http://jdeferred.org/</a></em> o también a través de Gradle agregando:</p>
+<p>Pues desde su sitio web en <em><a href="https://jdeferred.org/">https://jdeferred.org/</a></em> o también a través de Gradle agregando:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'org.jdeferred:jdeferred-android:1.2.3'</span>
-</code></pre>
-</div>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">compile</span> <span class="s1">'org.jdeferred:jdeferred-android:1.2.3'</span>
+</code></pre></div></div>
 
 <p>También os dejo en este repo el código de ejemplo.</p>
 
-<div class="github-box repo" data-repo="raycoarana/jdeferred-demo">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/jdeferred-demo">jdeferred-demo</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/jdeferred-demo/watchers">?</a><a class="forks" href="http://github.com/raycoarana/jdeferred-demo/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/jdeferred-demo#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/jdeferred-demo/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/jdeferred-demo">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/jdeferred-demo">jdeferred-demo</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/jdeferred-demo/watchers">?</a><a class="forks" href="https://github.com/raycoarana/jdeferred-demo/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/jdeferred-demo#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/jdeferred-demo/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -563,7 +547,7 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 <h3 id="conclusiones">Conclusiones</h3>
 <p>Después de experimentar distintas herramientas disponibles en el mercado, WireframeSketcher es para mí una de las mejores, por $99 tenemos una herramienta extensible y muy fiel al diseño final. Su uso es bastante sencillo y nos da la opción a exportar a HTML, algo ideal para enviar a clientes o compañeros. Como está integrado con Eclipse y como se puede instalar como plug-in también, nos permite integrar la herramienta en nuestro entorno habitual de trabajo -bueno si no estamos usando Android Studio- lo que nos permite la integración con otros plug-ins como control de versiones, pudiendo así colaborar y tener un historial de todo el trabajo realizado.</p>
 
-<p>Más info y descarga: <a href="http://wireframesketcher.com/">http://wireframesketcher.com/</a></p>
+<p>Más info y descarga: <a href="https://wireframesketcher.com/">https://wireframesketcher.com/</a></p>
 
 	  ]]></description>
 	</item>
@@ -579,13 +563,12 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 
 <p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="nc">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
                                        <span class="s">"fonts/mycustomfont.ttf"</span><span class="o">);</span>
         
-<span class="n">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
+<span class="nc">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
 <span class="n">myView</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">tf</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
 
@@ -597,7 +580,7 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 
 <p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;LinearLayout</span>
     <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
@@ -616,8 +599,7 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 ...
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
 
@@ -625,16 +607,15 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 
 <p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="nc">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="nc">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">));</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;LinearLayout</span>
     <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
@@ -652,30 +633,27 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 ...
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;Resources&gt;</span>
     <span class="nt">&lt;attr</span> <span class="na">name=</span><span class="s">"customFont"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/Resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">customFont</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="nc">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="nc">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">,</span> <span class="no">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">customFont</span><span class="o">));</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y ya solo nos queda utilizarlo en las vistas.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;LinearLayout</span>
     <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
@@ -693,14 +671,13 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 ...
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
 <p>Sin duda Calligraphy <strong>es lo que Google debería haber soportado en Android desde hace mucho tiempo</strong>. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que <strong>podemos centralizar el uso de las fuentes en nuestros ficheros de estilos</strong>. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.</p>
 
-<div class="github-box repo" data-repo="chrisjenx/Calligraphy">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/chrisjenx">chrisjenx</a>/<a class="repo" href="http://github.com/chrisjenx/Calligraphy">Calligraphy</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/chrisjenx/Calligraphy/watchers">?</a><a class="forks" href="http://github.com/chrisjenx/Calligraphy/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/chrisjenx/Calligraphy#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/chrisjenx/Calligraphy/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="chrisjenx/Calligraphy">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/chrisjenx">chrisjenx</a>/<a class="repo" href="https://github.com/chrisjenx/Calligraphy">Calligraphy</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/chrisjenx/Calligraphy/watchers">?</a><a class="forks" href="https://github.com/chrisjenx/Calligraphy/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/chrisjenx/Calligraphy#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/chrisjenx/Calligraphy/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -712,9 +689,9 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 	  <pubDate>2014-06-09T22:29:34+02:00</pubDate>
 	  <guid>//blog/2014/06/parcelables-con-android-autoparcel/</guid>
 	  <description><![CDATA[
-	     <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="highlighter-rouge">Bundle</code>, ya sea a través del <code class="highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="highlighter-rouge">Activity</code> o <code class="highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
+	     <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="language-plaintext highlighter-rouge">Bundle</code>, ya sea a través del <code class="language-plaintext highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="language-plaintext highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="language-plaintext highlighter-rouge">Activity</code> o <code class="language-plaintext highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
 
-<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="highlighter-rouge">Serializable</code> o <code class="highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
+<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="language-plaintext highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="language-plaintext highlighter-rouge">Serializable</code> o <code class="language-plaintext highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="language-plaintext highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="language-plaintext highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="language-plaintext highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
 
 <!--more-->
 
@@ -729,7 +706,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz <strong>build.gradle</strong>, donde agregaremos en las dependencias la siguiente línea:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
     <span class="n">repositories</span> <span class="o">{</span>
         <span class="n">mavenCentral</span><span class="o">()</span>
     <span class="o">}</span>
@@ -744,12 +721,11 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="n">mavenCentral</span><span class="o">()</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora nos vamos al fichero <strong>build.gradle</strong> de la aplicación, lo primero será aplicar el plug-in <strong>android-apt</strong> y luego agregamos en la sección de dependencias del proyecto tanto el procesador que generará el código en tiempo de compilación como la librería con las anotaciones de AutoParcel.</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
 <span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android-apt'</span>
 
 <span class="n">android</span> <span class="o">{</span>
@@ -761,42 +737,39 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
     <span class="n">compile</span> <span class="s1">'com.github.frankiesardo:android-auto-value:+'</span>
     <span class="n">apt</span> <span class="s1">'com.github.frankiesardo:android-auto-value-processor:+'</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora refrescamos el proyecto y vamos a escribir nuestro primer objeto con AutoParcel. Nuestras <strong>clases tendrán que ser abstractas</strong> y <strong>por cada propiedad que queramos que tenga, debemos generar un método abstracto</strong> para obtener su valor.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
 <span class="nd">@AutoValue</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="nc">Parcelable</span> <span class="o">{</span>
 
-   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="nc">String</span> <span class="nf">fooString</span><span class="o">();</span>
    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Solo nos falta una forma para poder construir objetos de tipo <code class="highlighter-rouge">Foo</code>, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <code class="highlighter-rouge">AutoValue_Foo</code> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
+<p>Solo nos falta una forma para poder construir objetos de tipo <code class="language-plaintext highlighter-rouge">Foo</code>, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <code class="language-plaintext highlighter-rouge">AutoValue_Foo</code> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
 <span class="nd">@AutoValue</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="nc">Parcelable</span> <span class="o">{</span>
 
-   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="nc">String</span> <span class="nf">fooString</span><span class="o">();</span>
    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Foo</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">fooString</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fooInteger</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Foo</span> <span class="nf">create</span><span class="o">(</span><span class="nc">String</span> <span class="n">fooString</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fooInteger</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nf">AutoValue_Foo</span><span class="o">(</span><span class="n">fooString</span><span class="o">,</span> <span class="n">fooInteger</span><span class="o">);</span>
    <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos que utilizar como argumentos o extras para los <em>Fragments</em> y <em>Activities</em> que usemos en nuestras aplicaciones, reduciendo la cantidad de código que tenemos que escribir considerablemente y sin caer en malas prácticas acoplando los componentes de nuestra aplicación.</p>
 
@@ -804,7 +777,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Puedes obtener más info y acceder al código en su página en GitHub.</p>
 
-<div class="github-box repo" data-repo="frankiesardo/auto-parcel">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/frankiesardo">frankiesardo</a>/<a class="repo" href="http://github.com/frankiesardo/auto-parcel">auto-parcel</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/frankiesardo/auto-parcel/watchers">?</a><a class="forks" href="http://github.com/frankiesardo/auto-parcel/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/frankiesardo/auto-parcel#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/frankiesardo/auto-parcel/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="frankiesardo/auto-parcel">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/frankiesardo">frankiesardo</a>/<a class="repo" href="https://github.com/frankiesardo/auto-parcel">auto-parcel</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/frankiesardo/auto-parcel/watchers">?</a><a class="forks" href="https://github.com/frankiesardo/auto-parcel/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/frankiesardo/auto-parcel#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/frankiesardo/auto-parcel/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -843,35 +816,31 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Las Live Cards son por tanto la única forma que tenemos para insertar tarjetas en el Timeline de Google Glass (al menos por ahora). Para crear una tarjeta, basta con construir un objeto de tipo <strong><em>LiveCard</em></strong>, pasando el contexto y un tag con el que identificamos a la tarjeta.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LiveCard</span> <span class="n">liveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LiveCard</span> <span class="n">liveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+</code></pre></div></div>
 
 <p>Una vez tenemos nuestra tarjeta, necesitamos decirle qué queremos mostrar. Existen dos tipos de Live Cards, en función de la frecuencia de actualización de la interfaz que necesitemos, las creadas a partir de una vista normal para baja frecuencia de actualización o las creadas sobre un SurfaceHolder, para por ejemplo, pintar con OpenGL, cuando se requiera una frecuencia de actualización alta. Es decir, si vamos a modificar el contenido de nuestra Live Card una o dos veces por segundo como mucho, la primera aproximación es la adecuada. Si por contra vamos a crear un compass, realidad aumentada o algo que necesite una frecuencia de 20-30 o más veces por segundo, debemos optar por la segunda opción.</p>
 
 <p>Para las primeras, debemos asignarle una <strong>RemoteView</strong>. Esto ya nos debería sonar, en Android las <strong>RemoteView</strong> se utilizan para cuando queremos crear Widgets y en cierta manera es justo lo que queremos hacer ahora, queremos darle a otra aplicación (el Timeline) una vista para que la muestre desde nuestra aplicación. Hay que tener esto claro para entender por qué no podemos poner cualquier vista en una <strong>RemoteView</strong> y como es además su forma de actualización a través del objeto <strong>RemoveView</strong>, realmente <strong>nos estamos comunicando con otra aplicación</strong>, que vive en otro contexto distinto al de nuestra app.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">RemoteViews</span> <span class="n">views</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> 
-                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">RemoteViews</span> <span class="n">views</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> 
+                                    <span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
 <span class="n">liveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">views</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">liveCard</span><span class="o">.</span><span class="na">getSurfaceHolder</span><span class="o">().</span><span class="na">addCallback</span><span class="o">(</span><span class="n">callback</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos ya configurada nuestra Live Card, solo nos queda publicarla, para ello es tan sencillo como llamar al método <strong><em>publish()</em></strong>. Este método nos pide un parámetro para indicar la forma de publicación, <strong>REVEAL</strong> o <strong>SILENT</strong>. Con REVEAL le estamos indicando al Timeline que debe llevar al usuario a nuestra tarjeta recién publicada. Si por contra utilizamos SILENT, como nos podemos imaginar, la tarjeta se publicará sin <em>molestar</em> al usuario.</p>
 
 <p>Pero… ¿realmente ya está? La verdad es que no. Si ejecutamos el código que hemos ido viendo y lo ejecutamos en una actividad, veremos que al salir de esta y volver al Timeline, nuestra tarjeta no existe. El problema es el ciclo de vida de nuestra aplicación y la tarjeta. Si recordáis del desarrollo de Widgets en Android, era siempre necesario tener un servicio en el que se apoyase el Widget y en el caso de las Live Cards nos ocurre igual, debemos crear un servicio y asociarlo a nuestra <em>LiveCard</em> utilizando el método <strong><em>attach()</em></strong> o creándolo directamente desde el propio servicio y que este gestione explícitamente su ciclo de vida.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">myService</span><span class="o">);</span>
-<span class="n">liveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">myService</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="nc">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+</code></pre></div></div>
 
 <h3 id="manos-a-la-obra">Manos a la obra</h3>
 
@@ -879,26 +848,25 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>En primer lugar creamos el layout de nuestra Live Card. Vamos a hacer algo sencillo, simplemente un TextView en el que mostrar el texto.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:id=</span><span class="s">"@+id/my_card_content"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora vamos a crear el servicio, primero el esqueleto del mismo.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo4Service</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo4Service</span> <span class="kd">extends</span> <span class="nc">Service</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">...</span>
-        <span class="k">return</span> <span class="n">START_STICKY</span><span class="o">;</span>
+        <span class="k">return</span> <span class="no">START_STICKY</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
@@ -906,37 +874,34 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="o">...</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora en el método <strong><em>onStartCommand()</em></strong> recibiremos cada uno de los Intent que el usuario vaya lanzando, así que lo primero será transformar el texto obtenido desde la lista a una simple String.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getExtras</span><span class="o">().</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getExtras</span><span class="o">().</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="nc">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
 
-        <span class="n">StringBuilder</span> <span class="n">userContent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">StringBuilder</span> <span class="n">userContent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">voiceToken</span><span class="o">);</span>
             <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
         <span class="o">}</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos ya la cadena a mostrar, vamos a crear la tarjeta. La tarjeta solo será necesaria crearla si es la primera vez que el usuario lanza el comando desde el inicio del servicio. Si este ya estaba en ejecución, la tarjeta ya existe y solo tendremos que actualizarla. Para esto es importante quedarnos con una instancia siempre de la tarjeta a nivel de servicio.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
         <span class="kt">boolean</span> <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
-            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MenuActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="mi">0</span><span class="o">));</span>
-            <span class="n">mRemoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="nc">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nc">MenuActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="mi">0</span><span class="o">));</span>
+            <span class="n">mRemoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
             <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
         <span class="o">}</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>En el trozo de código anterior podemos ver cómo creamos la tarjeta y cómo le asignamos una acción. <strong>¡Ojo con esto porque es obligatorio!</strong>, si no definimos una acción a nuestra tarjeta, esta no se publicará. <strong>Si nuestra tarjeta no tiene de verdad ninguna función a mostrar</strong> cuando el usuario pulsa sobre ella, debemos lanzar una actividad, que no haga ni muestre nada, pero que reproduzca el <strong>sonido correspondiente para indicar al usuario que no existe acción posible</strong>. Esto es algo en lo que insisto mucho siempre a los desarrolladores, siempre, siempre, siempre hay que dar feedback al usuario de lo que está pasando, para que no se quede dando TAPs al TouchPad para ver si se muestra algo y no saber si es que no hay nada, no funciona o el dispositivo no funciona bien.</p>
 
@@ -944,28 +909,26 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Lo siguiente será un código que se ejecutará siempre, independientemente de si la tarjeta existía con anterioridad o no y es la actualización de la vista con el texto dictado por el usuario. Para ello utilizamos uno de los métodos soportados por el objeto <strong>RemoteViews</strong> para actualizar el contenido de esa vista remota. Una vez lo hemos actualizado, necesitamos reasignarlo a la Live Card para que esta tenga conocimiento del cambio.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-        <span class="n">mRemoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_card_content</span><span class="o">,</span> <span class="n">userContent</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+        <span class="n">mRemoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_card_content</span><span class="o">,</span> <span class="n">userContent</span><span class="o">);</span>
         <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">mRemoteViews</span><span class="o">);</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya por último dentro del método <em>onStartCommand()</em> nos falta publicar la tarjeta, si no estaba ya publicada o navegar hacia ella si ya lo estaba. Para ello nos ayudamos del flag que hemos definido anteriormente de la siguiente forma:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
         <span class="k">if</span><span class="o">(</span><span class="n">haveToPublish</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">LiveCard</span><span class="o">.</span><span class="na">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="nc">LiveCard</span><span class="o">.</span><span class="na">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
             <span class="n">mLiveCard</span><span class="o">.</span><span class="na">navigate</span><span class="o">();</span>
         <span class="o">}</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Bien, ya tenemos creada nuestra tarjeta, ahora necesitamos implementar el evento onDestroy de nuestro servicio, donde vamos a retirar nuestra tarjeta del Timeline.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">mLiveCard</span><span class="o">.</span><span class="na">isPublished</span><span class="o">())</span> <span class="o">{</span>
             <span class="n">mLiveCard</span><span class="o">.</span><span class="na">unpublish</span><span class="o">();</span>
@@ -973,20 +936,18 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="o">}</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya lo tenemos todo, ahora solo nos falta configurar el <em>AndroidManifest</em> y el Voice Trigger con su Prompt como ya sabemos. Lo primero el Voice Trigger con el Prompt.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_show_my_card"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_show_my_card"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_show_my_card"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y declaramos el servicio en el <em>AndroidManifest</em>, asociándolo al Voice Trigger.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
         <span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".Demo4Service"</span><span class="nt">&gt;</span>
             <span class="nt">&lt;intent-filter&gt;</span>
                 <span class="nt">&lt;action</span>
@@ -997,8 +958,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
                 <span class="na">android:resource=</span><span class="s">"@xml/show_my_card_trigger"</span> <span class="nt">/&gt;</span>
         <span class="nt">&lt;/service&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Recordad añadir el permiso para poder usar comandos personalizados</strong></p>
 
@@ -1008,72 +968,67 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Creamos el fichero de menú.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/one"</span>
           <span class="na">android:title=</span><span class="s">"One"</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/two"</span>
           <span class="na">android:title=</span><span class="s">"Two"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/menu&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Creamos la actividad, en la cual no necesitaremos el método <em>onCreate()</em> ya que esta no va a tener interfaz gráfica. Para asociarle un menú a la actividad, lo hacemos como siempre. Para simplificar, no le vamos a añadir código para cuando se selecciona alguna de las opciones del menú, pero en caso de querer hacer algo, solo tendríamos que añadir el código que corresponda en el <strong>switch</strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
-        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="nc">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="nc">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">default</span><span class="o">:</span>
                 <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora para hacer que el menú se muestre al abrir la actividad y que la actividad se finalice cuando el menú se cierre implementamos los siguientes métodos.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">()</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">();</span>
         <span class="n">openOptionsMenu</span><span class="o">();</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOptionsMenuClosed</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOptionsMenuClosed</span><span class="o">(</span><span class="nc">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">finish</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya solo nos quedan un par de pequeños detalles para terminar nuestra aplicación y poder ver nuestra Live Card en acción. Lo primero es hacer nuestra actividad transparente, para eso vamos a sobrescribir el tema para esta actividad por uno que haga el fondo transparente y elimine cualquier animación de entrada de la actividad. En nuestro fichero de estilos agregamos el siguiente tema. Esperemos que en un futuro GDK este tema venga incluido por defecto en el sistema.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"MenuTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"MenuTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowBackground"</span><span class="nt">&gt;</span>@android:color/transparent<span class="nt">&lt;/item&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:colorBackgroundCacheHint"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowIsTranslucent"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowAnimationStyle"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
     <span class="nt">&lt;/style&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Por último nos queda registrar la actividad en el <em>AndroidManifest</em>, donde le asociaremos el tema que hemos creado.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MenuActivity"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MenuActivity"</span>
                   <span class="na">android:theme=</span><span class="s">"@style/MenuTheme"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ejecutamos el proyecto y decimos “ok glass, show my card”, nos saltará el Prompt y a continuación, nuestra tarjeta.</p>
 
 <p>Y con esto terminamos esta serie de artículos dedicados a Google Glass. Esto es lo básico y que marca diferencia con una aplicación Android, si bien me reservo aún algún tema como la autenticación con cuentas Google y no Google en Glass, pero hay muchas más cosas con las que experimentar ahí fuera y por ahora y hasta que exista un gran cambio de API en Google Glass, creo que es algo ya superado. Como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>4.Timeline</strong>.</p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
@@ -1107,25 +1062,24 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Vamos a crear nuestra vista y asignarla como contenido de nuestra actividad, para ello en el método <strong><em>onCreate()</em></strong> de nuestra actividad hacemos lo siguiente:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="n">CardScrollView</span> <span class="n">mCardScrollView</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">CardScrollView</span> <span class="n">mCardScrollView</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
 
-        <span class="n">mCardScrollView</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardScrollView</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">mCardScrollView</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CardScrollView</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         
         <span class="n">setContentView</span><span class="o">(</span><span class="n">mCardScrollView</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya tenemos nuestra vista, pero ahora mismo poco va a mostrar ya que no tiene contenido. Vamos a añadirle algunas tarjetas, para ello vamos a crear y configurar un <strong><em>CardScrollAdapter</em></strong>. Para crear un <strong><em>CardScrollAdapter</em></strong>, tendremos que heredar la clase e implementar algunos métodos. Lo normal sería tener un modelo de datos asociado a cada tarjeta, pero para nuestro ejemplo, vamos a prescindir de ello para simplificar, por lo que solo tendremos que implementar el método <em><strong>getCount()</strong></em> y <em><strong>getView()</strong></em> para indicar el número de tarjetas y la vista de cada una de ellas respectivamente. Vamos a crear cuatro tarjetas, así que el código de nuestro Adapter quedaría algo así, donde delegamos la creación de las vistas en métodos que veremos a continuación.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">CardScrollAdapter</span> <span class="n">mCardScrollAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardScrollAdapter</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">CardScrollAdapter</span> <span class="n">mCardScrollAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CardScrollAdapter</span><span class="o">()</span> <span class="o">{</span>
 
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
@@ -1133,13 +1087,13 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">viewGroup</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">View</span> <span class="n">cardView</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nc">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="nc">ViewGroup</span> <span class="n">viewGroup</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">View</span> <span class="n">cardView</span><span class="o">;</span>
             <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
                     <span class="n">cardView</span> <span class="o">=</span> <span class="n">getFirstCardView</span><span class="o">();</span>
@@ -1158,17 +1112,16 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findIdPosition</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findIdPosition</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findItemPosition</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findItemPosition</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">};</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Como habéis visto, el <strong><em>CardScrollAdapter</em></strong>, como cualquier otro Adapter, lo que nos pide son vistas, por lo que podríamos crear cualquier tipo de vista para nuestras tarjetas. Sin embargo, Google ha incluido en el SDK la clase <strong><em>Card</em></strong> que nos <strong>permite crear vistas de forma sencilla</strong>, con el estilo de Glass sin tener que preocuparnos por nada. El que hayamos configurado nuestro Adapter con 4 elementos no es casualidad, vamos a ver las principales configuraciones de tarjetas que podemos crear con esta clase.</p>
 
@@ -1176,13 +1129,12 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>La primera tarjeta que crearemos será una sencilla que solo contendrá un texto. La clase <strong><em>Card</em></strong> requiere como parámetro el contexto y luego le asignaremos los datos a mostrar por la misma. Cuando hemos acabado, llamamos al método <strong><em>toView()</em></strong> para obtener la vista resultante.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getFirstCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getFirstCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta simple de texto"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado de este código es la siguiente tarjeta:</p>
 
@@ -1192,15 +1144,14 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Para añadir una imagen a la izquierda de la tarjeta, solo tendremos que llamar al método <strong><em>addImage()</em></strong> y establecer con <strong><em>setImageLayout()</em></strong> que esta esté alineada a la izquierda.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getSecondCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getSecondCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con imagen a la izquierda"</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="nc">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado lo podéis ver a continuación:</p>
 
@@ -1210,15 +1161,14 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Si queremos que la imagen no esté a la izquierda sino que esté de fondo de la tarjeta, simplemente cambiamos el ImageLayout de la misma. Esto creará un ligero degradado a negro tras el texto para ganar contraste sobre la imagen.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getThirdCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getThirdCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con imagen al fondo"</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="nc">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>La tarjeta resultante es la siguiente:</p>
 
@@ -1228,17 +1178,16 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Podemos agregar varias imágenes, creándonos un mosaico con ellas. También podremos acompañar el texto principal con un texto al pie de la tarjeta.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getFourthCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getFourthCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con texto al pie y varias imagenes"</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setFootnote</span><span class="o">(</span><span class="s">"Texto pie de página"</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="nc">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado es la siguiente tarjeta:</p>
 
@@ -1246,12 +1195,11 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Ahora que ya tenemos nuestro Adapter con sus vistas, nos falta asignarlo al <strong><em>CardScrollView</em></strong> y activar este. Para ello añadimos estas líneas en el método <strong><em>onCreate()</em></strong> de la actividad.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
 <span class="n">mCardScrollView</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">mCardScrollAdapter</span><span class="o">);</span>
 <span class="n">mCardScrollView</span><span class="o">.</span><span class="na">activate</span><span class="o">();</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Con esto si lanzamos la aplicación veremos la interfaz de tarjetas con cada una de ellas. Pero, ¿cómo podemos interactuar con ellas? No podemos poner un botón, implementar el OnClickListener no servirá de nada. ¿Entonces? ¿Cómo podemos darle opciones al usuario para realizar acciones sobre cada tarjeta?</p>
 
@@ -1259,32 +1207,30 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Para interactuar con una tarjeta, debemos asignar un <strong><em>OnItemClickListener</em></strong> al <strong><em>CardScrollView</em></strong>. Cada vez que el usuario haga <em>TAP</em>, la vista nos notificará con la información relativa a la tarjeta sobre la que se ha realizado la pulsación en el TouchPad. En el método <strong><em>onCreate()</em></strong> de nuestra actividad, añadimos la siguiente línea:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
 <span class="n">mCardScrollView</span><span class="o">.</span><span class="na">setOnItemClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora nos queda hacer que nuestra actividad implemente esa interfaz <strong><em>OnItemClickListener</em></strong> y añadir el método <strong><em>OnItemClick()</em></strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">AdapterView</span><span class="o">.</span><span class="na">OnItemClickListener</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="kd">implements</span> <span class="nc">AdapterView</span><span class="o">.</span><span class="na">OnItemClickListener</span> <span class="o">{</span>
 
     <span class="o">...</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="nc">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Bien ahora que ya somos notificados sobre la pulsación sobre una tarjeta, ¿cómo podemos mostrar al usuario operaciones que hacer sobre estos elementos que está viendo? Pues haciendo uso de los menús de Android. En Google Glass, los menús se comportan de manera distinta, mostrándose cada entrada de menú a pantalla completa como tarjetas sobre las que el usuario puede moverse (adivinad qué vista utilizará el sistema operativo para implementar esto). La manera de implementarlo por tanto es muy conocida por cualquier desarrollador Android, pero vamos a repasarla.</p>
 
 <p>Lo primero será crearnos la definición de nuestro menú, creamos un fichero xml en <strong><em>menu/activity_cards.xml</em></strong>. Los iconos los tenéis disponibles en el repositorio junto con el resto del código.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
 
     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/menu_read_aloud"</span>
           <span class="na">android:icon=</span><span class="s">"@drawable/ic_read_aloud"</span>
@@ -1299,29 +1245,28 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="na">android:title=</span><span class="s">"@string/menu_close"</span> <span class="nt">/&gt;</span>
 
 <span class="nt">&lt;/menu&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos nuestro menú, vamos a incorporarlo a la actividad. Para ello implementamos los métodos <strong><em>onCreateOptionsMenu()</em></strong> y <strong><em>onOptionsItemSelected()</em></strong> para crear el menú cuando sea necesario y realizar acciones cuando se seleccione un elemento del menú. Si quisieramos personalizar el menú en función del elemento sobre el que se hace la selección, podemos implementar el método <strong><em>onPrepareOptionsMenu()</em></strong> y ocultar/mostrar aquellos elementos que nos interese.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">activity_cards</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="nc">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">activity_cards</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="nc">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_read_aloud</span><span class="o">:</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_read_aloud</span><span class="o">:</span>
                 <span class="n">onMenuReadAloud</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_share</span><span class="o">:</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_share</span><span class="o">:</span>
                 <span class="n">onMenuShare</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_close</span><span class="o">:</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_close</span><span class="o">:</span>
                 <span class="n">onMenuClose</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
             <span class="k">default</span><span class="o">:</span>
@@ -1331,62 +1276,57 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
     <span class="o">}</span>
 
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya tenemos muestro menú montado, solo nos falta relacionar el <strong><em>onItemClick</em></strong> del <strong><em>CardScrollView</em></strong> con la apertura del menú y escribir código para cada una de las acciones. Lo primero es tan sencillo como esto:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="nc">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">openOptionsMenu</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Pero vamos a complicar un poco el caso, por ejemplo no queremos que para el primer elemento del <strong><em>CardScrollView</em></strong> se muestre un menú. ¿Qué deberíamos hacer? Pues por un lado evitar llamar al método <strong><em>openOptionsMenu()</em></strong> cuando el usuario haga TAP sobre el primer elemento y muy importante, darle <strong>feedback al usuario de que en ese elemento no hay acciones</strong> posibles a realizar. Para esto segundo haremos uso del <strong><em>AudioManager</em></strong> y los sonidos del sistema, que específicamente en Glass están representados por constantes de la clase <strong><em>Sounds</em></strong>, en concreto la constante <em>DISALLOWED</em>. De la misma forma, para darle feedback al usuario de la apertura del menú, haremos lo mismo pero con la constante <em>TAP</em>.</p>
 
 <p>Lo primero, obtener una instancia al <strong><em>AudioManager</em></strong> en el método <strong><em>onCreate()</em></strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">AudioManager</span> <span class="n">mAudioManager</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">AudioManager</span> <span class="n">mAudioManager</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
 
-        <span class="n">mAudioManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">AudioManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">AUDIO_SERVICE</span><span class="o">);</span>
+        <span class="n">mAudioManager</span> <span class="o">=</span> <span class="o">(</span><span class="nc">AudioManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="nc">Context</span><span class="o">.</span><span class="na">AUDIO_SERVICE</span><span class="o">);</span>
         <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora en el método <strong><em>onItemClick()</em></strong> hacemos lo siguiente:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="nc">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">position</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="n">Sounds</span><span class="o">.</span><span class="na">DISALLOWED</span><span class="o">);</span>
+            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="nc">Sounds</span><span class="o">.</span><span class="na">DISALLOWED</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="n">Sounds</span><span class="o">.</span><span class="na">TAP</span><span class="o">);</span>
+            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="nc">Sounds</span><span class="o">.</span><span class="na">TAP</span><span class="o">);</span>
             <span class="k">this</span><span class="o">.</span><span class="na">openOptionsMenu</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya tenemos la funcionalidad que queríamos, ahora el primer elemento no muestra el menú y da feedback al usuario de ello. Vamos ahora a darle funcionalidad a las acciones que teníamos. No vamos a implementarlas de verdad para no extendernos demasiado, solo vamos mostrar en el log del sistema que se han ejecutado.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuReadAloud</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuReadAloud()"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuReadAloud</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuReadAloud()"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuShare</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuShare()"</span><span class="o">);</span>
+        <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuShare()"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuClose</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuClose()"</span><span class="o">);</span>
+        <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuClose()"</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto lo tenemos todo, al ejecutar la aplicación y hacer TAP sobre una de las tarjetas con menú, se nos mostrará dándonos la opción a seleccionar la acción que queremos realizar.</p>
 
@@ -1402,7 +1342,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 

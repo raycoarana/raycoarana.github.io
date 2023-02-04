@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -45,35 +45,31 @@
 
 <p>Las Live Cards son por tanto la única forma que tenemos para insertar tarjetas en el Timeline de Google Glass (al menos por ahora). Para crear una tarjeta, basta con construir un objeto de tipo <strong><em>LiveCard</em></strong>, pasando el contexto y un tag con el que identificamos a la tarjeta.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">LiveCard</span> <span class="n">liveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">LiveCard</span> <span class="n">liveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+</code></pre></div></div>
 
 <p>Una vez tenemos nuestra tarjeta, necesitamos decirle qué queremos mostrar. Existen dos tipos de Live Cards, en función de la frecuencia de actualización de la interfaz que necesitemos, las creadas a partir de una vista normal para baja frecuencia de actualización o las creadas sobre un SurfaceHolder, para por ejemplo, pintar con OpenGL, cuando se requiera una frecuencia de actualización alta. Es decir, si vamos a modificar el contenido de nuestra Live Card una o dos veces por segundo como mucho, la primera aproximación es la adecuada. Si por contra vamos a crear un compass, realidad aumentada o algo que necesite una frecuencia de 20-30 o más veces por segundo, debemos optar por la segunda opción.</p>
 
 <p>Para las primeras, debemos asignarle una <strong>RemoteView</strong>. Esto ya nos debería sonar, en Android las <strong>RemoteView</strong> se utilizan para cuando queremos crear Widgets y en cierta manera es justo lo que queremos hacer ahora, queremos darle a otra aplicación (el Timeline) una vista para que la muestre desde nuestra aplicación. Hay que tener esto claro para entender por qué no podemos poner cualquier vista en una <strong>RemoteView</strong> y como es además su forma de actualización a través del objeto <strong>RemoveView</strong>, realmente <strong>nos estamos comunicando con otra aplicación</strong>, que vive en otro contexto distinto al de nuestra app.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">RemoteViews</span> <span class="n">views</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> 
-                                    <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">RemoteViews</span> <span class="n">views</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RemoteViews</span><span class="o">(</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageName</span><span class="o">(),</span> 
+                                    <span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
 <span class="n">liveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">views</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">liveCard</span><span class="o">.</span><span class="na">getSurfaceHolder</span><span class="o">().</span><span class="na">addCallback</span><span class="o">(</span><span class="n">callback</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos ya configurada nuestra Live Card, solo nos queda publicarla, para ello es tan sencillo como llamar al método <strong><em>publish()</em></strong>. Este método nos pide un parámetro para indicar la forma de publicación, <strong>REVEAL</strong> o <strong>SILENT</strong>. Con REVEAL le estamos indicando al Timeline que debe llevar al usuario a nuestra tarjeta recién publicada. Si por contra utilizamos SILENT, como nos podemos imaginar, la tarjeta se publicará sin <em>molestar</em> al usuario.</p>
 
 <p>Pero… ¿realmente ya está? La verdad es que no. Si ejecutamos el código que hemos ido viendo y lo ejecutamos en una actividad, veremos que al salir de esta y volver al Timeline, nuestra tarjeta no existe. El problema es el ciclo de vida de nuestra aplicación y la tarjeta. Si recordáis del desarrollo de Widgets en Android, era siempre necesario tener un servicio en el que se apoyase el Widget y en el caso de las Live Cards nos ocurre igual, debemos crear un servicio y asociarlo a nuestra <em>LiveCard</em> utilizando el método <strong><em>attach()</em></strong> o creándolo directamente desde el propio servicio y que este gestione explícitamente su ciclo de vida.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">myService</span><span class="o">);</span>
-<span class="n">liveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="n">myService</span><span class="o">);</span>
+<span class="n">liveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="nc">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+</code></pre></div></div>
 
 <h3 id="manos-a-la-obra">Manos a la obra</h3>
 
@@ -81,26 +77,25 @@
 
 <p>En primer lugar creamos el layout de nuestra Live Card. Vamos a hacer algo sencillo, simplemente un TextView en el que mostrar el texto.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:id=</span><span class="s">"@+id/my_card_content"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora vamos a crear el servicio, primero el esqueleto del mismo.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo4Service</span> <span class="kd">extends</span> <span class="n">Service</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo4Service</span> <span class="kd">extends</span> <span class="nc">Service</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">IBinder</span> <span class="nf">onBind</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
         <span class="o">...</span>
-        <span class="k">return</span> <span class="n">START_STICKY</span><span class="o">;</span>
+        <span class="k">return</span> <span class="no">START_STICKY</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
@@ -108,37 +103,34 @@
         <span class="o">...</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora en el método <strong><em>onStartCommand()</em></strong> recibiremos cada uno de los Intent que el usuario vaya lanzando, así que lo primero será transformar el texto obtenido desde la lista a una simple String.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="n">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getExtras</span><span class="o">().</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">onStartCommand</span><span class="o">(</span><span class="nc">Intent</span> <span class="n">intent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">flags</span><span class="o">,</span> <span class="kt">int</span> <span class="n">startId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">intent</span><span class="o">.</span><span class="na">getExtras</span><span class="o">().</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="nc">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
 
-        <span class="n">StringBuilder</span> <span class="n">userContent</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">StringBuilder</span> <span class="n">userContent</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">voiceToken</span><span class="o">);</span>
             <span class="n">userContent</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
         <span class="o">}</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos ya la cadena a mostrar, vamos a crear la tarjeta. La tarjeta solo será necesaria crearla si es la primera vez que el usuario lanza el comando desde el inicio del servicio. Si este ya estaba en ejecución, la tarjeta ya existe y solo tendremos que actualizarla. Para esto es importante quedarnos con una instancia siempre de la tarjeta a nivel de servicio.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
         <span class="kt">boolean</span> <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
-            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="n">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="n">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">MenuActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="mi">0</span><span class="o">));</span>
-            <span class="n">mRemoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
+            <span class="n">mLiveCard</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LiveCard</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="s">"simple-card"</span><span class="o">);</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setAction</span><span class="o">(</span><span class="nc">PendingIntent</span><span class="o">.</span><span class="na">getActivity</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Intent</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="nc">MenuActivity</span><span class="o">.</span><span class="na">class</span><span class="o">),</span> <span class="mi">0</span><span class="o">));</span>
+            <span class="n">mRemoteViews</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RemoteViews</span><span class="o">(</span><span class="n">getPackageName</span><span class="o">(),</span> <span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">view_of_my_livecard</span><span class="o">);</span>
             <span class="n">haveToPublish</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
         <span class="o">}</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>En el trozo de código anterior podemos ver cómo creamos la tarjeta y cómo le asignamos una acción. <strong>¡Ojo con esto porque es obligatorio!</strong>, si no definimos una acción a nuestra tarjeta, esta no se publicará. <strong>Si nuestra tarjeta no tiene de verdad ninguna función a mostrar</strong> cuando el usuario pulsa sobre ella, debemos lanzar una actividad, que no haga ni muestre nada, pero que reproduzca el <strong>sonido correspondiente para indicar al usuario que no existe acción posible</strong>. Esto es algo en lo que insisto mucho siempre a los desarrolladores, siempre, siempre, siempre hay que dar feedback al usuario de lo que está pasando, para que no se quede dando TAPs al TouchPad para ver si se muestra algo y no saber si es que no hay nada, no funciona o el dispositivo no funciona bien.</p>
 
@@ -146,28 +138,26 @@
 
 <p>Lo siguiente será un código que se ejecutará siempre, independientemente de si la tarjeta existía con anterioridad o no y es la actualización de la vista con el texto dictado por el usuario. Para ello utilizamos uno de los métodos soportados por el objeto <strong>RemoteViews</strong> para actualizar el contenido de esa vista remota. Una vez lo hemos actualizado, necesitamos reasignarlo a la Live Card para que esta tenga conocimiento del cambio.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-        <span class="n">mRemoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_card_content</span><span class="o">,</span> <span class="n">userContent</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+        <span class="n">mRemoteViews</span><span class="o">.</span><span class="na">setTextViewText</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">my_card_content</span><span class="o">,</span> <span class="n">userContent</span><span class="o">);</span>
         <span class="n">mLiveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">mRemoteViews</span><span class="o">);</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya por último dentro del método <em>onStartCommand()</em> nos falta publicar la tarjeta, si no estaba ya publicada o navegar hacia ella si ya lo estaba. Para ello nos ayudamos del flag que hemos definido anteriormente de la siguiente forma:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
         <span class="k">if</span><span class="o">(</span><span class="n">haveToPublish</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">LiveCard</span><span class="o">.</span><span class="na">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
+            <span class="n">mLiveCard</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="nc">LiveCard</span><span class="o">.</span><span class="na">PublishMode</span><span class="o">.</span><span class="na">REVEAL</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
             <span class="n">mLiveCard</span><span class="o">.</span><span class="na">navigate</span><span class="o">();</span>
         <span class="o">}</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Bien, ya tenemos creada nuestra tarjeta, ahora necesitamos implementar el evento onDestroy de nuestro servicio, donde vamos a retirar nuestra tarjeta del Timeline.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onDestroy</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">mLiveCard</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">mLiveCard</span><span class="o">.</span><span class="na">isPublished</span><span class="o">())</span> <span class="o">{</span>
             <span class="n">mLiveCard</span><span class="o">.</span><span class="na">unpublish</span><span class="o">();</span>
@@ -175,20 +165,18 @@
         <span class="o">}</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onDestroy</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya lo tenemos todo, ahora solo nos falta configurar el <em>AndroidManifest</em> y el Voice Trigger con su Prompt como ya sabemos. Lo primero el Voice Trigger con el Prompt.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_show_my_card"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_show_my_card"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_show_my_card"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y declaramos el servicio en el <em>AndroidManifest</em>, asociándolo al Voice Trigger.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
         <span class="nt">&lt;service</span> <span class="na">android:name=</span><span class="s">".Demo4Service"</span><span class="nt">&gt;</span>
             <span class="nt">&lt;intent-filter&gt;</span>
                 <span class="nt">&lt;action</span>
@@ -199,8 +187,7 @@
                 <span class="na">android:resource=</span><span class="s">"@xml/show_my_card_trigger"</span> <span class="nt">/&gt;</span>
         <span class="nt">&lt;/service&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Recordad añadir el permiso para poder usar comandos personalizados</strong></p>
 
@@ -210,72 +197,67 @@
 
 <p>Creamos el fichero de menú.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/one"</span>
           <span class="na">android:title=</span><span class="s">"One"</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/two"</span>
           <span class="na">android:title=</span><span class="s">"Two"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/menu&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Creamos la actividad, en la cual no necesitaremos el método <em>onCreate()</em> ya que esta no va a tener interfaz gráfica. Para asociarle un menú a la actividad, lo hacemos como siempre. Para simplificar, no le vamos a añadir código para cuando se selecciona alguna de las opciones del menú, pero en caso de querer hacer algo, solo tendríamos que añadir el código que corresponda en el <strong>switch</strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
-        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="nc">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">MenuInflater</span> <span class="n">inflater</span> <span class="o">=</span> <span class="n">getMenuInflater</span><span class="o">();</span>
+        <span class="n">inflater</span><span class="o">.</span><span class="na">inflate</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">my_menu</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="nc">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">default</span><span class="o">:</span>
                 <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">onOptionsItemSelected</span><span class="o">(</span><span class="n">item</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora para hacer que el menú se muestre al abrir la actividad y que la actividad se finalice cuando el menú se cierre implementamos los siguientes métodos.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onAttachedToWindow</span><span class="o">()</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onAttachedToWindow</span><span class="o">();</span>
         <span class="n">openOptionsMenu</span><span class="o">();</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOptionsMenuClosed</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onOptionsMenuClosed</span><span class="o">(</span><span class="nc">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">finish</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya solo nos quedan un par de pequeños detalles para terminar nuestra aplicación y poder ver nuestra Live Card en acción. Lo primero es hacer nuestra actividad transparente, para eso vamos a sobrescribir el tema para esta actividad por uno que haga el fondo transparente y elimine cualquier animación de entrada de la actividad. En nuestro fichero de estilos agregamos el siguiente tema. Esperemos que en un futuro GDK este tema venga incluido por defecto en el sistema.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"MenuTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"MenuTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowBackground"</span><span class="nt">&gt;</span>@android:color/transparent<span class="nt">&lt;/item&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:colorBackgroundCacheHint"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowIsTranslucent"</span><span class="nt">&gt;</span>true<span class="nt">&lt;/item&gt;</span>
         <span class="nt">&lt;item</span> <span class="na">name=</span><span class="s">"android:windowAnimationStyle"</span><span class="nt">&gt;</span>@null<span class="nt">&lt;/item&gt;</span>
     <span class="nt">&lt;/style&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Por último nos queda registrar la actividad en el <em>AndroidManifest</em>, donde le asociaremos el tema que hemos creado.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MenuActivity"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        <span class="nt">&lt;activity</span> <span class="na">android:name=</span><span class="s">".MenuActivity"</span>
                   <span class="na">android:theme=</span><span class="s">"@style/MenuTheme"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ejecutamos el proyecto y decimos “ok glass, show my card”, nos saltará el Prompt y a continuación, nuestra tarjeta.</p>
 
 <p>Y con esto terminamos esta serie de artículos dedicados a Google Glass. Esto es lo básico y que marca diferencia con una aplicación Android, si bien me reservo aún algún tema como la autenticación con cuentas Google y no Google en Glass, pero hay muchas más cosas con las que experimentar ahí fuera y por ahora y hasta que exista un gran cambio de API en Google Glass, creo que es algo ya superado. Como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>4.Timeline</strong>.</p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
@@ -309,25 +291,24 @@
 
 <p>Vamos a crear nuestra vista y asignarla como contenido de nuestra actividad, para ello en el método <strong><em>onCreate()</em></strong> de nuestra actividad hacemos lo siguiente:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
-    <span class="kd">private</span> <span class="n">CardScrollView</span> <span class="n">mCardScrollView</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">CardScrollView</span> <span class="n">mCardScrollView</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
 
-        <span class="n">mCardScrollView</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardScrollView</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+        <span class="n">mCardScrollView</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CardScrollView</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         
         <span class="n">setContentView</span><span class="o">(</span><span class="n">mCardScrollView</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya tenemos nuestra vista, pero ahora mismo poco va a mostrar ya que no tiene contenido. Vamos a añadirle algunas tarjetas, para ello vamos a crear y configurar un <strong><em>CardScrollAdapter</em></strong>. Para crear un <strong><em>CardScrollAdapter</em></strong>, tendremos que heredar la clase e implementar algunos métodos. Lo normal sería tener un modelo de datos asociado a cada tarjeta, pero para nuestro ejemplo, vamos a prescindir de ello para simplificar, por lo que solo tendremos que implementar el método <em><strong>getCount()</strong></em> y <em><strong>getView()</strong></em> para indicar el número de tarjetas y la vista de cada una de ellas respectivamente. Vamos a crear cuatro tarjetas, así que el código de nuestro Adapter quedaría algo así, donde delegamos la creación de las vistas en métodos que veremos a continuación.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">CardScrollAdapter</span> <span class="n">mCardScrollAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CardScrollAdapter</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">CardScrollAdapter</span> <span class="n">mCardScrollAdapter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CardScrollAdapter</span><span class="o">()</span> <span class="o">{</span>
 
         <span class="nd">@Override</span>
         <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="o">{</span>
@@ -335,13 +316,13 @@
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">getItem</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="n">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="n">ViewGroup</span> <span class="n">viewGroup</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">View</span> <span class="n">cardView</span><span class="o">;</span>
+        <span class="kd">public</span> <span class="nc">View</span> <span class="nf">getView</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="nc">ViewGroup</span> <span class="n">viewGroup</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">View</span> <span class="n">cardView</span><span class="o">;</span>
             <span class="k">switch</span> <span class="o">(</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
                     <span class="n">cardView</span> <span class="o">=</span> <span class="n">getFirstCardView</span><span class="o">();</span>
@@ -360,17 +341,16 @@
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findIdPosition</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findIdPosition</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
         <span class="o">}</span>
 
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findItemPosition</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">findItemPosition</span><span class="o">(</span><span class="nc">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">};</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Como habéis visto, el <strong><em>CardScrollAdapter</em></strong>, como cualquier otro Adapter, lo que nos pide son vistas, por lo que podríamos crear cualquier tipo de vista para nuestras tarjetas. Sin embargo, Google ha incluido en el SDK la clase <strong><em>Card</em></strong> que nos <strong>permite crear vistas de forma sencilla</strong>, con el estilo de Glass sin tener que preocuparnos por nada. El que hayamos configurado nuestro Adapter con 4 elementos no es casualidad, vamos a ver las principales configuraciones de tarjetas que podemos crear con esta clase.</p>
 
@@ -378,13 +358,12 @@
 
 <p>La primera tarjeta que crearemos será una sencilla que solo contendrá un texto. La clase <strong><em>Card</em></strong> requiere como parámetro el contexto y luego le asignaremos los datos a mostrar por la misma. Cuando hemos acabado, llamamos al método <strong><em>toView()</em></strong> para obtener la vista resultante.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getFirstCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getFirstCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta simple de texto"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado de este código es la siguiente tarjeta:</p>
 
@@ -394,15 +373,14 @@
 
 <p>Para añadir una imagen a la izquierda de la tarjeta, solo tendremos que llamar al método <strong><em>addImage()</em></strong> y establecer con <strong><em>setImageLayout()</em></strong> que esta esté alineada a la izquierda.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getSecondCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getSecondCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con imagen a la izquierda"</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="nc">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado lo podéis ver a continuación:</p>
 
@@ -412,15 +390,14 @@
 
 <p>Si queremos que la imagen no esté a la izquierda sino que esté de fondo de la tarjeta, simplemente cambiamos el ImageLayout de la misma. Esto creará un ligero degradado a negro tras el texto para ganar contraste sobre la imagen.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getThirdCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getThirdCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con imagen al fondo"</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="nc">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">FULL</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>La tarjeta resultante es la siguiente:</p>
 
@@ -430,17 +407,16 @@
 
 <p>Podemos agregar varias imágenes, creándonos un mosaico con ellas. También podremos acompañar el texto principal con un texto al pie de la tarjeta.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">View</span> <span class="nf">getFourthCardView</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">View</span> <span class="nf">getFourthCardView</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Card</span> <span class="n">card</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Card</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="s">"Tarjeta con texto al pie y varias imagenes"</span><span class="o">);</span>
         <span class="n">card</span><span class="o">.</span><span class="na">setFootnote</span><span class="o">(</span><span class="s">"Texto pie de página"</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="n">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
-        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">setImageLayout</span><span class="o">(</span><span class="nc">Card</span><span class="o">.</span><span class="na">ImageLayout</span><span class="o">.</span><span class="na">LEFT</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">audi</span><span class="o">);</span>
+        <span class="n">card</span><span class="o">.</span><span class="na">addImage</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">drawable</span><span class="o">.</span><span class="na">opel</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">card</span><span class="o">.</span><span class="na">toView</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>El resultado es la siguiente tarjeta:</p>
 
@@ -448,12 +424,11 @@
 
 <p>Ahora que ya tenemos nuestro Adapter con sus vistas, nos falta asignarlo al <strong><em>CardScrollView</em></strong> y activar este. Para ello añadimos estas líneas en el método <strong><em>onCreate()</em></strong> de la actividad.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
 <span class="n">mCardScrollView</span><span class="o">.</span><span class="na">setAdapter</span><span class="o">(</span><span class="n">mCardScrollAdapter</span><span class="o">);</span>
 <span class="n">mCardScrollView</span><span class="o">.</span><span class="na">activate</span><span class="o">();</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Con esto si lanzamos la aplicación veremos la interfaz de tarjetas con cada una de ellas. Pero, ¿cómo podemos interactuar con ellas? No podemos poner un botón, implementar el OnClickListener no servirá de nada. ¿Entonces? ¿Cómo podemos darle opciones al usuario para realizar acciones sobre cada tarjeta?</p>
 
@@ -461,32 +436,30 @@
 
 <p>Para interactuar con una tarjeta, debemos asignar un <strong><em>OnItemClickListener</em></strong> al <strong><em>CardScrollView</em></strong>. Cada vez que el usuario haga <em>TAP</em>, la vista nos notificará con la información relativa a la tarjeta sobre la que se ha realizado la pulsación en el TouchPad. En el método <strong><em>onCreate()</em></strong> de nuestra actividad, añadimos la siguiente línea:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
 <span class="n">mCardScrollView</span><span class="o">.</span><span class="na">setOnItemClickListener</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora nos queda hacer que nuestra actividad implemente esa interfaz <strong><em>OnItemClickListener</em></strong> y añadir el método <strong><em>OnItemClick()</em></strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="kd">implements</span> <span class="n">AdapterView</span><span class="o">.</span><span class="na">OnItemClickListener</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CardsActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="kd">implements</span> <span class="nc">AdapterView</span><span class="o">.</span><span class="na">OnItemClickListener</span> <span class="o">{</span>
 
     <span class="o">...</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="nc">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Bien ahora que ya somos notificados sobre la pulsación sobre una tarjeta, ¿cómo podemos mostrar al usuario operaciones que hacer sobre estos elementos que está viendo? Pues haciendo uso de los menús de Android. En Google Glass, los menús se comportan de manera distinta, mostrándose cada entrada de menú a pantalla completa como tarjetas sobre las que el usuario puede moverse (adivinad qué vista utilizará el sistema operativo para implementar esto). La manera de implementarlo por tanto es muy conocida por cualquier desarrollador Android, pero vamos a repasarla.</p>
 
 <p>Lo primero será crearnos la definición de nuestro menú, creamos un fichero xml en <strong><em>menu/activity_cards.xml</em></strong>. Los iconos los tenéis disponibles en el repositorio junto con el resto del código.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;menu</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span><span class="nt">&gt;</span>
 
     <span class="nt">&lt;item</span> <span class="na">android:id=</span><span class="s">"@+id/menu_read_aloud"</span>
           <span class="na">android:icon=</span><span class="s">"@drawable/ic_read_aloud"</span>
@@ -501,29 +474,28 @@
         <span class="na">android:title=</span><span class="s">"@string/menu_close"</span> <span class="nt">/&gt;</span>
 
 <span class="nt">&lt;/menu&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Una vez tenemos nuestro menú, vamos a incorporarlo a la actividad. Para ello implementamos los métodos <strong><em>onCreateOptionsMenu()</em></strong> y <strong><em>onOptionsItemSelected()</em></strong> para crear el menú cuando sea necesario y realizar acciones cuando se seleccione un elemento del menú. Si quisieramos personalizar el menú en función del elemento sobre el que se hace la selección, podemos implementar el método <strong><em>onPrepareOptionsMenu()</em></strong> y ocultar/mostrar aquellos elementos que nos interese.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="n">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">activity_cards</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onCreateOptionsMenu</span><span class="o">(</span><span class="nc">Menu</span> <span class="n">menu</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">getMenuInflater</span><span class="o">().</span><span class="na">inflate</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">menu</span><span class="o">.</span><span class="na">activity_cards</span><span class="o">,</span> <span class="n">menu</span><span class="o">);</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="n">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">onOptionsItemSelected</span><span class="o">(</span><span class="nc">MenuItem</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getItemId</span><span class="o">())</span> <span class="o">{</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_read_aloud</span><span class="o">:</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_read_aloud</span><span class="o">:</span>
                 <span class="n">onMenuReadAloud</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_share</span><span class="o">:</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_share</span><span class="o">:</span>
                 <span class="n">onMenuShare</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
-            <span class="k">case</span> <span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_close</span><span class="o">:</span>
+            <span class="k">case</span> <span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">menu_close</span><span class="o">:</span>
                 <span class="n">onMenuClose</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
             <span class="k">default</span><span class="o">:</span>
@@ -533,62 +505,57 @@
     <span class="o">}</span>
 
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya tenemos muestro menú montado, solo nos falta relacionar el <strong><em>onItemClick</em></strong> del <strong><em>CardScrollView</em></strong> con la apertura del menú y escribir código para cada una de las acciones. Lo primero es tan sencillo como esto:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="nc">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">openOptionsMenu</span><span class="o">();</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Pero vamos a complicar un poco el caso, por ejemplo no queremos que para el primer elemento del <strong><em>CardScrollView</em></strong> se muestre un menú. ¿Qué deberíamos hacer? Pues por un lado evitar llamar al método <strong><em>openOptionsMenu()</em></strong> cuando el usuario haga TAP sobre el primer elemento y muy importante, darle <strong>feedback al usuario de que en ese elemento no hay acciones</strong> posibles a realizar. Para esto segundo haremos uso del <strong><em>AudioManager</em></strong> y los sonidos del sistema, que específicamente en Glass están representados por constantes de la clase <strong><em>Sounds</em></strong>, en concreto la constante <em>DISALLOWED</em>. De la misma forma, para darle feedback al usuario de la apertura del menú, haremos lo mismo pero con la constante <em>TAP</em>.</p>
 
 <p>Lo primero, obtener una instancia al <strong><em>AudioManager</em></strong> en el método <strong><em>onCreate()</em></strong>.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="n">AudioManager</span> <span class="n">mAudioManager</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="nc">AudioManager</span> <span class="n">mAudioManager</span><span class="o">;</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
 
-        <span class="n">mAudioManager</span> <span class="o">=</span> <span class="o">(</span><span class="n">AudioManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">AUDIO_SERVICE</span><span class="o">);</span>
+        <span class="n">mAudioManager</span> <span class="o">=</span> <span class="o">(</span><span class="nc">AudioManager</span><span class="o">)</span> <span class="n">getSystemService</span><span class="o">(</span><span class="nc">Context</span><span class="o">.</span><span class="na">AUDIO_SERVICE</span><span class="o">);</span>
         <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora en el método <strong><em>onItemClick()</em></strong> hacemos lo siguiente:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="n">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onItemClick</span><span class="o">(</span><span class="nc">AdapterView</span><span class="o">&lt;?&gt;</span> <span class="n">parent</span><span class="o">,</span> <span class="nc">View</span> <span class="n">view</span><span class="o">,</span> <span class="kt">int</span> <span class="n">position</span><span class="o">,</span> <span class="kt">long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">position</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="n">Sounds</span><span class="o">.</span><span class="na">DISALLOWED</span><span class="o">);</span>
+            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="nc">Sounds</span><span class="o">.</span><span class="na">DISALLOWED</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="n">Sounds</span><span class="o">.</span><span class="na">TAP</span><span class="o">);</span>
+            <span class="n">mAudioManager</span><span class="o">.</span><span class="na">playSoundEffect</span><span class="o">(</span><span class="nc">Sounds</span><span class="o">.</span><span class="na">TAP</span><span class="o">);</span>
             <span class="k">this</span><span class="o">.</span><span class="na">openOptionsMenu</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya tenemos la funcionalidad que queríamos, ahora el primer elemento no muestra el menú y da feedback al usuario de ello. Vamos ahora a darle funcionalidad a las acciones que teníamos. No vamos a implementarlas de verdad para no extendernos demasiado, solo vamos mostrar en el log del sistema que se han ejecutado.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuReadAloud</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuReadAloud()"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuReadAloud</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuReadAloud()"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuShare</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuShare()"</span><span class="o">);</span>
+        <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuShare()"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="kd">private</span> <span class="kt">void</span> <span class="nf">onMenuClose</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuClose()"</span><span class="o">);</span>
+        <span class="nc">Log</span><span class="o">.</span><span class="na">i</span><span class="o">(</span><span class="s">"DEMO3"</span><span class="o">,</span> <span class="s">"onMenuClose()"</span><span class="o">);</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto lo tenemos todo, al ejecutar la aplicación y hacer TAP sobre una de las tarjetas con menú, se nos mostrará dándonos la opción a seleccionar la acción que queremos realizar.</p>
 
@@ -604,7 +571,7 @@
 
 <p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 
@@ -632,19 +599,17 @@
 
 <p>Para asociar un prompt a nuestro voice trigger es tan sencillo como añadir una etiqueta <strong><em>input</em></strong> con un atributo <strong><em>prompt</em></strong> dentro de la etiqueta <strong><em>trigger</em></strong> de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/glass_voice_trigger"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/glass_voice_prompt"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Así de sencillo, con esto cuando el usuario lance nuestra aplicación, el sistema mostrará esa interfaz y capturará lo dicho por el usuario. Pero, ¿cómo recibimos esa información en nuestra aplicación? Pues como no podía ser de otra forma, a través del <strong>Intent</strong>. Para obtenerlo, debemos usar la constante <strong>RecognizerIntent.EXTRA_RESULTS</strong>, con la que obtendremos una lista de String con cada una de las palabras capturadas.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
-        <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="nc">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
+</code></pre></div></div>
 
 <h3 id="creando-un-voice-trigger-con-prompt">Creando un Voice trigger con prompt</h3>
 
@@ -652,7 +617,7 @@
 
 <p>Creamos un layout con nombre <strong>activity_askmesomething.xml</strong>, cuyo contenido será el siguiente.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:orientation=</span><span class="s">"vertical"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
@@ -672,58 +637,53 @@
         <span class="na">android:gravity=</span><span class="s">"center"</span><span class="nt">/&gt;</span>
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora creamos la actividad, enlazando con este layout.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AskMeSomethingActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AskMeSomethingActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_askmesomething</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_askmesomething</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora vamos a obtener una referencia al <strong>TextView</strong> donde vamos a mostrar el texto capturado, recomponemos el texto capturado con un <strong>StringBuilder</strong> y lo asignamos al <strong>TextView</strong>. Quedaría algo así:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="o">...</span>
-        <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
-                <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="n">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">...</span>
+        <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">voiceResults</span> <span class="o">=</span> <span class="n">getIntent</span><span class="o">().</span><span class="na">getExtras</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">getStringArrayList</span><span class="o">(</span><span class="nc">RecognizerIntent</span><span class="o">.</span><span class="na">EXTRA_RESULTS</span><span class="o">);</span>
 
-        <span class="n">StringBuilder</span> <span class="n">inputBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">StringBuilder</span> <span class="n">inputBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span><span class="o">(</span><span class="nc">String</span> <span class="n">voiceToken</span> <span class="o">:</span> <span class="n">voiceResults</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">inputBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">voiceToken</span><span class="o">);</span>
             <span class="n">inputBuilder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">" "</span><span class="o">);</span>
         <span class="o">}</span>
 
-        <span class="n">TextView</span> <span class="n">capturedInputText</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">captured_input</span><span class="o">);</span>
+        <span class="nc">TextView</span> <span class="n">capturedInputText</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span><span class="n">findViewById</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">captured_input</span><span class="o">);</span>
         <span class="n">capturedInputText</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">inputBuilder</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <strong><em>askmesomething_trigger.xml</em></strong> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_ask_me_something"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Modificamos el fichero <strong><em>strings.xml</em></strong> para agregar las nuevas cadenas.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"trigger_ask_me_something"</span><span class="nt">&gt;</span>ask me something<span class="nt">&lt;/string&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"trigger_ask_me_something"</span><span class="nt">&gt;</span>ask me something<span class="nt">&lt;/string&gt;</span>
 <span class="nt">&lt;string</span> <span class="na">name=</span><span class="s">"prompt_ask_me_something"</span><span class="nt">&gt;</span>What\'s your favourite color?<span class="nt">&lt;/string&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y por último agregamos la actividad al <strong><em>AndroidManifest.xml</em></strong>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
         <span class="nt">&lt;activity</span>
             <span class="na">android:name=</span><span class="s">".AskMeSomethingActivity"</span>
             <span class="na">android:label=</span><span class="s">"@string/app_name"</span> <span class="nt">&gt;</span>
@@ -736,8 +696,7 @@
                 <span class="na">android:resource=</span><span class="s">"@xml/askmesomething_trigger"</span> <span class="nt">/&gt;</span>
         <span class="nt">&lt;/activity&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y ya tenemos todo listo, ahora solo nos falta lanzar la aplicación, decir <strong><em>Ok glass, ask me something</em></strong> y veremos la siguiente pantalla:</p>
 
@@ -759,15 +718,14 @@
 
 <p>Por ejemplo, si nuestra aplicación requiere de conexión a internet, podemos limitar su uso con el siguiente código, donde podemos ver que se ha añadido la etiqueta <strong>constraints</strong> con el atributo <strong>network</strong> a <strong>true</strong>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;constraints</span> <span class="na">network=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/trigger&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y esto es todo, el código de este artículo lo tenéis en el repositorio de esta serie de artículos, bajo la carpeta <strong>2.VoiceTriggers</strong>.</p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 
@@ -810,7 +768,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
 
 <span class="n">android</span> <span class="o">{</span>
     <span class="n">compileSdkVersion</span> <span class="s2">"Google Inc.:Glass Development Kit Sneak Peek:15"</span>
@@ -820,8 +778,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
         <span class="n">minSdkVersion</span> <span class="mi">15</span>
         <span class="n">targetSdkVersion</span> <span class="mi">15</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="androidmanifest-y-estilos">AndroidManifest y estilos</h3>
 
@@ -829,15 +786,14 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Necesitamos agregar el siguiente trozo de código dentro de la etiqueta <em><strong>application</strong></em>:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;uses-library</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;uses-library</span>
     <span class="na">android:name=</span><span class="s">"com.google.android.glass"</span>
     <span class="na">android:required=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para terminar de configurar el proyecto antes de comenzar a escribir código de verdad, tendremos que modificar el fichero <strong><em>res/values/styles.xml</em></strong>, para cambiar el tema base que usará nuestra aplicación. Si dejamos el que pone Android Studio, <strong>nos aparecerá en nuestra aplicación Google Glass el Action Bar</strong>, cosa nada deseable. Debemos configurar el tema para que herede del tema que trae el sistema por defecto, quedando nuestro fichero <strong><em>styles.xml</em></strong> de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
 
     <span class="c">&lt;!-- Base application theme. --&gt;</span>
     <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"AppTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
@@ -845,8 +801,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
     <span class="nt">&lt;/style&gt;</span>
 
 <span class="nt">&lt;/resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <em>drawable-mdpi</em>, <em>drawable-xhdpi</em>, <em>drawable-xxhdpi</em>, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
 
@@ -856,43 +811,40 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Creamos una nueva clase llamada <strong><em>HelloWorldActivity</em></strong>, haciendo que extienda de <strong><em>Activity</em></strong>. Y como siempre en cualquier aplicación Android, sobrescribimos el método <em><strong>onCreate()</strong></em> y establecemos el layout para nuestra actividad.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_helloworld</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_helloworld</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <strong><em>res/layout/activity_helloworld.xml</em></strong>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
     <span class="na">android:gravity=</span><span class="s">"center"</span>
     <span class="na">android:text=</span><span class="s">"HelloWorld!"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora que ya tenemos nuestra actividad, vamos a crear el lanzador por comando de voz. Para ello tenemos que <strong>crear un Voice Trigger</strong>. Un Voice Trigger es un pequeño fichero XML en el que indicamos a Android el <strong>comando de voz</strong> que queremos que lance nuestra aplicación. Para ello, crear un fichero en <strong><em>res/xml/trigger.xml</em></strong>. En él, pondremos el siguiente código:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/glass_voice_trigger"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Muy simple, solo estamos indicando cuál es la frase que lanza nuestra aplicación. Vamos ahora a nuestro fichero <em><strong>res/values/string.xml</strong></em> y creamos la cadena <strong><em>glass_voice_trigger</em></strong> con el valor <em>say hello</em>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
 
 ...
 
@@ -901,12 +853,11 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 ...
 
 <span class="nt">&lt;/resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Pero, ¿cómo relaciona Glass el comando de voz con la actividad que queremos que lance? Pues como siempre en Android, todo ello se configura como un <strong><em>intent-filter</em></strong>, con el cual indicaremos al sistema qué comando de voz queremos que dispare nuestra actividad. Nos vamos al <strong><em>AndroidManifest.xml</em></strong> y agregamos la actividad que hemos creado, añadiendo un <strong><em>intent-filter</em></strong> que capture la acción <strong><em>com.google.android.glass.action.VOICE_TRIGGER</em></strong> y añadimos como metadatos el fichero xml que creamos anteriormente, quedando así:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
     <span class="nt">&lt;application</span> <span class="err">...</span><span class="nt">&gt;</span>
 
         ...
@@ -924,8 +875,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
     <span class="nt">&lt;/application&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto ya tenemos nuestra aplicación lista para ser lanzada. Conectamos la Google Glass y lanzamos la aplicación. Una cosa que notaréis es que el entorno os dirá que no tenéis definido ninguna actividad principal. Ignoradlo y haced que se lance sin configurar ninguna actividad por defecto.</p>
 
@@ -937,7 +887,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <strong>1.Helloworld</strong>. <em>Happy coding!</em></p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 

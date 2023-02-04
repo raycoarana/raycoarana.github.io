@@ -17,7 +17,7 @@
     <!-- [[! Styles'n'Scripts ]] -->
     <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
     <link rel="stylesheet" type="text/css"
-          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+          href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
 
@@ -39,8 +39,8 @@
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
 
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
     <script>
     window.addEventListener("load", function(){
     window.cookieconsent.initialise({
@@ -86,7 +86,7 @@
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
@@ -115,7 +115,7 @@
     <nav class="main-nav  overlay  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
-            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
     </nav>
 </header>
@@ -159,13 +159,12 @@
 
 <p>Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta <strong>assets</strong>) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="n">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Typeface</span> <span class="n">tf</span> <span class="o">=</span> <span class="nc">Typeface</span><span class="o">.</span><span class="na">createFromAsset</span><span class="o">(</span><span class="n">getAssets</span><span class="o">(),</span> 
                                        <span class="s">"fonts/mycustomfont.ttf"</span><span class="o">);</span>
         
-<span class="n">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="n">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
+<span class="nc">TextView</span> <span class="n">myView</span> <span class="o">=</span> <span class="o">(</span><span class="nc">TextView</span><span class="o">)</span> <span class="n">findViewById</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">R</span><span class="o">.</span><span class="na">id</span><span class="o">.</span><span class="na">text1</span><span class="o">);</span>
 <span class="n">myView</span><span class="o">.</span><span class="na">setTypeface</span><span class="o">(</span><span class="n">tf</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se <strong>definan de forma declarativa</strong> por completo en el XML del layout.</p>
 
@@ -177,7 +176,7 @@
 
 <p>¿Desventajas de esta forma de trabajo? Pues que implica agregar una dependencia en todo el proyecto con esta librería, introduciendo sus atributos propios en las vistas. Además lo peor es que el editor de layouts pierde muchas veces la capacidad de mostrar el predictivo a la hora de escribir atributos. Además las vistas nos quedarán con esos <strong>nombres de controles enormes</strong> que incluyen el nombre del paquete de la clase y hacen menos legible nuestro código.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;LinearLayout</span>
     <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
@@ -196,8 +195,7 @@
 ...
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="solución-2-calligraphy">Solución 2. Calligraphy</h3>
 
@@ -205,16 +203,15 @@
 
 <p>Para que esto funcione, lo que tendremos que hacer es <strong>envolver</strong> el contexto de nuestra actividad con este <strong>Wrapper</strong>, haciendo lo siguiente:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="nc">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="nc">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">));</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora solo nos queda indicar que fuente queremos usar en las vistas, retomando el ejemplo anterior, sería algo así:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;LinearLayout</span>
     <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span> 
@@ -232,30 +229,27 @@
 ...
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;Resources&gt;</span>
     <span class="nt">&lt;attr</span> <span class="na">name=</span><span class="s">"customFont"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/Resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora necesitamos indicarle a Calligraphy cual es el atributo que vamos a usar.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="n">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="n">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">,</span> <span class="n">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">customFont</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="kd">protected</span> <span class="kt">void</span> <span class="nf">attachBaseContext</span><span class="o">(</span><span class="nc">Context</span> <span class="n">newBase</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">.</span><span class="na">attachBaseContext</span><span class="o">(</span><span class="k">new</span> <span class="nc">CalligraphyContextWrapper</span><span class="o">(</span><span class="n">newBase</span><span class="o">,</span> <span class="no">R</span><span class="o">.</span><span class="na">attr</span><span class="o">.</span><span class="na">customFont</span><span class="o">));</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y ya solo nos queda utilizarlo en las vistas.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;LinearLayout</span>
     <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
@@ -273,14 +267,13 @@
 ...
 
 <span class="nt">&lt;/LinearLayout&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
 <p>Sin duda Calligraphy <strong>es lo que Google debería haber soportado en Android desde hace mucho tiempo</strong>. Integrándolo en la librería de compatibilidad abriría incluso su uso en cualquier versión de la API. Su solución es bastante limpia, no acopla todo nuestro código a controles personalizados y nos permite gestionar todo con estilos y temas, por lo que <strong>podemos centralizar el uso de las fuentes en nuestros ficheros de estilos</strong>. Os dejo el enlace al repositorio donde podéis encontrar el código y ver cómo funciona.</p>
 
-<div class="github-box repo" data-repo="chrisjenx/Calligraphy">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/chrisjenx">chrisjenx</a>/<a class="repo" href="http://github.com/chrisjenx/Calligraphy">Calligraphy</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/chrisjenx/Calligraphy/watchers">?</a><a class="forks" href="http://github.com/chrisjenx/Calligraphy/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/chrisjenx/Calligraphy#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/chrisjenx/Calligraphy/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="chrisjenx/Calligraphy">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/chrisjenx">chrisjenx</a>/<a class="repo" href="https://github.com/chrisjenx/Calligraphy">Calligraphy</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/chrisjenx/Calligraphy/watchers">?</a><a class="forks" href="https://github.com/chrisjenx/Calligraphy/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/chrisjenx/Calligraphy#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/chrisjenx/Calligraphy/zipball/master">Download as zip</a></div></div>
 
 
         </section>
@@ -304,7 +297,7 @@
                 
                 <div class="author-meta">
                     <span class="author-location icon-location"> Madrid, Spain</span> 
-                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                    <span class="author-link icon-link"><a href="https://raycoarana.com/"> raycoarana.com</a></span> 
                 </div>
             </section>
 
@@ -312,15 +305,15 @@
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=Calligraphy, fuentes personalizadas en Android&amp;url=http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/"
+                <a class="icon-twitter" href="https://twitter.com/share?text=Calligraphy, fuentes personalizadas en Android&amp;url=https://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -363,7 +356,7 @@
 
 
         <footer class="site-footer clearfix">
-          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2023</section>
           <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
         </footer>
     </div>

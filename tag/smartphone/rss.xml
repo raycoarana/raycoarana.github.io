@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -27,7 +27,7 @@
 
 <p>El primer antipatrón es el que utiliza el panel flotante del ActionBar como elemento de navegación por la aplicación. Esto es un mal patrón ya que el ActionBar, como su propio nombre indica, es una <strong>barra de acciones</strong> y ahí han de residir los elementos con los que el usuario pueda realizar acciones sobre el contenido que se muestra. Peor aún es que las acciones que no se muestran y se dejan en el menú flotante, se consideran acciones secundarias, que el usuario utiliza con poca frecuencia, por lo que si seguimos este antipatrón, estamos dejando el elemento más importante de nuestra aplicación (la navegación por ella) relegada al lugar donde el usuario menos se lo espera.</p>
 
-<p>Como elementos de navegación debemos usar otros patrones, bien explicados en la <a href="http://developer.android.com/design">web oficial de android</a> y utilizar el Navigation Drawer o pestañas.</p>
+<p>Como elementos de navegación debemos usar otros patrones, bien explicados en la <a href="https://developer.android.com/design">web oficial de android</a> y utilizar el Navigation Drawer o pestañas.</p>
 
 <h4 id="2-mala-utilización-de-los-elementos-de-navegación">2. Mala utilización de los elementos de navegación</h4>
 

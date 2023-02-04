@@ -4,7 +4,7 @@
     <title>raycoarana - Articles</title>
     <description>My coding adventures and other random stuff</description>
     <link>
-    http://raycoarana.com/</link>
+    https://raycoarana.com/</link>
     
       
       <item>
@@ -14,14 +14,14 @@
 
 &lt;p&gt;&lt;a href=&quot;https://speakerd.s3.amazonaws.com/presentations/ef9ad55c34fe4a68b961eb0a214f34ce/Concurrency-with-Promise-Style.pdf&quot;&gt;&lt;strong&gt;Descargar&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
-&lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;ef9ad55c34fe4a68b961eb0a214f34ce&quot; data-ratio=&quot;1.77777777777778&quot; src=&quot;//speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;
+&lt;script async=&quot;&quot; class=&quot;speakerdeck-embed&quot; data-id=&quot;ef9ad55c34fe4a68b961eb0a214f34ce&quot; data-ratio=&quot;1.77777777777778&quot; src=&quot;https://speakerdeck.com/assets/embed.js&quot;&gt;&lt;/script&gt;
 
 </description>
         
         <pubDate>Sat, 25 Apr 2015 17:25:02 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</guid>
+        https://raycoarana.com//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2015/04/concurrency-with-promise-style-droidcon-2015/</guid>
       </item>
       
     
@@ -46,8 +46,8 @@
         
         <pubDate>Tue, 20 Jan 2015 22:59:40 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/</guid>
+        https://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2015/01/baindo-un-mvvm-diferente-para-android/</guid>
       </item>
       
     
@@ -61,8 +61,8 @@
         
         <pubDate>Mon, 03 Nov 2014 23:17:07 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/11/roborouter/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/11/roborouter/</guid>
+        https://raycoarana.com//blog/2014/11/roborouter/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/11/roborouter/</guid>
       </item>
       
     
@@ -76,8 +76,8 @@
         
         <pubDate>Sun, 07 Sep 2014 22:28:14 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/</guid>
+        https://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/09/full-text-search-contra-formas-busqueda/</guid>
       </item>
       
     
@@ -93,8 +93,8 @@
         
         <pubDate>Fri, 08 Aug 2014 00:02:48 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/08/patron-promise-con-jdeferred/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/08/patron-promise-con-jdeferred/</guid>
+        https://raycoarana.com//blog/2014/08/patron-promise-con-jdeferred/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/08/patron-promise-con-jdeferred/</guid>
       </item>
       
     
@@ -110,8 +110,8 @@
         
         <pubDate>Thu, 19 Jun 2014 10:59:16 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/</guid>
+        https://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/06/prototipado-de-apps-con-wireframesketcher/</guid>
       </item>
       
     
@@ -123,13 +123,12 @@
 
 &lt;p&gt;Básicamente para establecer una fuente distinta a las que trae el sistema por defecto, debemos instanciar la fuente (que normalmente tendremos en la carpeta &lt;strong&gt;assets&lt;/strong&gt;) y asignarla a la vista de turno. El código sería algo así de horrible (horrible porque hacer esto por cada vista es una locura desde el punto de vista de mantenimiento de este tipo de código).&lt;/p&gt;
 
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Typeface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Typeface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createFromAsset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getAssets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; 
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Typeface&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Typeface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;createFromAsset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getAssets&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; 
                                        &lt;span class=&quot;s&quot;&gt;&quot;fonts/mycustomfont.ttf&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         
-&lt;span class=&quot;n&quot;&gt;TextView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;text1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;TextView&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myView&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;TextView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;findViewById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;android&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;R&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;text1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;myView&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeface&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Vamos a ver algunas formas para mejorar lo anterior y dejar que nuestras vistas se &lt;strong&gt;definan de forma declarativa&lt;/strong&gt; por completo en el XML del layout.&lt;/p&gt;
 
@@ -137,8 +136,8 @@
         
         <pubDate>Mon, 16 Jun 2014 21:15:48 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/</guid>
+        https://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/06/calligraphy-fuentes-personalizadas-android/</guid>
       </item>
       
     
@@ -146,16 +145,16 @@
       <item>
         <title>Parcelables con Android AutoParcel</title>
         
-          <description>&lt;p&gt;Cuando vamos a crear una app en Android y tenemos que pasar datos entre &lt;em&gt;Activities&lt;/em&gt; y/o &lt;em&gt;Fragments&lt;/em&gt;, el sistema operativo nos brinda la posibilidad de usar un &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundle&lt;/code&gt;, ya sea a través del &lt;code class=&quot;highlighter-rouge&quot;&gt;Intent&lt;/code&gt; (y el Bundle de extras) o a través del método &lt;code class=&quot;highlighter-rouge&quot;&gt;setArguments()&lt;/code&gt; de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que &lt;strong&gt;no crea acoplamientos poco deseables&lt;/strong&gt;, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el &lt;code class=&quot;highlighter-rouge&quot;&gt;Activity&lt;/code&gt; o &lt;code class=&quot;highlighter-rouge&quot;&gt;Fragment&lt;/code&gt; debido al ciclo de vida de la aplicación.&lt;/p&gt;
+          <description>&lt;p&gt;Cuando vamos a crear una app en Android y tenemos que pasar datos entre &lt;em&gt;Activities&lt;/em&gt; y/o &lt;em&gt;Fragments&lt;/em&gt;, el sistema operativo nos brinda la posibilidad de usar un &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bundle&lt;/code&gt;, ya sea a través del &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Intent&lt;/code&gt; (y el Bundle de extras) o a través del método &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setArguments()&lt;/code&gt; de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que &lt;strong&gt;no crea acoplamientos poco deseables&lt;/strong&gt;, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Activity&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Fragment&lt;/code&gt; debido al ciclo de vida de la aplicación.&lt;/p&gt;
 
-&lt;p&gt;El problema viene con los tipos de datos que nos permite almacenar un &lt;code class=&quot;highlighter-rouge&quot;&gt;Bundle&lt;/code&gt;, estos son tipos básicos u objetos que implementen la interfaz &lt;code class=&quot;highlighter-rouge&quot;&gt;Serializable&lt;/code&gt; o &lt;code class=&quot;highlighter-rouge&quot;&gt;Parcelable&lt;/code&gt;. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema &lt;strong&gt;por medio de reflexión es capaz de serializar el objeto a una representación binaria&lt;/strong&gt; que se puede persistir. En el caso de &lt;code class=&quot;highlighter-rouge&quot;&gt;Parcelable&lt;/code&gt;, sin embargo, debemos implementar dos métodos para serializar -&lt;code class=&quot;highlighter-rouge&quot;&gt;writeToParcel()&lt;/code&gt;- y deserializar -&lt;code class=&quot;highlighter-rouge&quot;&gt;constructor&lt;/code&gt;- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy &lt;strong&gt;tedioso y difícil de mantener&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;El problema viene con los tipos de datos que nos permite almacenar un &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bundle&lt;/code&gt;, estos son tipos básicos u objetos que implementen la interfaz &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Serializable&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Parcelable&lt;/code&gt;. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema &lt;strong&gt;por medio de reflexión es capaz de serializar el objeto a una representación binaria&lt;/strong&gt; que se puede persistir. En el caso de &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Parcelable&lt;/code&gt;, sin embargo, debemos implementar dos métodos para serializar -&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;writeToParcel()&lt;/code&gt;- y deserializar -&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;constructor&lt;/code&gt;- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy &lt;strong&gt;tedioso y difícil de mantener&lt;/strong&gt;.&lt;/p&gt;
 
 </description>
         
         <pubDate>Mon, 09 Jun 2014 22:29:34 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/06/parcelables-con-android-autoparcel/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/06/parcelables-con-android-autoparcel/</guid>
+        https://raycoarana.com//blog/2014/06/parcelables-con-android-autoparcel/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/06/parcelables-con-android-autoparcel/</guid>
       </item>
       
     
@@ -173,8 +172,8 @@
         
         <pubDate>Tue, 29 Apr 2014 23:00:32 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/</guid>
+        https://raycoarana.com//blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/04/timeline-y-live-cards-primeros-pasos-con-google-glass-iv/</guid>
       </item>
       
     
@@ -188,8 +187,8 @@
         
         <pubDate>Mon, 31 Mar 2014 09:00:45 +0200</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</guid>
+        https://raycoarana.com//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</guid>
       </item>
       
     
@@ -203,8 +202,8 @@
         
         <pubDate>Fri, 28 Mar 2014 18:47:02 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/</guid>
+        https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-iii/</guid>
       </item>
       
     
@@ -218,8 +217,8 @@
         
         <pubDate>Wed, 26 Mar 2014 08:42:01 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/</guid>
+        https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/</guid>
       </item>
       
     
@@ -233,8 +232,8 @@
         
         <pubDate>Wed, 05 Mar 2014 19:09:43 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/</guid>
+        https://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/03/ssl-pinning-ataques-man-in-the-middle/</guid>
       </item>
       
     
@@ -248,8 +247,8 @@
         
         <pubDate>Sun, 02 Mar 2014 20:24:59 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/</guid>
+        https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass/</guid>
       </item>
       
     
@@ -263,8 +262,8 @@
         
         <pubDate>Sun, 02 Mar 2014 13:00:38 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/03/antipatrones-de-navegacion-en-android/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/03/antipatrones-de-navegacion-en-android/</guid>
+        https://raycoarana.com//blog/2014/03/antipatrones-de-navegacion-en-android/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/03/antipatrones-de-navegacion-en-android/</guid>
       </item>
       
     
@@ -272,29 +271,28 @@
       <item>
         <title>Esto empieza...</title>
         
-          <description>&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;raycoarana&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+          <description>&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;com.raycoarana.blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;Blog&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addTheme&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;feather&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;prepare&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PublishListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;blog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;publish&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PublishListener&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
             &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;onSuccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Let's start coding!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+                &lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Let&apos;s start coding!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
             &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
         &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
         
         <pubDate>Sun, 23 Feb 2014 12:50:21 +0100</pubDate>
         <link>
-        http://raycoarana.com//blog/2014/02/hello-world/</link>
-        <guid isPermaLink="true">http://raycoarana.com//blog/2014/02/hello-world/</guid>
+        https://raycoarana.com//blog/2014/02/hello-world/</link>
+        <guid isPermaLink="true">https://raycoarana.com//blog/2014/02/hello-world/</guid>
       </item>
       
     

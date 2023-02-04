@@ -17,7 +17,7 @@
     <!-- [[! Styles'n'Scripts ]] -->
     <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
     <link rel="stylesheet" type="text/css"
-          href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+          href="https://fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
     <link rel="stylesheet" type="text/css" href="/assets/css/syntax.css" />
     <link rel="stylesheet" type="text/css" href="/assets/css/contact.css" />
 
@@ -39,8 +39,8 @@
     <meta name="twitter:url" content="/" />
     <meta name="twitter:image:src" content="/assets/images/cover1.jpg" />
 
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
     <script>
     window.addEventListener("load", function(){
     window.cookieconsent.initialise({
@@ -86,7 +86,7 @@
 
     <div class="nav">
     <h3 class="nav-title">Menu</h3>
-    <a href class="nav-close">
+    <a href="#" class="nav-close">
         <span class="hidden">Close</span>
     </a>
     <ul>
@@ -115,7 +115,7 @@
     <nav class="main-nav  clearfix">
         <a class="blog-logo" href="/"><img src="/assets/images/main-logo.png" alt="Blog Logo" /></a>
         
-            <a class="menu-button icon-menu" href><span class="word">Menu</span></a>
+            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
         
     </nav>
 </header>
@@ -190,7 +190,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
 
 <span class="n">android</span> <span class="o">{</span>
     <span class="n">compileSdkVersion</span> <span class="s2">"Google Inc.:Glass Development Kit Sneak Peek:15"</span>
@@ -200,8 +200,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
         <span class="n">minSdkVersion</span> <span class="mi">15</span>
         <span class="n">targetSdkVersion</span> <span class="mi">15</span>
 <span class="o">...</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="androidmanifest-y-estilos">AndroidManifest y estilos</h3>
 
@@ -209,15 +208,14 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Necesitamos agregar el siguiente trozo de código dentro de la etiqueta <em><strong>application</strong></em>:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;uses-library</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;uses-library</span>
     <span class="na">android:name=</span><span class="s">"com.google.android.glass"</span>
     <span class="na">android:required=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Para terminar de configurar el proyecto antes de comenzar a escribir código de verdad, tendremos que modificar el fichero <strong><em>res/values/styles.xml</em></strong>, para cambiar el tema base que usará nuestra aplicación. Si dejamos el que pone Android Studio, <strong>nos aparecerá en nuestra aplicación Google Glass el Action Bar</strong>, cosa nada deseable. Debemos configurar el tema para que herede del tema que trae el sistema por defecto, quedando nuestro fichero <strong><em>styles.xml</em></strong> de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
 
     <span class="c">&lt;!-- Base application theme. --&gt;</span>
     <span class="nt">&lt;style</span> <span class="na">name=</span><span class="s">"AppTheme"</span> <span class="na">parent=</span><span class="s">"@android:style/Theme.DeviceDefault"</span><span class="nt">&gt;</span>
@@ -225,8 +223,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
     <span class="nt">&lt;/style&gt;</span>
 
 <span class="nt">&lt;/resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <em>drawable-mdpi</em>, <em>drawable-xhdpi</em>, <em>drawable-xxhdpi</em>, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
 
@@ -236,43 +233,40 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>Creamos una nueva clase llamada <strong><em>HelloWorldActivity</em></strong>, haciendo que extienda de <strong><em>Activity</em></strong>. Y como siempre en cualquier aplicación Android, sobrescribimos el método <em><strong>onCreate()</strong></em> y establecemos el layout para nuestra actividad.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.app.Activity</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Bundle</span><span class="o">;</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldActivity</span> <span class="kd">extends</span> <span class="n">Activity</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldActivity</span> <span class="kd">extends</span> <span class="nc">Activity</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="n">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onCreate</span><span class="o">(</span><span class="nc">Bundle</span> <span class="n">savedInstanceState</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">onCreate</span><span class="o">(</span><span class="n">savedInstanceState</span><span class="o">);</span>
-        <span class="n">setContentView</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_helloworld</span><span class="o">);</span>
+        <span class="n">setContentView</span><span class="o">(</span><span class="no">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">activity_helloworld</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <strong><em>res/layout/activity_helloworld.xml</em></strong>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;TextView</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:layout_width=</span><span class="s">"match_parent"</span>
     <span class="na">android:layout_height=</span><span class="s">"match_parent"</span>
     <span class="na">android:gravity=</span><span class="s">"center"</span>
     <span class="na">android:text=</span><span class="s">"HelloWorld!"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora que ya tenemos nuestra actividad, vamos a crear el lanzador por comando de voz. Para ello tenemos que <strong>crear un Voice Trigger</strong>. Un Voice Trigger es un pequeño fichero XML en el que indicamos a Android el <strong>comando de voz</strong> que queremos que lance nuestra aplicación. Para ello, crear un fichero en <strong><em>res/xml/trigger.xml</em></strong>. En él, pondremos el siguiente código:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
 <span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/glass_voice_trigger"</span><span class="nt">/&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Muy simple, solo estamos indicando cuál es la frase que lanza nuestra aplicación. Vamos ahora a nuestro fichero <em><strong>res/values/string.xml</strong></em> y creamos la cadena <strong><em>glass_voice_trigger</em></strong> con el valor <em>say hello</em>.</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;resources&gt;</span>
 
 ...
 
@@ -281,12 +275,11 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 ...
 
 <span class="nt">&lt;/resources&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Pero, ¿cómo relaciona Glass el comando de voz con la actividad que queremos que lance? Pues como siempre en Android, todo ello se configura como un <strong><em>intent-filter</em></strong>, con el cual indicaremos al sistema qué comando de voz queremos que dispare nuestra actividad. Nos vamos al <strong><em>AndroidManifest.xml</em></strong> y agregamos la actividad que hemos creado, añadiendo un <strong><em>intent-filter</em></strong> que capture la acción <strong><em>com.google.android.glass.action.VOICE_TRIGGER</em></strong> y añadimos como metadatos el fichero xml que creamos anteriormente, quedando así:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>...
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
     <span class="nt">&lt;application</span> <span class="err">...</span><span class="nt">&gt;</span>
 
         ...
@@ -304,8 +297,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
     <span class="nt">&lt;/application&gt;</span>
 ...
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto ya tenemos nuestra aplicación lista para ser lanzada. Conectamos la Google Glass y lanzamos la aplicación. Una cosa que notaréis es que el entorno os dirá que no tenéis definido ninguna actividad principal. Ignoradlo y haced que se lance sin configurar ninguna actividad por defecto.</p>
 
@@ -317,7 +309,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <strong>1.Helloworld</strong>. <em>Happy coding!</em></p>
 
-<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="http://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 
@@ -345,7 +337,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
                 
                 <div class="author-meta">
                     <span class="author-location icon-location"> Madrid, Spain</span> 
-                    <span class="author-link icon-link"><a href="http://raycoarana.com/"> raycoarana.com</a></span> 
+                    <span class="author-link icon-link"><a href="https://raycoarana.com/"> raycoarana.com</a></span> 
                 </div>
             </section>
 
@@ -353,15 +345,15 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
             <section class="share">
                 <h4>Share this post</h4>
-                <a class="icon-twitter" href="http://twitter.com/share?text=Primeros pasos con Google Glass (II)&amp;url=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/"
+                <a class="icon-twitter" href="https://twitter.com/share?text=Primeros pasos con Google Glass (II)&amp;url=https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                     <span class="hidden">Twitter</span>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/"
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
                     <span class="hidden">Facebook</span>
                 </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url=http://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/"
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://raycoarana.com//blog/2014/03/primeros-pasos-con-google-glass-ii/"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
                     <span class="hidden">Google+</span>
                 </a>
@@ -404,7 +396,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 
         <footer class="site-footer clearfix">
-          <section class="copyright"><a href="/">raycoarana</a> &copy; 2018</section>
+          <section class="copyright"><a href="/">raycoarana</a> &copy; 2023</section>
           <section class="poweredby">Proudly published with <a href="https://jekyllrb.com/">Jekyll</a> using <a href="https://github.com/biomadeira/jasper">Jasper</a></section>
         </footer>
     </div>

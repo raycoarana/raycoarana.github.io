@@ -5,7 +5,7 @@
    
       <title>raycoarana.com</title>
    
-   <link>http://raycoarana.com/</link>
+   <link>https://raycoarana.com/</link>
    <description>My coding adventures and other random stuff</description>
    <language>en-uk</language>
    <managingEditor> Rayco Araña</managingEditor>
@@ -26,7 +26,7 @@
 
 <p>Pasaos por <a href="https://github.com/raycoarana/roborouter">GitHub</a> y mirad como funciona, descargad el proyecto de ejemplo y jugad con él. Cualquier sugerencia será bienvenida.</p>
 
-<div class="github-box repo" data-repo="raycoarana/roborouter">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/raycoarana">raycoarana</a>/<a class="repo" href="http://github.com/raycoarana/roborouter">roborouter</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/raycoarana/roborouter/watchers">?</a><a class="forks" href="http://github.com/raycoarana/roborouter/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/raycoarana/roborouter#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/raycoarana/roborouter/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="raycoarana/roborouter">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/roborouter">roborouter</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/roborouter/watchers">?</a><a class="forks" href="https://github.com/raycoarana/roborouter/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/roborouter#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/roborouter/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
@@ -38,9 +38,9 @@
 	  <pubDate>2014-06-09T22:29:34+02:00</pubDate>
 	  <guid>//blog/2014/06/parcelables-con-android-autoparcel/</guid>
 	  <description><![CDATA[
-	     <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="highlighter-rouge">Bundle</code>, ya sea a través del <code class="highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="highlighter-rouge">Activity</code> o <code class="highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
+	     <p>Cuando vamos a crear una app en Android y tenemos que pasar datos entre <em>Activities</em> y/o <em>Fragments</em>, el sistema operativo nos brinda la posibilidad de usar un <code class="language-plaintext highlighter-rouge">Bundle</code>, ya sea a través del <code class="language-plaintext highlighter-rouge">Intent</code> (y el Bundle de extras) o a través del método <code class="language-plaintext highlighter-rouge">setArguments()</code> de los Fragments. Esta es la manera idónea de pasar datos entre componentes, ya que <strong>no crea acoplamientos poco deseables</strong>, además estos se gestionan de manera automática por el sistema, por lo que no debemos preocuparnos de qué pasa con ellos si el sistema ha tenido que recrear el <code class="language-plaintext highlighter-rouge">Activity</code> o <code class="language-plaintext highlighter-rouge">Fragment</code> debido al ciclo de vida de la aplicación.</p>
 
-<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="highlighter-rouge">Serializable</code> o <code class="highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
+<p>El problema viene con los tipos de datos que nos permite almacenar un <code class="language-plaintext highlighter-rouge">Bundle</code>, estos son tipos básicos u objetos que implementen la interfaz <code class="language-plaintext highlighter-rouge">Serializable</code> o <code class="language-plaintext highlighter-rouge">Parcelable</code>. A la hora de implementar una u otra interfaz, la primera es sencilla, con solo hacer que nuestra clase implemente la interfaz Serializable el sistema <strong>por medio de reflexión es capaz de serializar el objeto a una representación binaria</strong> que se puede persistir. En el caso de <code class="language-plaintext highlighter-rouge">Parcelable</code>, sin embargo, debemos implementar dos métodos para serializar -<code class="language-plaintext highlighter-rouge">writeToParcel()</code>- y deserializar -<code class="language-plaintext highlighter-rouge">constructor</code>- el objeto. Además debemos escribirlo con sumo cuidado y en perfecto orden inverso o no funcionará, algo muy <strong>tedioso y difícil de mantener</strong>.</p>
 
 <!--more-->
 
@@ -55,7 +55,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz <strong>build.gradle</strong>, donde agregaremos en las dependencias la siguiente línea:</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">buildscript</span> <span class="o">{</span>
     <span class="n">repositories</span> <span class="o">{</span>
         <span class="n">mavenCentral</span><span class="o">()</span>
     <span class="o">}</span>
@@ -70,12 +70,11 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
         <span class="n">mavenCentral</span><span class="o">()</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora nos vamos al fichero <strong>build.gradle</strong> de la aplicación, lo primero será aplicar el plug-in <strong>android-apt</strong> y luego agregamos en la sección de dependencias del proyecto tanto el procesador que generará el código en tiempo de compilación como la librería con las anotaciones de AutoParcel.</p>
 
-<div class="language-groovy highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
+<div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
 <span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android-apt'</span>
 
 <span class="n">android</span> <span class="o">{</span>
@@ -87,42 +86,39 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
     <span class="n">compile</span> <span class="s1">'com.github.frankiesardo:android-auto-value:+'</span>
     <span class="n">apt</span> <span class="s1">'com.github.frankiesardo:android-auto-value-processor:+'</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Ahora refrescamos el proyecto y vamos a escribir nuestro primer objeto con AutoParcel. Nuestras <strong>clases tendrán que ser abstractas</strong> y <strong>por cada propiedad que queramos que tenga, debemos generar un método abstracto</strong> para obtener su valor.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
 <span class="nd">@AutoValue</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="nc">Parcelable</span> <span class="o">{</span>
 
-   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="nc">String</span> <span class="nf">fooString</span><span class="o">();</span>
    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<p>Solo nos falta una forma para poder construir objetos de tipo <code class="highlighter-rouge">Foo</code>, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <code class="highlighter-rouge">AutoValue_Foo</code> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
+<p>Solo nos falta una forma para poder construir objetos de tipo <code class="language-plaintext highlighter-rouge">Foo</code>, para ello agregamos un método estático con todos los valores e internamente y llamaremos en su interior al constructor del objeto que AutoParcel genera. El orden de los parámetros será el mismo con el que hemos escrito nuestra clase abstracta. Al momento de escribir este código muy probablemente la clase <code class="language-plaintext highlighter-rouge">AutoValue_Foo</code> aún no exista, debemos compilar para que el generador se ejecute y cree la clase.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">android.auto.value.AutoValue</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">android.os.Parcelable</span><span class="o">;</span>
 
 <span class="nd">@AutoValue</span>
-<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="n">Parcelable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Foo</span> <span class="kd">implements</span> <span class="nc">Parcelable</span> <span class="o">{</span>
 
-   <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">String</span> <span class="nf">fooString</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kd">abstract</span> <span class="nc">String</span> <span class="nf">fooString</span><span class="o">();</span>
    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">fooInteger</span><span class="o">();</span>
 
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Foo</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">fooString</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fooInteger</span><span class="o">)</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Foo</span> <span class="nf">create</span><span class="o">(</span><span class="nc">String</span> <span class="n">fooString</span><span class="o">,</span> <span class="kt">int</span> <span class="n">fooInteger</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nf">AutoValue_Foo</span><span class="o">(</span><span class="n">fooString</span><span class="o">,</span> <span class="n">fooInteger</span><span class="o">);</span>
    <span class="o">}</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Y con esto ya está todo, de esta forma tan simple podemos ahora generar objetos que utilizar como argumentos o extras para los <em>Fragments</em> y <em>Activities</em> que usemos en nuestras aplicaciones, reduciendo la cantidad de código que tenemos que escribir considerablemente y sin caer en malas prácticas acoplando los componentes de nuestra aplicación.</p>
 
@@ -130,7 +126,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <p>Puedes obtener más info y acceder al código en su página en GitHub.</p>
 
-<div class="github-box repo" data-repo="frankiesardo/auto-parcel">  <div class="github-box-title">    <h3><a class="owner" href="http://github.com/frankiesardo">frankiesardo</a>/<a class="repo" href="http://github.com/frankiesardo/auto-parcel">auto-parcel</a></h3>    <div class="github-stats"><a class="watchers" href="http://github.com/frankiesardo/auto-parcel/watchers">?</a><a class="forks" href="http://github.com/frankiesardo/auto-parcel/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="http://github.com/frankiesardo/auto-parcel#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="http://github.com/frankiesardo/auto-parcel/zipball/master">Download as zip</a></div></div>
+<div class="github-box repo" data-repo="frankiesardo/auto-parcel">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/frankiesardo">frankiesardo</a>/<a class="repo" href="https://github.com/frankiesardo/auto-parcel">auto-parcel</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/frankiesardo/auto-parcel/watchers">?</a><a class="forks" href="https://github.com/frankiesardo/auto-parcel/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/frankiesardo/auto-parcel#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/frankiesardo/auto-parcel/zipball/master">Download as zip</a></div></div>
 
 	  ]]></description>
 	</item>
