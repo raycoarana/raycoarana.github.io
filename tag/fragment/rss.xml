@@ -24,14 +24,14 @@
 
 <!--more-->
 
-<h3 id="porqué-usar-parcelable-sobre-serializable">¿Porqué usar Parcelable sobre Serializable?</h3>
+<h3 id="porqué-usar-parcelable-sobre-serializable">¿Porqué usar <code class="language-plaintext highlighter-rouge">Parcelable</code> sobre Serializable?</h3>
 
-<p>La principal razón para implementar Parcelable sobre Serializable es su velocidad de ejecución, se habla de hasta <strong>10x más rápido</strong> trabajar con objetos Parcelable. Si estamos en un entorno móvil, esto se traduce no solo en <strong>mayor rapidez</strong>, sino también en <strong>menor consumo de batería</strong>, algo que nunca debemos obviar a la hora de desarrollar apps.
+<p>La principal razón para implementar <code class="language-plaintext highlighter-rouge">Parcelable</code> sobre Serializable es su velocidad de ejecución, se habla de hasta <strong>10x más rápido</strong> trabajar con objetos <code class="language-plaintext highlighter-rouge">Parcelable</code>. Si estamos en un entorno móvil, esto se traduce no solo en <strong>mayor rapidez</strong>, sino también en <strong>menor consumo de batería</strong>, algo que nunca debemos obviar a la hora de desarrollar apps.
 Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es que la implementación y sobre todo el mantenimiento de este tipo de objetos es muy tediosa, siendo una tarea muy repetitiva y donde es muy fácil cometer errores.</p>
 
 <h3 id="android-autoparcel-al-rescate">Android AutoParcel al rescate</h3>
 
-<p>Para solucionar esto, existe una librería muy interesante, o más que librería deberíamos hablar de <strong>plug-in para Gradle</strong>, que en tiempo de compilación, es capaz de generar el código de serialización y deserialización de nuestros objetos. Al ser en tiempo de compilación, no penaliza en absoluto la ejecución y nos beneficiamos de no tener que lidiar con los tediosos métodos de la interfaz Parcelable. Esta se llama <a href="https://github.com/frankiesardo/auto-parcel">Android AutoParcel</a> y es un port de la librería <a href="https://github.com/google/auto/tree/master/value">Google AutoValue</a>.</p>
+<p>Para solucionar esto, existe una librería muy interesante, o más que librería deberíamos hablar de <strong>plug-in para Gradle</strong>, que en tiempo de compilación, es capaz de generar el código de serialización y deserialización de nuestros objetos. Al ser en tiempo de compilación, no penaliza en absoluto la ejecución y nos beneficiamos de no tener que lidiar con los tediosos métodos de la interfaz <code class="language-plaintext highlighter-rouge">Parcelable</code>. Esta se llama <a href="https://github.com/frankiesardo/auto-parcel">Android AutoParcel</a> y es un port de la librería <a href="https://github.com/google/auto/tree/master/value">Google AutoValue</a>.</p>
 
 <p>Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz <strong>build.gradle</strong>, donde agregaremos en las dependencias la siguiente línea:</p>
 

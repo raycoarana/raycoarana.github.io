@@ -232,7 +232,7 @@ A continuación el comando como un atributo público de tipo <code class="langua
 <h3 id="un-claro-ganador">Un claro ganador</h3>
 <p>Como podéis ver hay un claro ganador y este es la búsqueda con Full text search. A pesar de que haciendo esta búsqueda estamos consultando la base de datos, accediendo a disco y recreando los objetos en cada una de ellas, la velocidad de ejecución es claramente superior. Una solución que además escala muy bien, como podéis ver por la forma de gráfica, en contra de la solución de buscar sobre los datos en memoria.</p>
 
-<p>Evidentemente puedes pensar que si tuviésemos una estructura de datos decente sobre la que buscar, por ejemplo creando ese árbol B, las cosas cambiarían, pero ello requeriría mucho más desarrollo, un mayor consumo de memoria de la aplicación y el tiempo de generación de esa estructura en memoria cada vez que arranque la aplicación o persistirla y aumentar aún más la cantidad de código requerido. Viendo el tiempo que tarda una búsqueda con FTS, no tiene sentido ninguno de estos planteamientos alternativos.</p>
+<p>Evidentemente puedes pensar que si tuviésemos una estructura de datos decente sobre la que buscar, por ejemplo creando ese árbol B, las cosas cambiarían, pero ello requeriría mucho más desarrollo, un mayor consumo de memoria de la aplicación y el tiempo de generación de esa estructura en memoria cada vez que arranque la aplicación o persistir y aumentar aún más la cantidad de código requerido. Viendo el tiempo que tarda una búsqueda con FTS, no tiene sentido ninguno de estos planteamientos alternativos.</p>
 
 <p>FTS no es gratis, evidentemente al crear una tabla de este tipo va a penalizar las escrituras y además incrementará el tamaño de la base de datos en disco, dos cosas que en el 99% de las aplicaciones no serán un gran problema. Lo normal en las aplicaciones móviles es escribir poco y leer muchas veces. Sobre el mayor tamaño en disco de la base de datos, tendrían que ser muchos los datos para ser un problema, unos pocos megas de más cuando los móviles manejan 4-8 GB de almacenamiento como mínimo por norma general no supondrá tampoco un problema.</p>
 
@@ -635,7 +635,7 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 <span class="nt">&lt;/LinearLayout&gt;</span>
 </code></pre></div></div>
 
-<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
+<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero <code class="language-plaintext highlighter-rouge">attrbs.xml</code> por ejemplo.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;Resources&gt;</span>
@@ -695,14 +695,14 @@ Además de los iconos nativos, tenemos también otros paquetes de iconos -ademá
 
 <!--more-->
 
-<h3 id="porqué-usar-parcelable-sobre-serializable">¿Porqué usar Parcelable sobre Serializable?</h3>
+<h3 id="porqué-usar-parcelable-sobre-serializable">¿Porqué usar <code class="language-plaintext highlighter-rouge">Parcelable</code> sobre Serializable?</h3>
 
-<p>La principal razón para implementar Parcelable sobre Serializable es su velocidad de ejecución, se habla de hasta <strong>10x más rápido</strong> trabajar con objetos Parcelable. Si estamos en un entorno móvil, esto se traduce no solo en <strong>mayor rapidez</strong>, sino también en <strong>menor consumo de batería</strong>, algo que nunca debemos obviar a la hora de desarrollar apps.
+<p>La principal razón para implementar <code class="language-plaintext highlighter-rouge">Parcelable</code> sobre Serializable es su velocidad de ejecución, se habla de hasta <strong>10x más rápido</strong> trabajar con objetos <code class="language-plaintext highlighter-rouge">Parcelable</code>. Si estamos en un entorno móvil, esto se traduce no solo en <strong>mayor rapidez</strong>, sino también en <strong>menor consumo de batería</strong>, algo que nunca debemos obviar a la hora de desarrollar apps.
 Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es que la implementación y sobre todo el mantenimiento de este tipo de objetos es muy tediosa, siendo una tarea muy repetitiva y donde es muy fácil cometer errores.</p>
 
 <h3 id="android-autoparcel-al-rescate">Android AutoParcel al rescate</h3>
 
-<p>Para solucionar esto, existe una librería muy interesante, o más que librería deberíamos hablar de <strong>plug-in para Gradle</strong>, que en tiempo de compilación, es capaz de generar el código de serialización y deserialización de nuestros objetos. Al ser en tiempo de compilación, no penaliza en absoluto la ejecución y nos beneficiamos de no tener que lidiar con los tediosos métodos de la interfaz Parcelable. Esta se llama <a href="https://github.com/frankiesardo/auto-parcel">Android AutoParcel</a> y es un port de la librería <a href="https://github.com/google/auto/tree/master/value">Google AutoValue</a>.</p>
+<p>Para solucionar esto, existe una librería muy interesante, o más que librería deberíamos hablar de <strong>plug-in para Gradle</strong>, que en tiempo de compilación, es capaz de generar el código de serialización y deserialización de nuestros objetos. Al ser en tiempo de compilación, no penaliza en absoluto la ejecución y nos beneficiamos de no tener que lidiar con los tediosos métodos de la interfaz <code class="language-plaintext highlighter-rouge">Parcelable</code>. Esta se llama <a href="https://github.com/frankiesardo/auto-parcel">Android AutoParcel</a> y es un port de la librería <a href="https://github.com/google/auto/tree/master/value">Google AutoValue</a>.</p>
 
 <p>Vamos a ver cómo podemos integrar fácilmente este plug-in en nuestros proyectos y cómo usarlo. Lo primero será modificar el fichero raíz <strong>build.gradle</strong>, donde agregaremos en las dependencias la siguiente línea:</p>
 
@@ -828,7 +828,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 <span class="n">liveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">views</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.</p>
+<p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un <code class="language-plaintext highlighter-rouge">SurfaceHolder</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">liveCard</span><span class="o">.</span><span class="na">getSurfaceHolder</span><span class="o">().</span><span class="na">addCallback</span><span class="o">(</span><span class="n">callback</span><span class="o">);</span>
@@ -1046,7 +1046,7 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 	  <pubDate>2014-03-31T09:00:45+02:00</pubDate>
 	  <guid>//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</guid>
 	  <description><![CDATA[
-	     <p>Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la inferfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!</p>
+	     <p>Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la interfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!</p>
 
 <!--more-->
 
@@ -1336,17 +1336,17 @@ Como decimos esta gran ventaja en cuanto a velocidad viene con un precio y es qu
 
 <h3 id="buenas-prácticas">Buenas prácticas</h3>
 
-<p>Por último vamos a comentar algunas buenas prácticas que envuelven a las interfaces en general de Googlas Glass y que tienen que ver con estos elementos que hemos visto hoy. Lo primero es la recomendación de siempre utilizar un <strong><em>CardScrollView</em></strong> en nuestras interfaces, aunque solo vayamos a mostrar una sola tarjeta. <strong><em>CardScrollView</em></strong> tiene esos <strong>efectos de rebote animados</strong> cuando el usuario llega al final, dándole un feedback muy importante de la no existencia de más elementos. Así pues, a menos que vayamos a utilizar el Swipe izquierda o derecha para otra cosa, hagamos uso del <strong><em>CardScrollView</em></strong>.</p>
+<p>Por último vamos a comentar algunas buenas prácticas que envuelven a las interfaces en general de Google Glass y que tienen que ver con estos elementos que hemos visto hoy. Lo primero es la recomendación de siempre utilizar un <strong><em>CardScrollView</em></strong> en nuestras interfaces, aunque solo vayamos a mostrar una sola tarjeta. <strong><em>CardScrollView</em></strong> tiene esos <strong>efectos de rebote animados</strong> cuando el usuario llega al final, dándole un feedback muy importante de la no existencia de más elementos. Así pues, a menos que vayamos a utilizar el Swipe izquierda o derecha para otra cosa, hagamos uso del <strong><em>CardScrollView</em></strong>.</p>
 
 <p>Otra buena práctica muy relacionada con ese feedback es informar al usuario de si su <strong>acción sobre el TouchPad ha sido reconocida o no</strong> mediante sonidos, como hemos podido ver en el código ejemplo. Debemos informar al usuario de qué ocurre cuando hace TAP, reproduciendo el sonido adecuado si no hay acción disponible.</p>
 
-<p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
+<p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
 
 <div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 
-<p>Ahora que ya sabemos como manejar las tarjetas y mostrar acciones sobre ellas, vamos a ver cómo podemos trabajar con el Timeline, veremos cómo podemos crear tarjetas estáticas, tarjetas dináminas e incorporarlas en el Timeline, pudiendo el usuario interactuar con ellas sin la necesidad de abrir nuestra aplicación.</p>
+<p>Ahora que ya sabemos como manejar las tarjetas y mostrar acciones sobre ellas, vamos a ver cómo podemos trabajar con el Timeline, veremos cómo podemos crear tarjetas estáticas, tarjetas dinámicas e incorporarlas en el Timeline, pudiendo el usuario interactuar con ellas sin la necesidad de abrir nuestra aplicación.</p>
 
 	  ]]></description>
 	</item>

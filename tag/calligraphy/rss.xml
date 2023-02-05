@@ -94,7 +94,7 @@
 <span class="nt">&lt;/LinearLayout&gt;</span>
 </code></pre></div></div>
 
-<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
+<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero <code class="language-plaintext highlighter-rouge">attrbs.xml</code> por ejemplo.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;Resources&gt;</span>

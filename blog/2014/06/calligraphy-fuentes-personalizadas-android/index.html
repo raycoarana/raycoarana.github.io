@@ -231,7 +231,7 @@
 <span class="nt">&lt;/LinearLayout&gt;</span>
 </code></pre></div></div>
 
-<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero attrbs.xml por ejemplo.</p>
+<p>Por defecto como puedes ver se reutiliza la propiedad <strong>fontFamily</strong> para indicar la fuente que queremos usar, si bien esto nos puede acarrear problemas a futuro si Google cambia el uso de esa propiedad o le da otro uso (aunque esto sería muy raro). Calligraphy nos ofrece <strong>la posibilidad de usar un atributo personalizado</strong>, para ello primero debemos crearnos el atributo, en el fichero <code class="language-plaintext highlighter-rouge">attrbs.xml</code> por ejemplo.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 <span class="nt">&lt;Resources&gt;</span>
@@ -364,16 +364,14 @@
     <script type="text/javascript" src="/assets/js/index.js"></script>
 
     <!-- Add Google Analytics  -->
-        <!-- Google Analytics Tracking code -->
-     <script>
-	    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-M1YTPE327N"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
 
-	    ga('create', 'UA-48361320-1', 'auto');
-	    ga('send', 'pageview');
-
-     </script>   
+	gtag('config', 'G-M1YTPE327N');
+	</script>   
 </body>
 </html>

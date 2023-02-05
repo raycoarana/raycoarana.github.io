@@ -18,7 +18,7 @@
 	  <pubDate>2014-03-31T09:00:45+02:00</pubDate>
 	  <guid>//blog/2014/03/cards-api-primeros-pasos-google-glass-iv/</guid>
 	  <description><![CDATA[
-	     <p>Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la inferfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!</p>
+	     <p>Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la interfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!</p>
 
 <!--more-->
 
@@ -308,17 +308,17 @@
 
 <h3 id="buenas-prácticas">Buenas prácticas</h3>
 
-<p>Por último vamos a comentar algunas buenas prácticas que envuelven a las interfaces en general de Googlas Glass y que tienen que ver con estos elementos que hemos visto hoy. Lo primero es la recomendación de siempre utilizar un <strong><em>CardScrollView</em></strong> en nuestras interfaces, aunque solo vayamos a mostrar una sola tarjeta. <strong><em>CardScrollView</em></strong> tiene esos <strong>efectos de rebote animados</strong> cuando el usuario llega al final, dándole un feedback muy importante de la no existencia de más elementos. Así pues, a menos que vayamos a utilizar el Swipe izquierda o derecha para otra cosa, hagamos uso del <strong><em>CardScrollView</em></strong>.</p>
+<p>Por último vamos a comentar algunas buenas prácticas que envuelven a las interfaces en general de Google Glass y que tienen que ver con estos elementos que hemos visto hoy. Lo primero es la recomendación de siempre utilizar un <strong><em>CardScrollView</em></strong> en nuestras interfaces, aunque solo vayamos a mostrar una sola tarjeta. <strong><em>CardScrollView</em></strong> tiene esos <strong>efectos de rebote animados</strong> cuando el usuario llega al final, dándole un feedback muy importante de la no existencia de más elementos. Así pues, a menos que vayamos a utilizar el Swipe izquierda o derecha para otra cosa, hagamos uso del <strong><em>CardScrollView</em></strong>.</p>
 
 <p>Otra buena práctica muy relacionada con ese feedback es informar al usuario de si su <strong>acción sobre el TouchPad ha sido reconocida o no</strong> mediante sonidos, como hemos podido ver en el código ejemplo. Debemos informar al usuario de qué ocurre cuando hace TAP, reproduciendo el sonido adecuado si no hay acción disponible.</p>
 
-<p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el respositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
+<p>Y hasta aquí hemos llegado en este artículo, como siempre tenéis disponible el código en el repositorio de GitHub de esta serie de artículos bajo la carpeta <strong>3.CardAPI</strong>.</p>
 
 <div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 
 <h3 id="continuará">Continuará…</h3>
 
-<p>Ahora que ya sabemos como manejar las tarjetas y mostrar acciones sobre ellas, vamos a ver cómo podemos trabajar con el Timeline, veremos cómo podemos crear tarjetas estáticas, tarjetas dináminas e incorporarlas en el Timeline, pudiendo el usuario interactuar con ellas sin la necesidad de abrir nuestra aplicación.</p>
+<p>Ahora que ya sabemos como manejar las tarjetas y mostrar acciones sobre ellas, vamos a ver cómo podemos trabajar con el Timeline, veremos cómo podemos crear tarjetas estáticas, tarjetas dinámicas e incorporarlas en el Timeline, pudiendo el usuario interactuar con ellas sin la necesidad de abrir nuestra aplicación.</p>
 
 	  ]]></description>
 	</item>

@@ -57,7 +57,7 @@
 <span class="n">liveCard</span><span class="o">.</span><span class="na">setViews</span><span class="o">(</span><span class="n">views</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un SurfaceHolder.rfaceHolder_**.</p>
+<p>Para las segundas, como comentamos necesitamos activar el <em>flag</em> de que nos vamos a encargar nosotros directamente del pintado y hacerlo mediante el <em>callback</em> que nos proporciona el <strong><em>SurfaceHolder</em></strong>. A partir de aquí podríamos crear un contexto de OpenGL por ejemplo y a partir de ahí crear lo que queramos. Pero eso ya no forma parte de esta serie de artículos de introducción a Google Glass, ya que lo podemos considerar como un aspecto avanzado y al que aplican las mismas reglas a partir de aquí a cualquier aplicación Android que use un <code class="language-plaintext highlighter-rouge">SurfaceHolder</code>.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liveCard</span><span class="o">.</span><span class="na">setDirectRenderingEnabled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">liveCard</span><span class="o">.</span><span class="na">getSurfaceHolder</span><span class="o">().</span><span class="na">addCallback</span><span class="o">(</span><span class="n">callback</span><span class="o">);</span>
@@ -290,7 +290,7 @@
   <li>Sistema operativo Android 4.0.4 (API 15)</li>
   <li>Cámara de 5 MP con capacidad de grabación de video a 720p</li>
   <li>TouchPad</li>
-  <li>GPS y SMS a tráves de conexión con smartphone</li>
+  <li>GPS y SMS a través de conexión con smartphone</li>
   <li>Bluetooth</li>
   <li>WiFi 802.11b/g</li>
   <li>16 GB de almacenamiento (12 GB libres para el usuario)</li>

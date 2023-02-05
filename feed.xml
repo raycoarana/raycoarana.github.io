@@ -181,7 +181,7 @@
       <item>
         <title>Cards API. Primeros pasos con Google Glass (IV)</title>
         
-          <description>&lt;p&gt;Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la inferfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!&lt;/p&gt;
+          <description>&lt;p&gt;Hoy vamos a ver cómo crear interfaces gráficas para nuestro Glassware utilizando el concepto de tarjetas o Cards. Como sabéis, en Google Glass no hay botones, no hay forma de interactuar con elementos en la interfaz gráfica, sino que esta se compone de pantallas por las que podemos movernos, pantallas que se denominan tarjetas o Cards. El propio Timeline que se representa en la interfaz inicial de Google Glass es un conjunto de tarjetas por las que podemos movernos. ¿Cómo podemos crear una interfaz de este estilo? Pues de forma muy fácil utilizando las clases CardScrollView, CardScrollAdapter y Card. ¡Vamos a ello!&lt;/p&gt;
 
 </description>
         

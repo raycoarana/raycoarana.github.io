@@ -46,7 +46,7 @@
 
 <p>Vamos a poner en práctica lo anterior, creamos una nueva actividad en nuestro proyecto (o creamos un proyecto nuevo como <a href="/blog/2014/03/primeros-pasos-con-google-glass-ii/">ya vimos</a>) con su layout, donde vamos a mostrar el texto que hemos capturado del usuario.</p>
 
-<p>Creamos un layout con nombre <strong>activity_askmesomething.xml</strong>, cuyo contenido será el siguiente.</p>
+<p>Creamos un layout con nombre <code class="language-plaintext highlighter-rouge">activity_askmesomething.xml</code>, cuyo contenido será el siguiente.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;LinearLayout</span> <span class="na">xmlns:android=</span><span class="s">"http://schemas.android.com/apk/res/android"</span>
     <span class="na">android:orientation=</span><span class="s">"vertical"</span>
@@ -99,7 +99,7 @@
 <span class="o">...</span>
 </code></pre></div></div>
 
-<p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <strong><em>askmesomething_trigger.xml</em></strong> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
+<p>Ya por último nos queda crear el Voice trigger y añadir la nueva actividad al <strong>AndroidManifest.xml</strong>. Lo primero el Voice trigger, añadimos un nuevo fichero xml que llamamos <code class="language-plaintext highlighter-rouge">_askmesomething_trigger.xml_</code> con el siguiente contenido, nada que ya no hayamos visto antes.</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;trigger</span> <span class="na">keyword=</span><span class="s">"@string/trigger_ask_me_something"</span><span class="nt">&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">prompt=</span><span class="s">"@string/prompt_ask_me_something"</span> <span class="nt">/&gt;</span>
@@ -197,7 +197,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <h3 id="retocando-el-buildgradle">Retocando el build.gradle</h3>
 
-<p>Una vez Android Studio termina de generarnos el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
+<p>Una vez Android Studio termina de generar el proyecto, lo cierto es que al menos hasta la versión 0.5.2, tiene un bug por el que no genera bien el <em>app/build.gradle</em>. La opción de configuración que hemos puesto en el asistente como <strong><em>Compile with</em></strong> no la pone en el fichero de gradle. Para solucionarlo, lo abrimos y lo modificamos para que <em><strong>compileSdkVersion</strong></em> apunte al GDK quedando así:</p>
 
 <div class="language-groovy highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'android'</span>
 
@@ -234,9 +234,9 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 <span class="nt">&lt;/resources&gt;</span>
 </code></pre></div></div>
 
-<p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <em>drawable-mdpi</em>, <em>drawable-xhdpi</em>, <em>drawable-xxhdpi</em>, ya que Google Glass utiliza una resolución hdpi y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
+<p>Y para hacer algo de limpieza en el proyecto, os recomiendo borrar las carpetas <code class="language-plaintext highlighter-rouge">drawable-mdpi</code>, <code class="language-plaintext highlighter-rouge">drawable-xhdpi</code>, <code class="language-plaintext highlighter-rouge">drawable-xxhdpi</code>, ya que Google Glass utiliza una resolución <code class="language-plaintext highlighter-rouge">hdpi</code> y en el estado actual veo poco recomendable dedicar tiempo a generar los recursos gráficos para todas esas densidades de píxel cuando en la actualidad solo se utiliza una.</p>
 
-<h3 id="helloworld-from-glass">Helloworld from Glass!</h3>
+<h3 id="hello-world-from-glass">Hello-world from Glass!</h3>
 
 <p>Ya tenemos nuestro proyecto listo para comenzar a desarrollar, los pasos anteriores hasta que mejore el soporte de Android Studio para el desarrollo de Glassware, serán el pan de cada día. A partir de ahora, vamos a generar una simple actividad, que muestre un mensaje en pantalla y configuraremos nuestra aplicación para que el usuario pueda lanzarla con un comando de voz.</p>
 
@@ -255,7 +255,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <strong><em>res/layout/activity_helloworld.xml</em></strong>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
+<p>A continuación, ya sea con el acceso directo (Alt + Enter con el cursor sobre layout) o directamente creando el layout en la carpeta <code class="language-plaintext highlighter-rouge">_res/layout/activity_helloworld.xml_</code>, generamos nuestra vista. En ella utilizaremos un simple TextView de la siguiente forma:</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
 
@@ -316,7 +316,7 @@ Por último, vamos a poner en <strong><em>Compile with</em></strong> no la API 
 
 <p><img src="/assets/images/4.HelloWorld.png" alt="App HelloWorld" /> App HelloWorld</p>
 
-<p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <strong>1.Helloworld</strong>. <em>Happy coding!</em></p>
+<p>El código de este artículo lo tenéis en el siguiente repositorio, bajo la carpeta <code class="language-plaintext highlighter-rouge">1.Helloworld</code>. <em>Happy coding!</em></p>
 
 <div class="github-box repo" data-repo="raycoarana/google_glass_first_steps">  <div class="github-box-title">    <h3><a class="owner" href="https://github.com/raycoarana">raycoarana</a>/<a class="repo" href="https://github.com/raycoarana/google_glass_first_steps">google_glass_first_steps</a></h3>    <div class="github-stats"><a class="watchers" href="https://github.com/raycoarana/google_glass_first_steps/watchers">?</a><a class="forks" href="https://github.com/raycoarana/google_glass_first_steps/network/members">?</a></div>  </div>  <div class="github-box-content"><p class="description"><span></span> &mdash; <a href="https://github.com/raycoarana/google_glass_first_steps#readme">Read More</a></p><p class="link"></p></div>  <div class="github-box-download"><p class="updated">Latest commit to the <strong>master</strong> branch on <span></span></p><a class="download" href="https://github.com/raycoarana/google_glass_first_steps/zipball/master">Download as zip</a></div></div>
 

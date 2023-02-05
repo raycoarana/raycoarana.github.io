@@ -29,7 +29,7 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
 
 <h3 id="cómo-implementamos-ssl-pinning-en-android">¿Cómo implementamos SSL Pinning en Android?</h3>
 
-<p>Para poder implementar SSL Pinning en Android necesitamos en primer lugar preparar el certificado del servidor con el que vamos a conectarnos e incorporarlo a un almacén de certificados de Java. Para ello haremos uso de la herramienta <strong>keytool</strong> que viene con el JDK. Para hacer esto, ejecutaremos el siguiente comando:</p>
+<p>Para poder implementar SSL Pinning en Android necesitamos en primer lugar preparar el certificado del servidor con el que vamos a conectarnos e incorporarlo a un almacén de certificados de Java. Para ello haremos uso de la herramienta <code class="language-plaintext highlighter-rouge">keytool</code> que viene con el JDK. Para hacer esto, ejecutaremos el siguiente comando:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>keytool <span class="nt">-importcert</span>
         <span class="nt">-trustcacerts</span>
@@ -42,9 +42,9 @@ SSL Pinning de denomina al proceso de verificar además que el certificado que h
         <span class="nt">-storepass</span> AQUI_VA_TU_PASSWORD
 </code></pre></div></div>
 
-<p>Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero <a href="https://www.bouncycastle.org/download/bcprov-jdk16-145.jar"><strong>bcprov-jdk16-145.jar</strong></a> en el lugar donde estamos ejecutándolo.</p>
+<p>Donde tendremos que especificar el nombre del certificado a importar al almacén de certificados y la contraseña con la que crearemos esta. Como podéis ver, es necesario para hacer esto un proveedor. Podemos utilizar el famoso BouncyCastle, para poder ejecutar este comando debemos tener el fichero <a href="https://www.bouncycastle.org/download/bcprov-jdk16-145.jar"><code class="language-plaintext highlighter-rouge">bcprov-jdk16-145.jar</code></a> en el lugar donde estamos ejecutándolo.</p>
 
-<p>Una vez creado nuestro almacén de certificados con nombre <strong>sslpinning.ks</strong>, nos lo llevamos a nuestro proyecto. Lo copiaremos en la carpeta <strong>res/raw</strong>.</p>
+<p>Una vez creado nuestro almacén de certificados con nombre <code class="language-plaintext highlighter-rouge">sslpinning.ks</code>, nos lo llevamos a nuestro proyecto. Lo copiaremos en la carpeta <code class="language-plaintext highlighter-rouge">res/raw</code>.</p>
 
 <p>Ahora que tenemos todo listo, abrimos nuestro Eclipse/AndroidStudio y comenzamos a escribir código. Lo que vamos a necesitar será proporcionar al objeto HttpClient de Apache (que viene incluida en el SDK de Android) este almacén de certificados como únicos certificados válidos para realizar conexiones SSL. Para ello, vamos a sobrescribir la clase DefaultHttpClient. Crearemos un constructor que recibirá como parámetro el contexto para poder acceder al recurso donde tenemos el almacén de certificados.</p>
 
