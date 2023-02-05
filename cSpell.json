@@ -67,7 +67,7 @@
     "ignorePaths": [
         "node_modules/**",
         "vendor/**"
-    ]
+    ],
     "overrides": [
         {
             "filename": "README.md",
