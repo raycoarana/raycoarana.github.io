@@ -64,9 +64,12 @@
         "^---[\\s\\S]*?---$", // YAML front-matter
         "\\<[^\\>]*\\>" // HTML Tags
     ],
+    "ignorePaths": [
+        "node_modules/**",
+        "vendor/**"
+    ]
     "overrides": [
         {
-            // Case sensitive markdown in the docs folder
             "filename": "README.md",
             "language": "en"
         }
